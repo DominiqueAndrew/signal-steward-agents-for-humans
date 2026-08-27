@@ -1,5 +1,9 @@
+import json
 import re
+import subprocess
 from pathlib import Path
+
+from benchmarks.run import run
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -72,6 +76,17 @@ def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
     assert "The 24/24 culprit hit rate has a 95% Wilson interval" in results
     assert "The latter upper bound exceeds the 0.10 target" in results
     assert "The benchmark does **not** show that Signal Steward classifies real repositories accurately" in results
+    observed_output = re.search(r"## Observed output\n\n```json\n(.*?)\n```", results, re.S)
+    source_commit = re.search(r"\*\*Source commit:\*\* `([^`]+)`", results)
+    assert observed_output is not None
+    assert source_commit is not None
+    assert json.loads(observed_output.group(1)) == run()
+    current_benchmark_commit = subprocess.check_output(
+        ["git", "log", "-1", "--format=%H", "--", "benchmarks/run.py"],
+        cwd=REPO_ROOT,
+        text=True,
+    ).strip()
+    assert source_commit.group(1) == current_benchmark_commit
     assert "model → tools → reasoning → response" in architecture
     assert "model → tools → reasoning → response" in architecture_diagram
     assert "model → tools → reasoning → response" in draft

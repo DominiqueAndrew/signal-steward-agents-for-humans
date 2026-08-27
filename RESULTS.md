@@ -4,7 +4,7 @@
 **Fixture spec:** `holdout-2026-08-27.v1`
 **Fixture SHA-256:** `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`
 **Command:** `.venv/bin/python -m benchmarks.run`
-**Source commit:** `2cabea2eba96aa2004011e22e78abed47b0ba890`
+**Source commit:** `69ab4f096a84b640fb133d9217ac83d1106891f4`
 
 ## Design
 
