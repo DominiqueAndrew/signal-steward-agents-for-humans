@@ -66,11 +66,17 @@ Then open http://127.0.0.1:8810 and follow [`docs/demo-script.md`](demo-script.m
 The research, assumptions, sources, benchmark design, and limitations are in
 [`RESEARCH.md`](../RESEARCH.md) and [`RESULTS.md`](../RESULTS.md).
 
+The current release evidence is collected in [`RELEASE_RECEIPT.md`](RELEASE_RECEIPT.md):
+it records the reproducible checks, the local HTTP smoke, the loopback-only
+binding, the 2 MiB fixture safety cap, and the fact that no submission or live
+deployment is being claimed. The bounded trust and side-effect analysis is in
+[`signal-steward-threat-model.md`](../signal-steward-threat-model.md).
+
 ## Rubric mapping
 
 | Official criterion | Evidence to show | Honest framing |
 | --- | --- | --- |
-| Technological Implementation | `signal_steward/agent.py`, visible SDK contract, immutable store, deterministic classifier, benchmark commands | Strands is a real adapter and its tools are read-only; no live provider or AgentCore deployment is claimed. |
+| Technological Implementation | `signal_steward/agent.py`, visible SDK contract, immutable store, deterministic classifier, benchmark commands, [`RELEASE_RECEIPT.md`](RELEASE_RECEIPT.md), and [`signal-steward-threat-model.md`](../signal-steward-threat-model.md) | Strands is a real adapter and its tools are read-only; the release receipt records the loopback and input-size boundaries; no live provider or AgentCore deployment is claimed. |
 | Design | Minimal review queue, three distinct evidence states, responsive browser UI, hold/approve audit event | The interface is a decision desk, not a chat transcript or autonomous mutation console. |
 | Potential Impact | Maintainer workflow, TUM industrial flaky-test evidence, `RESULTS.md` review-load measurement | The likely value is attention recovered in long/noisy CI workflows; production impact remains to be measured. |
 | Creativity & Originality | Provenance packet + same-SHA recovery + hypothesis threshold + negative-control stop condition | The wedge is evidence quality and calibrated human gating, not “AI explains a build.” |
