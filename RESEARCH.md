@@ -15,7 +15,7 @@ Firsthand posts are treated as qualitative pain signals, not population estimate
 
 ## Official event constraints (verified 2026-08-27)
 
-The Devpost Hackathons plugin returned the live `agentsforhumans` record as `submissions_open`, fetched at `2026-08-27T16:52:13Z`; the dates, prizes, judging criteria, announcements, and submission fields were refreshed at 16:52–16:52:36 UTC.
+The Devpost Hackathons plugin returned the live `agentsforhumans` record as `submissions_open`, fetched at `2026-08-27T17:07:24Z`; the dates, prizes, judging criteria, announcements, and submission fields were refreshed at 17:07:19–17:07:24 UTC.
 
 - Official page: <https://agentsforhumans.devpost.com>
 - Brief: build an AI agent with the Strands Agents SDK that handles repetitive tasks in the background and surfaces only genuine human decisions.
