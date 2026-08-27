@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `40782bbe8fef1013fa2668b191c27197a3d1ea33`
+**Validated tree:** `c109cd5acd8e200c79b5bc92102f3d9706372658`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -78,6 +78,9 @@
   `./scripts/verify-release.sh` returned `19 passed in 1.98s`, `No broken
   requirements found`, all benchmark modes, clean diff, clean secret scan, and
   `release verification passed`.
+- Public release SHA check: `git ls-remote origin refs/heads/main` returned
+  `c109cd5acd8e200c79b5bc92102f3d9706372658` at the time of this receipt;
+  repeat it after any subsequent push before submitting.
 
 ## Human-gated / not claimed
 
