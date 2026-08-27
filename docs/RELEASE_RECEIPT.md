@@ -94,7 +94,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `d043a960427ccfccb8002c72549a48882ea4565a`: all 15 release artifacts
+  `6124f2a1e1b6913e644aeba00dc2e84083c74038`: all 15 release artifacts
   returned HTTP 200. The architecture responses were `image/png` and
   `image/svg+xml`; the compliance packet and Devpost draft contained the
   ownership, permissions, language, public-access gates, and the receipt-only
