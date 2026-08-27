@@ -2,7 +2,7 @@
 set -euo pipefail
 
 repo_root="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-python_bin="$repo_root/.venv/bin/python"
+python_bin="${SIGNAL_STEWARD_PYTHON_BIN:-$repo_root/.venv/bin/python}"
 
 cd "$repo_root"
 
