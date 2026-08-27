@@ -107,6 +107,13 @@ published.
   `evidence source · 911795bffb45` in the ledger, reported zero console errors,
   and had `scrollWidth == innerWidth` at 390×844, 768×900, 1366×900,
   1440×900, 1920×1080, and 2560×1440.
+- Recheck at checkout HEAD `218f91f909dfd7f1e1d8be72bf937e31a09d53fe` on
+  `127.0.0.1:8811` repeated the hold → reload persistence journey. The browser
+  log had 0 messages/errors/warnings; `GET /api/report`, `POST /api/decisions`,
+  and the post-reload `GET /api/report` all returned HTTP 200. The same six
+  viewport widths had `scrollWidth == innerWidth`; screenshots were captured
+  at `output/playwright/readiness-current-390x844.png` and
+  `output/playwright/readiness-current-1366x900.png`.
 - The authorized local environment passed the bounded read-only AWS STS identity
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
