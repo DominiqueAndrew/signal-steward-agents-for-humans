@@ -85,7 +85,7 @@ deployment is being claimed. The bounded trust and side-effect analysis is in
 
 | Official criterion | Evidence to show | Honest framing |
 | --- | --- | --- |
-| Technological Implementation | `signal_steward/agent.py`, visible SDK contract, immutable store, deterministic classifier, benchmark commands, [`RELEASE_RECEIPT.md`](RELEASE_RECEIPT.md), and [`signal-steward-threat-model.md`](../signal-steward-threat-model.md) | Strands is a real adapter and its tools are read-only; the release receipt records the loopback and input-size boundaries; no live provider or AgentCore deployment is claimed. |
+| Technical Implementation | `signal_steward/agent.py`, visible SDK contract, immutable store, deterministic classifier, benchmark commands, [`RELEASE_RECEIPT.md`](RELEASE_RECEIPT.md), and [`signal-steward-threat-model.md`](../signal-steward-threat-model.md) | Strands is a real adapter and its tools are read-only; the release receipt records the loopback and input-size boundaries; no live provider or AgentCore deployment is claimed. |
 | Design | Minimal review queue, three distinct evidence states, responsive browser UI, hold/approve audit event | The interface is a decision desk, not a chat transcript or autonomous mutation console. |
 | Potential Impact | Maintainer workflow, TUM industrial flaky-test evidence, `RESULTS.md` review-load measurement | The likely value is attention recovered in long/noisy CI workflows; production impact remains to be measured. |
 | Creativity & Originality | Provenance packet + same-SHA recovery + hypothesis threshold + negative-control stop condition | The wedge is evidence quality and calibrated human gating, not “AI explains a build.” |

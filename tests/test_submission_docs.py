@@ -21,6 +21,10 @@ def test_submission_materials_require_a_public_demo_video() -> None:
     assert "public/unlisted" not in draft
     assert "Join hackathon" in packet
     assert "submissions_open" not in packet
+    assert "Technical Implementation" in packet
+    assert "Technological Implementation" not in packet
+    assert "Technical Implementation" in draft
+    assert "Technological Implementation" not in draft
 
 
 def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:

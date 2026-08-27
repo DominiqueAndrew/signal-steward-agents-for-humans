@@ -19,10 +19,9 @@ action was performed.
 - Entry step: the official rules direct entrants to sign up for an AWS Account
   and install the Strands Agents SDK; this packet does not claim AWS account
   access or a live deployment.
-- Current rules payload: legal age of majority in the country of residence;
-  specific countries/territories are excluded; team is not required; all
-  occupations; no company required. The participant must confirm their own
-  eligibility.
+- Current rules: individuals, teams, and organizations may enter; legal age of
+  majority and country restrictions apply. The participant must confirm their
+  own eligibility.
 - New-project rule: the project must be newly created during the submission
   period; any incorporated pre-existing non-standard code or work must be
   disclosed. Standard tools, libraries, SDKs, templates, and AI coding
@@ -31,7 +30,7 @@ action was performed.
   required. The live demo URL is optional.
 - Required submission fields: submitter type, country of residence, track,
   public code-repository URL, architecture diagram upload, and AWS Builder ID.
-- Judging criteria: Technological Implementation, Design, Potential Impact,
+- Judging criteria: Technical Implementation, Design, Potential Impact,
   Creativity & Originality, and Presentation.
 - Optional build-cost support: registered participants can request **$50 in AWS
   Promotional Credits**, while supplies last, through the Resources form by
