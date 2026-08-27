@@ -2,12 +2,20 @@
 set -euo pipefail
 
 repo_root="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-python_bin="${SIGNAL_STEWARD_PYTHON_BIN:-$repo_root/.venv/bin/python}"
+python_spec="${SIGNAL_STEWARD_PYTHON_BIN:-$repo_root/.venv/bin/python}"
+
+if [[ "$python_spec" == */* ]]; then
+  python_bin="$python_spec"
+elif python_bin="$(command -v "$python_spec")"; then
+  :
+else
+  python_bin=""
+fi
 
 cd "$repo_root"
 
-if [[ ! -x "$python_bin" ]]; then
-  printf 'missing %s; create the environment with: python3 -m venv .venv && .venv/bin/python -m pip install -e '\''.[dev]'\''\n' "$python_bin" >&2
+if [[ -z "$python_bin" || ! -x "$python_bin" ]]; then
+  printf 'missing configured Python %s; create the environment with: python3 -m venv .venv && .venv/bin/python -m pip install -e '\''.[dev]'\''\n' "$python_spec" >&2
   exit 2
 fi
 
