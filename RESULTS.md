@@ -18,7 +18,7 @@ The benchmark generator is the versioned fixture and label source in [`benchmark
 
 The 60 histories expand to 84 labelled job signals. All fixtures are generated deterministically from the checked-in source. No GitHub, AWS, model provider, or private data is contacted.
 
-The production classifier uses the documented failure-rate/same-SHA policy in [`RESEARCH.md`](RESEARCH.md). The baseline is deliberately simple: for each job, if any later successful attempt exists on the same SHA it says `FLAKY`; otherwise any failure is `CONSISTENTLY_BROKEN`; no failures means `CLEAN`. It also treats every non-success attempt, including cancellation, as a human review event. For culprit ranking, the blind baseline chooses the latest commit in the history; the production ranker uses current-head match, evidence-vocabulary overlap, and recency.
+The evaluated Signal Steward classifier uses the documented failure-rate/same-SHA policy in [`RESEARCH.md`](RESEARCH.md). The baseline is deliberately simple: for each job, if any later successful attempt exists on the same SHA it says `FLAKY`; otherwise any failure is `CONSISTENTLY_BROKEN`; no failures means `CLEAN`. It also treats every non-success attempt, including cancellation, as a human review event. For culprit ranking, the blind baseline chooses the latest commit in the history; the evaluated Signal Steward ranker uses current-head match, evidence-vocabulary overlap, and recency.
 
 ## Observed output
 

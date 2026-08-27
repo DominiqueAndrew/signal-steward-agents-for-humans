@@ -33,6 +33,7 @@ def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
     demo = (REPO_ROOT / "docs" / "demo-script.md").read_text()
     architecture = (REPO_ROOT / "docs" / "architecture.md").read_text()
     architecture_diagram = (REPO_ROOT / "docs" / "architecture-diagram.svg").read_text()
+    results = (REPO_ROOT / "RESULTS.md").read_text()
 
     referenced_artifacts = (
         "docs/architecture-diagram.png",
@@ -58,6 +59,10 @@ def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
     assert "asks a Strands agent" not in architecture
     assert "optional provider-configured Strands adapter" in architecture_diagram
     assert "Optional Strands adapter" in architecture_diagram
+    assert "The evaluated Signal Steward classifier" in results
+    assert "the evaluated Signal Steward ranker" in results
+    assert "production classifier" not in results
+    assert "production ranker" not in results
 
 
 def test_release_receipt_preserves_a_recheckable_two_sha_boundary() -> None:
