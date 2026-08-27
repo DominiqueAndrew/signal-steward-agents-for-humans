@@ -53,6 +53,17 @@ def test_strands_boundary_exposes_read_only_tools() -> None:
         names = tuple(getattr(tool, "tool_name", getattr(tool, "__name__", "")) for tool in tools)
         assert names == read_only_tool_names()
         assert not {"rerun_ci", "create_issue", "quarantine_test", "merge_pr"}.intersection(names)
+
+        inspect_window, explain_signal, prepare_review_packet = tools
+        assert inspect_window() == {"attempts": 9, "distinct_shas": 8, "read_only": True}
+        explanation = explain_signal("CI / integration")
+        assert len(explanation["attempts"]) == 3
+        assert explanation["read_only"] is True
+        packet = prepare_review_packet("CI / integration")
+        assert packet["human_required"] is True
+        assert packet["side_effects"] == []
+        assert packet["read_only"] is True
+        assert store.audit_events() == []
     finally:
         store.close()
 
