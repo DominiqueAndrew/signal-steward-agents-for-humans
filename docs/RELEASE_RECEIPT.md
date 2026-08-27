@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `b93d01d1c19b2248b646a0620adf09f61c100d7f`
+**Validated release-content tree:** `cffd9222b169d1d3204f68b5c2c8f57df212f20b`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-28 (Europe/Paris)
 
@@ -24,6 +24,10 @@ published.
   “evaluated Signal Steward classifier/ranker” and adds a regression guard. This
   keeps the benchmark language from implying deployment or real-world
   validation; the synthetic-data and uncertainty limitations below still apply.
+- Release-content commit `cffd9222b169d1d3204f68b5c2c8f57df212f20b` aligns the
+  architecture source, upload PNG, Devpost rubric mapping, and demo runbook on
+  the optional provider-configured Strands loop (model → tools → reasoning →
+  response). The local replay still does not invoke a model or provider.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
