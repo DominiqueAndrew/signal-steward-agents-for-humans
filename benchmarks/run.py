@@ -11,6 +11,8 @@ from signal_steward.hypotheses import rank_culprits
 from signal_steward.models import Classification, Conclusion
 from signal_steward.policy import build_review_queue
 
+SENSITIVITY_GRID = tuple((flaky, broken) for flaky in (0.05, 0.10, 0.15) for broken in (0.60, 0.70, 0.80))
+
 
 def _flatten(histories):
     attempts = tuple(item for history in histories for item in history.attempts)
@@ -63,10 +65,10 @@ def _baseline(attempts):
     return Classification.CONSISTENTLY_BROKEN
 
 
-def run() -> dict[str, object]:
+def run(*, flaky_threshold: float = 0.10, broken_threshold: float = 0.70) -> dict[str, object]:
     histories = generate_holdout()
     attempts, commits, expected, culprit = _flatten(histories)
-    signals = classify_jobs(attempts)
+    signals = classify_jobs(attempts, flaky_threshold=flaky_threshold, broken_threshold=broken_threshold)
     predicted = {signal.job_key: signal.classification for signal in signals}
     y_true = [value.value for key, value in sorted(expected.items())]
     y_pred = [predicted[key].value for key in sorted(expected)]
@@ -103,6 +105,8 @@ def run() -> dict[str, object]:
 
     return {
         "spec_version": "holdout-2026-08-27.v1",
+        "flaky_threshold": flaky_threshold,
+        "broken_threshold": broken_threshold,
         "histories": len(histories),
         "job_labels": len(expected),
         "fixture_sha256": fixture_hash(histories),
@@ -125,6 +129,36 @@ def run() -> dict[str, object]:
         "review_item_reduction": round(1 - actionable_items / non_success_events, 4),
         "review_actions": dict(Counter(item.action.value for item in queue)),
         "failure_cases": [],
+    }
+
+
+def run_sensitivity() -> dict[str, object]:
+    """Evaluate the predeclared threshold grid without tuning to a result."""
+
+    fixture_sha256 = fixture_hash()
+    cells = []
+    for flaky_threshold, broken_threshold in SENSITIVITY_GRID:
+        result = run(flaky_threshold=flaky_threshold, broken_threshold=broken_threshold)
+        cells.append(
+            {
+                "flaky_threshold": flaky_threshold,
+                "broken_threshold": broken_threshold,
+                "macro_f1": result["macro_f1"],
+                "false_escalation_rate": result["false_escalation_rate"],
+                "review_item_reduction": result["review_item_reduction"],
+                "review_items": result["review_items"],
+                "passes_point_gates": (
+                    result["macro_f1"] >= 0.85
+                    and result["culprit_top1"] >= 0.70
+                    and result["false_escalation_rate"] <= 0.10
+                    and result["review_item_reduction"] >= 0.50
+                ),
+            }
+        )
+    return {
+        "spec_version": "threshold-sensitivity-2026-08-27.v1",
+        "fixture_sha256": fixture_sha256,
+        "grid": cells,
     }
 
 
@@ -154,6 +188,9 @@ def run_negative_control() -> dict[str, object]:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the Signal Steward benchmark.")
     parser.add_argument("--negative-control", action="store_true", help="run the weak-evidence safety case")
+    parser.add_argument("--sensitivity", action="store_true", help="run the predeclared threshold sensitivity grid")
     args = parser.parse_args()
-    result = run_negative_control() if args.negative_control else run()
+    if args.negative_control and args.sensitivity:
+        parser.error("choose only one benchmark mode")
+    result = run_negative_control() if args.negative_control else run_sensitivity() if args.sensitivity else run()
     print(json.dumps(result, indent=2, sort_keys=True))

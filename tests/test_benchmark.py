@@ -1,7 +1,7 @@
 import pytest
 
 from benchmarks.generate import fixture_hash, generate_holdout
-from benchmarks.run import run, run_negative_control, wilson_interval
+from benchmarks.run import SENSITIVITY_GRID, run, run_negative_control, run_sensitivity, wilson_interval
 
 
 def test_holdout_is_versioned_and_has_five_families() -> None:
@@ -42,3 +42,12 @@ def test_wilson_interval_is_stable_at_extremes_and_rejects_invalid_counts() -> N
 
     with pytest.raises(ValueError):
         wilson_interval(25, 24)
+
+
+def test_threshold_sensitivity_uses_the_predeclared_grid() -> None:
+    result = run_sensitivity()
+
+    assert result["fixture_sha256"] == "641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2"
+    assert len(result["grid"]) == len(SENSITIVITY_GRID) == 9
+    assert {(cell["flaky_threshold"], cell["broken_threshold"]) for cell in result["grid"]} == set(SENSITIVITY_GRID)
+    assert all("macro_f1" in cell and "false_escalation_rate" in cell for cell in result["grid"])
