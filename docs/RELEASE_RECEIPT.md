@@ -114,6 +114,12 @@ published.
   viewport widths had `scrollWidth == innerWidth`; screenshots were captured
   at `output/playwright/readiness-current-390x844.png` and
   `output/playwright/readiness-current-1366x900.png`.
+- The documented runbook command `.venv/bin/python -m
+  signal_steward.server --port 8810` started successfully at checkout HEAD
+  `81bffcf1a409c5b88f22726f8a22708ad29e1ddc`. Its canonical replay exposed the
+  optional provider-configured contract and three review packets; HTTP smoke
+  returned `/health` 200, `/api/report` 200 with 9 observed runs, 9 observed
+  jobs, 3 review items, and 0 audit events, `/` 200, and an unknown route 404.
 - The authorized local environment passed the bounded read-only AWS STS identity
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
