@@ -1,6 +1,6 @@
 # Signal Steward architecture
 
-Signal Steward is a read-only CI evidence steward. A scheduled collector or local replay supplies GitHub Actions-shaped events. The application normalizes them into immutable evidence, applies a deterministic signal policy, and presents a small human review queue. It also exposes an optional Strands agent adapter that can inspect only those read-only tools when the operator supplies a model provider; the credential-free local replay does not invoke a model.
+Signal Steward is a read-only CI evidence steward. A scheduled collector or local replay supplies GitHub Actions-shaped events. The application normalizes them into immutable evidence, applies a deterministic signal policy, and presents a small human review queue. It also exposes an optional Strands agent adapter with a provider-configured agentic loop (model → tools → reasoning → response) that can inspect only those read-only tools; the credential-free local replay does not invoke a model.
 
 ```mermaid
 flowchart LR
@@ -12,7 +12,7 @@ flowchart LR
   E --> F
   F --> G[Review queue: investigate / quarantine candidate / insufficient evidence]
   G --> H[Human decision audit event]
-  C -. read-only tools .-> I[Optional Strands Agent]
+  C -. read-only evidence packet .-> I[Optional Strands Agent<br/>model → tools → reasoning → response]
   I -. evidence packet only .-> F
 ```
 

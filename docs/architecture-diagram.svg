@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
   <title id="title">Signal Steward read-only evidence architecture</title>
-  <desc id="desc">A GitHub Actions export or local replay flows through a read-only collector, immutable evidence store, deterministic classifier and hypothesis ranker, human review policy gate, review queue, and append-only human decision audit. An optional provider-configured Strands adapter can inspect only read-only tools.</desc>
+  <desc id="desc">A GitHub Actions export or local replay flows through a read-only collector, immutable evidence store, deterministic classifier and hypothesis ranker, human review policy gate, review queue, and append-only human decision audit. An optional provider-configured Strands adapter follows a model to tools to reasoning to response loop and can inspect only read-only tools; the local replay does not invoke a model.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#286342"/>
@@ -70,13 +70,15 @@
   <line x1="1305" y1="408" x2="1305" y2="532" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
   <line x1="1305" y1="640" x2="1305" y2="714" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
 
-  <rect x="618" y="550" width="400" height="154" rx="3" fill="#ffffff" stroke="#9aa9a0" stroke-width="2"/>
-  <text x="645" y="588" class="ink" font-size="19" font-weight="700">Optional Strands adapter</text>
-  <text x="645" y="619" class="muted" font-size="16">inspect_window · explain_signal</text>
-  <text x="645" y="645" class="muted" font-size="16">prepare_review_packet</text>
-  <text x="645" y="680" class="ink" font-size="15" font-weight="700">READ-ONLY TOOLS ONLY</text>
-  <polyline points="720,408 720,500 760,530 790,550" fill="none" stroke="#75827b" stroke-width="2" stroke-dasharray="9 8" marker-end="url(#arrow-muted)"/>
-  <polyline points="1018,627 1085,627 1130,480 1200,390" fill="none" stroke="#75827b" stroke-width="2" stroke-dasharray="9 8" marker-end="url(#arrow-muted)"/>
+  <rect x="618" y="526" width="400" height="194" rx="3" fill="#ffffff" stroke="#9aa9a0" stroke-width="2"/>
+  <text x="645" y="560" class="ink" font-size="19" font-weight="700">Optional Strands adapter</text>
+  <text x="645" y="590" class="muted" font-size="15">provider-configured agentic loop</text>
+  <text x="645" y="617" class="muted" font-size="14">model → tools → reasoning → response</text>
+  <text x="645" y="651" class="muted" font-size="15">inspect_window · explain_signal</text>
+  <text x="645" y="677" class="muted" font-size="15">prepare_review_packet</text>
+  <text x="645" y="706" class="ink" font-size="15" font-weight="700">READ-ONLY TOOLS ONLY</text>
+  <polyline points="720,408 720,490 760,506 790,526" fill="none" stroke="#75827b" stroke-width="2" stroke-dasharray="9 8" marker-end="url(#arrow-muted)"/>
+  <polyline points="1018,640 1085,640 1130,480 1200,390" fill="none" stroke="#75827b" stroke-width="2" stroke-dasharray="9 8" marker-end="url(#arrow-muted)"/>
 
   <line x1="90" y1="842" x2="1510" y2="842" stroke="#dfe5e1" stroke-width="2"/>
   <text x="90" y="875" class="muted" font-size="15">Side effects intentionally absent: no CI rerun, issue, quarantine, merge, or secret access.</text>
