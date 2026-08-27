@@ -70,6 +70,11 @@
 - The canonical local gate `./scripts/verify-release.sh` passed from the
   repository root: 19 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
+- Fresh public-clone gate: commit `00c05f5e16a86df0b988a1d178b5c8fa546cc131`
+  matched `origin/main`; a new Python 3.11 venv installed `.[dev]`, then
+  `./scripts/verify-release.sh` returned `19 passed in 1.98s`, `No broken
+  requirements found`, all benchmark modes, clean diff, clean secret scan, and
+  `release verification passed`.
 
 ## Human-gated / not claimed
 
