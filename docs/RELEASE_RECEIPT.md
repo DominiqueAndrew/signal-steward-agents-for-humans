@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `7d111422ef9ceedd8af323a9cdc2a49f33e204e7`
+**Validated release-content tree:** `a3113aa406ec3ab662220079c47dfde6cbf4410e`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -12,7 +12,7 @@ published.
 
 ## Verified
 
-- `35 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+- `36 passed` from `.venv/bin/python -m pytest -q`, including the loopback
   binding, oversized-fixture, Wilson-interval, provenance-boundary, offline
   Strands-construction, HTTP-contract, public-incident sanity, and submission
   documentation regression tests for the public video, judge artifacts,
@@ -91,7 +91,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `7d111422ef9ceedd8af323a9cdc2a49f33e204e7`: all 14 release artifacts
+  `a3113aa406ec3ab662220079c47dfde6cbf4410e`: all 15 release artifacts
   returned HTTP 200. The architecture responses were `image/png` and
   `image/svg+xml`; the compliance packet and Devpost draft contained the
   ownership, permissions, language, public-access gates, and the receipt-only
@@ -105,25 +105,30 @@ published.
   open-source-license requirement; recheck the repository metadata before any
   final Devpost action.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
-  repository root: 35 tests, clean dependencies, all three benchmark modes,
+  repository root: 36 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
 - The same release gate was invoked by absolute path from `/tmp`; it entered
-  its repository root before running tests and passed 35 tests, dependencies,
+  its repository root before running tests and passed 36 tests, dependencies,
   all benchmark modes, the whitespace check, and the secret-pattern scan.
-- Public [GitHub Actions run #69](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33113134780)
-  for commit `7d111422ef9ceedd8af323a9cdc2a49f33e204e7` completed with
+- Public [GitHub Actions run #72](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33113841960)
+  for commit `a3113aa406ec3ab662220079c47dfde6cbf4410e` completed with
   status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
   Python 3.11, dependency installation, the test suite, and CLI replay.
 - Fresh public-clone gate: commit
-  `7d111422ef9ceedd8af323a9cdc2a49f33e204e7` matched remote `main`; a new
+  `a3113aa406ec3ab662220079c47dfde6cbf4410e` matched remote `main`; a new
   Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
-  returned `35 passed`, `No broken requirements found`, all benchmark modes,
+  returned `36 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `7d111422ef9ceedd8af323a9cdc2a49f33e204e7` at the time of the
+  `a3113aa406ec3ab662220079c47dfde6cbf4410e` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
+- After this receipt refresh, the read-only `./scripts/verify-public-release.sh`
+  gate passed against the current public `main`: the GitHub comparison reported
+  `status=ahead`, `behind_by=0`, and one changed file (`docs/RELEASE_RECEIPT.md`);
+  all 15 public artifacts, both architecture MIME types, and repository
+  metadata checks passed.
 
 ## Human-gated / not claimed
 
@@ -150,6 +155,7 @@ The single local release gate is:
 
 ```sh
 ./scripts/verify-release.sh
+./scripts/verify-public-release.sh
 ```
 
 It runs the complete suite, dependency check, main/negative-control/threshold
