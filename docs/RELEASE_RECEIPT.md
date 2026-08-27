@@ -1,15 +1,15 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `b3347e67cb0711693658fb8e718155a80ae09c54`
+**Validated tree:** `4331b026ccdbda63d16e9d12b523b74180fb6469`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
 ## Verified
 
-- `16 passed` from `.venv/bin/python -m pytest -q`, including the loopback
-  binding, oversized-fixture, Wilson-interval, provenance-boundary, and offline
-  Strands-construction tests.
+- `17 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+  binding, oversized-fixture, Wilson-interval, provenance-boundary, offline
+  Strands-construction, and HTTP-contract tests.
 - `.venv/bin/python -m pip check` reports `No broken requirements found.`
 - Main holdout: `holdout-2026-08-27.v1`, fixture SHA
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`, 60
@@ -41,6 +41,9 @@
 - Fresh HTTP smoke on the validated tree returned `/health` 200, `/api/report`
   200 with 9 runs, 9 jobs, 3 review items, 0 audit events, the three read-only
   Strands tools, and 404 for an unknown route.
+- The loopback HTTP contract test recorded one valid hold bound to the report
+  source hash, rejected an invalid `rerun` decision with HTTP 400, and left no
+  extra audit event.
 - Human decisions are append-only local events bound to the analyzed replay
   source hash; the browser ledger shows the abbreviated evidence source.
 - Fresh browser smoke at the validated tree recorded a human hold, showed
