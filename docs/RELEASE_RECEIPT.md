@@ -94,7 +94,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `9e61c058b8b814eff5bca358ccfc07dc13509407`: all 15 release artifacts
+  `035433e72cba9b80d1ee0e9055b58f11bf812ee9`: all 15 release artifacts
   returned HTTP 200. The architecture responses were `image/png` and
   `image/svg+xml`; the compliance packet and Devpost draft contained the
   ownership, permissions, language, public-access gates, and the receipt-only
@@ -136,7 +136,7 @@ published.
   zero; no metadata pass was claimed from that partial check. A subsequent
   invocation using an already-authorized, read-only `GITHUB_TOKEN` passed the
   same metadata check at public `main` SHA
-  `9e61c058b8b814eff5bca358ccfc07dc13509407`; the receipt boundary reported
+  `035433e72cba9b80d1ee0e9055b58f11bf812ee9`; the receipt boundary reported
   `status=ahead`, `behind_by=0`, and exactly one changed file
   (`docs/RELEASE_RECEIPT.md`). All artifact and receipt-boundary checks remained
   read-only throughout.
