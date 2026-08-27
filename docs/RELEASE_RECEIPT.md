@@ -123,7 +123,8 @@ published.
   access.
 - Participant creates or supplies their AWS Builder ID and decides whether an
   authorized AWS profile is available for optional live evidence.
-- Participant records and publishes the ≤5-minute demo video URL.
+- Participant records and publishes a public ≤5-minute YouTube/Vimeo demo
+  video URL; an unlisted URL would not satisfy the current official rules.
 - Participant reviews the form, uploads the diagram, enters the private
   Builder ID, and clicks the final Devpost **Submit** action.
 - No live GitHub integration, AWS deployment, AgentCore deployment, model

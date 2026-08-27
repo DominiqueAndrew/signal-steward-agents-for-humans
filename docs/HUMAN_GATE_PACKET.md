@@ -157,9 +157,10 @@ and a browser surface backed by the real local service.
    `docs/demo-script.md`. Keep the final recording under five minutes. It must
    show the background replay, flaky signal, deterministic regression
    hypothesis, insufficient-evidence hold, and the human audit event.
-3. Upload the recording to YouTube or Vimeo as public or unlisted, then keep
-   the resulting URL. Expected proof: a URL that opens in a private/incognito
-   window and visibly demonstrates the project end-to-end.
+3. Upload the recording to YouTube or Vimeo as **public**, then keep the
+   resulting URL. Expected proof: a URL that opens in a private/incognito
+   window and visibly demonstrates the project end-to-end. An unlisted video
+   does not satisfy the current official rules.
 
 Fallback: a credential-free local recording is the intended proof. A live
 AWS/GitHub connection is optional and must not be implied if it was not used.
@@ -183,7 +184,7 @@ Use these prepared values:
 | Public code repo | `https://github.com/DominiqueAndrew/signal-steward-agents-for-humans` |
 | Architecture diagram | Upload the generated `docs/architecture-diagram.png` from this repo |
 | AWS Builder ID | The participant’s own Builder ID, entered privately in Devpost |
-| Demo video | The public/unlisted YouTube or Vimeo URL from Gate 2 |
+| Demo video | The public YouTube or Vimeo URL from Gate 2 |
 | Live demo | Optional: leave blank if no public deployment exists |
 | Testing instructions | `python3 -m venv .venv && .venv/bin/python -m pip install -e '.[dev]' && ./scripts/verify-release.sh`; then run the local server command above |
 | Bonus blog | Optional; if used, publish on `builder.aws.com` before the deadline and put `Agents for Humans` in the title; leave blank unless a truthful public post exists |
@@ -229,5 +230,5 @@ annex as the fallback. Do not bypass the form or its agreements.
   licenses, and absence of prohibited sponsor support.
 - [ ] If applicable, the authorized team representative confirms authority;
   participant confirms English/translation and free public judging access.
-- [ ] Human records a public/unlisted video URL.
+- [ ] Human records a public YouTube/Vimeo video URL.
 - [ ] Human reviews and submits the Devpost form.

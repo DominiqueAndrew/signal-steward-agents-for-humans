@@ -16,7 +16,7 @@ and click the final Devpost action.
 - **Repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans
 - **Architecture diagram:** `docs/architecture-diagram.png`
 - **AWS Builder ID:** `[participant enters privately in Devpost]`
-- **Demo video:** `[participant adds public or unlisted YouTube/Vimeo URL]`
+- **Demo video:** `[participant adds a public YouTube/Vimeo URL]`
 - **Live demo:** optional; leave blank unless a public deployment is actually available
 
 ## Description to paste
