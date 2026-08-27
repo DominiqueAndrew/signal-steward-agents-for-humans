@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `820d3ab6ceb36760333cf3d6c5d197aac239c859`
+**Validated release-content tree:** `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -12,12 +12,12 @@ published.
 
 ## Verified
 
-- `34 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+- `35 passed` from `.venv/bin/python -m pytest -q`, including the loopback
   binding, oversized-fixture, Wilson-interval, provenance-boundary, offline
   Strands-construction, HTTP-contract, public-incident sanity, and submission
   documentation regression tests for the public video, judge artifacts,
-  under-five-minute demo budget, receipt SHA boundary, and project-age
-  provenance boundary.
+  under-five-minute demo budget, receipt SHA boundary, project-age provenance
+  boundary, and bounded third-party inventory review.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
@@ -50,6 +50,12 @@ published.
 - CLI and browser expose Strands Agents SDK `1.53.0` with exactly three
   read-only tools: `inspect_window`, `explain_signal`, and
   `prepare_review_packet`; no side effects are registered.
+- The human-gate packet records the observed dependency/data inventory without
+  claiming legal clearance: runtime `strands-agents==1.53.0` (local metadata
+  reports Apache-2.0), test-only `pytest>=8.3,<9` (local environment resolved
+  `8.4.2`, metadata reports MIT), and two manually normalized public-case
+  fixtures linked to their primary issue sources. The participant must still
+  verify current terms, permissions, attribution, and provenance.
 - Offline construction of a real Strands `Agent` succeeds without provider
   invocation and exposes exactly those three tool names; no audit event is
   created by construction.
@@ -84,7 +90,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `820d3ab6ceb36760333cf3d6c5d197aac239c859`: all 14 release artifacts
+  `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3`: all 14 release artifacts
   returned HTTP 200. The architecture responses were `image/png` and
   `image/svg+xml`; the compliance packet and Devpost draft contained the
   ownership, permissions, language, public-access gates, and the receipt-only
@@ -98,22 +104,22 @@ published.
   open-source-license requirement; recheck the repository metadata before any
   final Devpost action.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
-  repository root: 34 tests, clean dependencies, all three benchmark modes,
+  repository root: 35 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
 - The same release gate was invoked by absolute path from `/tmp`; it entered
-  its repository root before running tests and passed 34 tests, dependencies,
+  its repository root before running tests and passed 35 tests, dependencies,
   all benchmark modes, the whitespace check, and the secret-pattern scan.
-- Public [GitHub Actions run #65](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33112109568)
-  for commit `820d3ab6ceb36760333cf3d6c5d197aac239c859` completed with
+- Public [GitHub Actions run #67](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33112578251)
+  for commit `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3` completed with
   status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
   Python 3.11, dependency installation, the test suite, and CLI replay.
 - Fresh public-clone gate: commit
-  `820d3ab6ceb36760333cf3d6c5d197aac239c859` matched remote `main`; a new
+  `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3` matched remote `main`; a new
   Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
-  returned `34 passed`, `No broken requirements found`, all benchmark modes,
+  returned `35 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `820d3ab6ceb36760333cf3d6c5d197aac239c859` at the time of the
+  `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
