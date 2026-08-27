@@ -200,9 +200,12 @@ git grep -nE 'AKIA[0-9A-Z]{16}|AWS_SECRET_ACCESS_KEY|aws_secret_access_key' -- '
 ```
 
 Expected evidence before the final Devpost click: the `git ls-remote` SHA is
-the public `main` release being submitted and matches the latest release
-receipt check. Re-run it after any later push; do not rely on a copied stale
-SHA.
+the current public `main` commit being submitted. Compare it with the receipt’s
+validated release-content SHA: a later receipt-only documentation commit may
+legitimately make public `main` newer. If `main` differs because of code,
+fixtures, workflow, assets, or submission-material changes, rerun the release
+gate and refresh the receipt before submitting. Always use the exact current
+SHA; do not rely on a copied stale SHA.
 
 Expected evidence after the human action: the Devpost project page shows the
 video, repo, architecture attachment, Builder ID, and **Submitted** status. A
