@@ -1,9 +1,10 @@
 # Signal Steward
 
-Signal Steward is a quiet, read-only CI failure desk for maintainers. It watches the repetitive part—comparing attempts, normalizing evidence, and ranking a change hypothesis—then surfaces only two kinds of human decisions:
+Signal Steward is a quiet, read-only CI failure desk for maintainers. It watches the repetitive part—comparing attempts, normalizing evidence, and ranking a change hypothesis—then surfaces only the human decisions that remain:
 
 - “This looks intermittent; should we quarantine the candidate?”
 - “This looks persistently broken; should we investigate the likely change?”
+- “There is a failure, but is there enough evidence to act?”
 
 It never reruns CI, edits workflows, opens issues, quarantines tests, merges code, or claims causal certainty. If the evidence is weak, it says `insufficient_evidence`.
 
@@ -16,9 +17,11 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -e '.[dev]'
 .venv/bin/python -m pytest
 .venv/bin/python -m signal_steward
+.venv/bin/python -m signal_steward.server --port 8810
+# Open http://127.0.0.1:8810 in a browser
 ```
 
-The replay uses only [`fixtures/ci_replay.json`](fixtures/ci_replay.json) and an ephemeral SQLite database. It produces a deterministic classification for `CI / integration` (flaky), `CI / unit` (consistently broken), `CI / lint` (clean), and `CI / e2e` (no signal because the only run was cancelled). It surfaces two review packets and creates no audit event until a human explicitly records one.
+The replay uses only [`fixtures/ci_replay.json`](fixtures/ci_replay.json) and an ephemeral SQLite database. It produces a deterministic classification for `CI / integration` (flaky), `CI / unit` (consistently broken), `CI / lint` (clean), `CI / e2e` (no signal because the only run was cancelled), and `CI / ambiguous` (insufficient evidence). It surfaces three review packets and creates no audit event until a human explicitly records one. The browser run of show is [`docs/demo-script.md`](docs/demo-script.md).
 
 ## What is genuinely agentic
 

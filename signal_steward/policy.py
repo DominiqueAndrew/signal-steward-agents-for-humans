@@ -39,7 +39,9 @@ def build_review_queue(
     for signal in signals:
         top = hypotheses.get(signal.job_key, ())
         evidence = list(signal.evidence)
-        if top:
+        # Keep weak global matches in the diagnostic report, but do not surface
+        # them as a review explanation. A low score is not useful evidence.
+        if top and top[0].score >= 0.70:
             evidence.append(f"top hypothesis {top[0].commit_sha} scores {top[0].score:.2f}; hypothesis only")
 
         if signal.classification == Classification.FLAKY and signal.recovery_groups:
@@ -69,4 +71,3 @@ def build_review_queue(
             )
         )
     return tuple(queue)
-

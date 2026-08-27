@@ -21,6 +21,7 @@ dev = [
 
 [project.scripts]
 signal-steward = "signal_steward.cli:main"
+signal-steward-server = "signal_steward.server:main"
 
 [tool.setuptools.packages.find]
 include = ["signal_steward*"]
@@ -28,4 +29,3 @@ include = ["signal_steward*"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
-

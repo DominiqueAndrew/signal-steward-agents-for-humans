@@ -116,6 +116,20 @@
           "log_excerpt": "superseded by a newer commit"
         }
       ]
+    },
+    {
+      "run_id": 1040,
+      "workflow": "CI",
+      "head_sha": "sha-ambiguous-1",
+      "attempt": 1,
+      "started_at": "2026-08-27T11:20:00Z",
+      "jobs": [
+        {
+          "name": "ambiguous",
+          "conclusion": "failure",
+          "log_excerpt": "runner exited unexpectedly before test output was captured"
+        }
+      ]
     }
   ],
   "commits": [
@@ -145,4 +159,3 @@
     }
   ]
 }
-

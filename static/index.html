@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f5">
+    <title>Signal Steward — CI evidence desk</title>
+    <style>
+      :root {
+        --ink: #17221f;
+        --muted: #66716c;
+        --line: #dfe5e1;
+        --paper: #fbfcfa;
+        --panel: #ffffff;
+        --soft: #f1f4f1;
+        --green: #286342;
+        --green-soft: #e4f2e9;
+        --amber: #9a5b08;
+        --amber-soft: #fff1d6;
+        --red: #9d3b35;
+        --red-soft: #fbe6e2;
+        --shadow: 0 18px 50px rgba(23, 34, 31, 0.07);
+      }
+
+      * { box-sizing: border-box; }
+      html { background: var(--paper); }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.45;
+        overflow-x: hidden;
+      }
+      button, textarea { font: inherit; }
+      button { cursor: pointer; }
+      button:focus-visible, textarea:focus-visible { outline: 3px solid #9acbad; outline-offset: 3px; }
+      .shell { width: min(1240px, calc(100% - 48px)); margin: 0 auto; }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+        border-bottom: 1px solid var(--line);
+      }
+      .wordmark { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 760; letter-spacing: .12em; }
+      .mark { width: 20px; height: 20px; border: 2px solid var(--green); border-radius: 50%; position: relative; }
+      .mark::after { content: ""; position: absolute; width: 6px; height: 6px; border-radius: 50%; background: #a9d36a; top: 5px; left: 5px; }
+      .mode { color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      .hero { padding: 68px 0 42px; max-width: 840px; }
+      .eyebrow { color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
+      h1 { max-width: 760px; margin: 14px 0 18px; font-size: clamp(2.6rem, 6vw, 5.5rem); letter-spacing: -.075em; line-height: .95; font-weight: 760; }
+      .dek { max-width: 610px; margin: 0; color: var(--muted); font-size: clamp(1rem, 1.5vw, 1.2rem); }
+      .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); margin-bottom: 46px; }
+      .metric { min-height: 108px; padding: 23px 26px; background: var(--panel); }
+      .metric strong { display: block; font-size: 27px; letter-spacing: -.04em; }
+      .metric span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .09em; }
+      .workspace { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(260px, .75fr); gap: 52px; align-items: start; padding-bottom: 76px; }
+      .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+      h2 { margin: 0; font-size: 18px; letter-spacing: -.025em; }
+      .section-note { color: var(--muted); font-size: 12px; }
+      .queue { display: grid; gap: 14px; }
+      .card { background: var(--panel); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 24px; }
+      .card[data-action="quarantine_candidate"] { border-top: 3px solid #8ab65c; }
+      .card[data-action="investigate_regression"] { border-top: 3px solid #d39338; }
+      .card[data-action="insufficient_evidence"] { border-top: 3px solid #a9b4ae; box-shadow: none; }
+      .card-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+      .label { font-size: 10px; letter-spacing: .13em; font-weight: 850; }
+      .label.green { color: var(--green); }
+      .label.amber { color: var(--amber); }
+      .label.muted { color: var(--muted); }
+      .confidence { color: var(--muted); font-size: 12px; white-space: nowrap; }
+      .card h3 { margin: 11px 0 7px; font-size: 24px; letter-spacing: -.045em; }
+      .summary { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+      .evidence { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+      .evidence li { display: flex; gap: 9px; color: #43504a; font-size: 13px; }
+      .evidence li::before { content: ""; flex: 0 0 6px; width: 6px; height: 6px; margin-top: 7px; border-radius: 50%; background: #a9d36a; }
+      .card[data-action="insufficient_evidence"] .evidence li::before { background: #bac4be; }
+      .decision-area { margin-top: 21px; padding-top: 17px; border-top: 1px solid var(--line); }
+      .actions { display: flex; flex-wrap: wrap; gap: 9px; }
+      .button { border: 1px solid #b9c9bc; border-radius: 2px; background: var(--panel); color: var(--green); padding: 10px 13px; font-size: 12px; font-weight: 750; }
+      .button.primary { border-color: var(--green); background: var(--green); color: white; }
+      .button.secondary { color: var(--ink); border-color: var(--line); }
+      .rationale-panel { display: grid; gap: 10px; }
+      .rationale-panel label { color: var(--muted); font-size: 12px; }
+      textarea { width: 100%; min-height: 74px; resize: vertical; border: 1px solid #b9c9bc; border-radius: 2px; padding: 10px; color: var(--ink); background: #fbfdfb; }
+      .decision-note { margin: 0; color: var(--green); font-size: 13px; font-weight: 700; }
+      .aside { display: grid; gap: 18px; }
+      .aside-panel { border-top: 1px solid var(--ink); padding-top: 14px; }
+      .aside-panel h2 { font-size: 15px; }
+      .aside-panel p { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+      .formula { margin: 13px 0 0; padding: 14px; background: var(--soft); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+      .guardrail { display: grid; gap: 10px; margin-top: 14px; }
+      .guardrail div { display: flex; gap: 10px; align-items: baseline; font-size: 13px; }
+      .guardrail b { color: var(--green); font-size: 11px; letter-spacing: .08em; }
+      .audit { border: 1px solid var(--line); background: var(--panel); padding: 20px; }
+      .audit h2 { font-size: 15px; }
+      .audit-intro { color: var(--muted); font-size: 12px; margin: 7px 0 15px; }
+      .audit-list { display: grid; gap: 12px; }
+      .audit-event { padding-left: 12px; border-left: 2px solid #a9d36a; font-size: 12px; }
+      .audit-event strong { display: block; font-size: 13px; }
+      .audit-event span { display: block; color: var(--muted); margin-top: 3px; }
+      .empty { color: var(--muted); font-size: 13px; }
+      .footer { border-top: 1px solid var(--line); padding: 20px 0 34px; color: var(--muted); font-size: 12px; }
+      .error { color: var(--red); background: var(--red-soft); padding: 12px; font-size: 13px; }
+      @media (max-width: 900px) {
+        .workspace { grid-template-columns: 1fr; gap: 42px; }
+        .aside { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .audit { grid-column: span 2; }
+      }
+      @media (max-width: 560px) {
+        .shell { width: min(100% - 30px, 1240px); }
+        .topbar { min-height: 64px; }
+        .mode { font-size: 10px; }
+        .hero { padding: 47px 0 32px; }
+        h1 { font-size: clamp(2.65rem, 16vw, 4rem); }
+        .metrics { grid-template-columns: 1fr; }
+        .metric { min-height: 78px; padding: 16px 18px; }
+        .metric strong { font-size: 24px; }
+        .workspace { padding-bottom: 50px; }
+        .aside { grid-template-columns: 1fr; }
+        .audit { grid-column: auto; }
+        .card { padding: 19px; }
+        .card h3 { font-size: 21px; }
+        .button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="shell topbar">
+      <div class="wordmark"><span class="mark" aria-hidden="true"></span> SIGNAL STEWARD</div>
+      <div class="mode" id="mode">Local replay</div>
+    </header>
+
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="eyebrow">CI evidence desk / background replay</div>
+        <h1 id="page-title">CI can be noisy. Your attention shouldn’t be.</h1>
+        <p class="dek">A quiet evidence desk that watches the reruns and asks only when the next action is yours.</p>
+      </section>
+
+      <section class="metrics" aria-label="Replay summary">
+        <div class="metric"><strong id="runs">—</strong><span>runs observed</span></div>
+        <div class="metric"><strong id="decisions">—</strong><span>decisions surfaced</span></div>
+        <div class="metric"><strong>read-only</strong><span>side-effect boundary</span></div>
+      </section>
+
+      <section class="workspace">
+        <div>
+          <div class="section-heading">
+            <h2>Review queue</h2>
+            <span class="section-note" id="queue-note">Loading evidence…</span>
+          </div>
+          <div class="queue" id="queue" aria-live="polite"></div>
+        </div>
+
+        <aside class="aside" aria-label="Evidence and audit details">
+          <section class="aside-panel">
+            <h2>How the signal was classified</h2>
+            <p>Completed outcomes count. Cancellation and skips do not dilute the rate.</p>
+            <div class="formula">r = failures / (failures + successes)</div>
+            <div class="guardrail">
+              <div><b>FLAKY</b><span>r ≥ 10% + recovery or mixed outcomes</span></div>
+              <div><b>BROKEN</b><span>r ≥ 70% + no same-SHA recovery</span></div>
+              <div><b>HOLD</b><span>failure exists, evidence cannot support a safe recommendation</span></div>
+            </div>
+          </section>
+
+          <section class="audit" aria-labelledby="audit-title">
+            <h2 id="audit-title">Human decision ledger</h2>
+            <p class="audit-intro">Append-only local events. No CI, issue, quarantine, or merge action is available here.</p>
+            <div class="audit-list" id="audit-list" aria-live="polite"></div>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="shell footer">Signal Steward · evidence is a hypothesis, not a verdict · source hash: <span id="source-hash">—</span></footer>
+
+    <script>
+      const ACTION_LABELS = {
+        quarantine_candidate: { label: "QUARANTINE CANDIDATE", tone: "green" },
+        investigate_regression: { label: "INVESTIGATE REGRESSION", tone: "amber" },
+        insufficient_evidence: { label: "INSUFFICIENT EVIDENCE", tone: "muted" }
+      };
+      let report = null;
+
+      function node(tag, text, className) {
+        const element = document.createElement(tag);
+        if (text !== undefined) element.textContent = text;
+        if (className) element.className = className;
+        return element;
+      }
+
+      function percent(value) { return `${Math.round(Number(value) * 100)}%`; }
+
+      function renderAudit() {
+        const list = document.getElementById("audit-list");
+        list.replaceChildren();
+        if (!report.audit_events.length) {
+          list.append(node("p", "No decision recorded yet.", "empty"));
+          return;
+        }
+        [...report.audit_events].reverse().forEach((event) => {
+          const entry = node("div", undefined, "audit-event");
+          entry.append(node("strong", `${event.decision.toUpperCase()} · ${event.action.replaceAll("_", " ")}`));
+          entry.append(node("span", `${event.subject_id} · ${event.rationale || "no rationale"}`));
+          list.append(entry);
+        });
+      }
+
+      function decisionFor(itemId) {
+        return report.audit_events.find((event) => event.subject_id === itemId);
+      }
+
+      function submitDecision(item, decision, rationale, panel) {
+        const submit = panel.querySelector("button.primary");
+        submit.disabled = true;
+        fetch("/api/decisions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ item_id: item.item_id, decision, rationale })
+        }).then(async (response) => {
+          const body = await response.json();
+          if (!response.ok) throw new Error(body.error || "decision could not be recorded");
+          report = body;
+          render();
+        }).catch((error) => {
+          panel.prepend(node("p", error.message, "error"));
+          submit.disabled = false;
+        });
+      }
+
+      function openDecision(item, decision) {
+        const card = document.querySelector(`[data-item-id="${CSS.escape(item.item_id)}"]`);
+        const area = card.querySelector(".decision-area");
+        area.replaceChildren();
+        const panel = node("div", undefined, "rationale-panel");
+        const label = node("label", decision === "approve" ? "Why is this recommendation ready?" : "What should the next reviewer check?");
+        const input = document.createElement("textarea");
+        input.value = decision === "approve" ? "Evidence reviewed; recommendation is ready for owner follow-up." : "Hold until the next run provides more evidence.";
+        input.setAttribute("aria-label", label.textContent);
+        const actions = node("div", undefined, "actions");
+        const cancel = node("button", "Cancel", "button secondary");
+        cancel.type = "button";
+        cancel.addEventListener("click", () => render());
+        const submit = node("button", decision === "approve" ? "Record approve" : "Record hold", "button primary");
+        submit.type = "button";
+        submit.addEventListener("click", () => submitDecision(item, decision, input.value.trim(), panel));
+        actions.append(cancel, submit);
+        panel.append(label, input, actions);
+        area.append(panel);
+        input.focus();
+      }
+
+      function renderCard(item) {
+        const descriptor = ACTION_LABELS[item.action] || ACTION_LABELS.insufficient_evidence;
+        const card = node("article", undefined, "card");
+        card.dataset.action = item.action;
+        card.dataset.itemId = item.item_id;
+        const top = node("div", undefined, "card-top");
+        top.append(node("span", descriptor.label, `label ${descriptor.tone}`));
+        top.append(node("span", `${percent(item.confidence)} confidence`, "confidence"));
+        card.append(top, node("h3", item.job_key), node("p", item.summary, "summary"));
+        const evidence = node("ul", undefined, "evidence");
+        item.evidence.forEach((line) => evidence.append(node("li", line)));
+        card.append(evidence);
+        const area = node("div", undefined, "decision-area");
+        const recorded = decisionFor(item.item_id);
+        if (recorded) {
+          area.append(node("p", `Decision recorded: ${recorded.decision}. No external action taken.`, "decision-note"));
+        } else {
+          const actions = node("div", undefined, "actions");
+          const approve = node("button", "Approve recommendation", "button primary");
+          approve.type = "button";
+          approve.addEventListener("click", () => openDecision(item, "approve"));
+          const hold = node("button", "Hold for more evidence", "button secondary");
+          hold.type = "button";
+          hold.addEventListener("click", () => openDecision(item, "hold"));
+          actions.append(approve, hold);
+          area.append(actions);
+        }
+        card.append(area);
+        return card;
+      }
+
+      function render() {
+        document.getElementById("mode").textContent = report.mode;
+        document.getElementById("runs").textContent = report.observed_runs;
+        document.getElementById("decisions").textContent = report.review_queue.length;
+        document.getElementById("source-hash").textContent = report.source_hash.slice(0, 12);
+        const queue = document.getElementById("queue");
+        queue.replaceChildren();
+        const order = { quarantine_candidate: 0, investigate_regression: 1, insufficient_evidence: 2 };
+        [...report.review_queue].sort((a, b) => (order[a.action] ?? 9) - (order[b.action] ?? 9)).forEach((item) => queue.append(renderCard(item)));
+        document.getElementById("queue-note").textContent = `${report.review_queue.length} decisions need a human`;
+        renderAudit();
+      }
+
+      fetch("/api/report")
+        .then(async (response) => {
+          const body = await response.json();
+          if (!response.ok) throw new Error(body.error || "replay unavailable");
+          report = body;
+          render();
+        })
+        .catch((error) => {
+          document.getElementById("queue").append(node("p", error.message, "error"));
+          document.getElementById("queue-note").textContent = "Replay unavailable";
+        });
+    </script>
+  </body>
+</html>

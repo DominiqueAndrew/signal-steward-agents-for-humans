@@ -4,13 +4,20 @@ from signal_steward.service import SignalSteward
 from signal_steward.store import EvidenceStore
 
 
-def test_replay_surfaces_only_two_human_review_items_and_no_audit_side_effect() -> None:
+def test_replay_surfaces_only_actionable_human_review_items_and_no_audit_side_effect() -> None:
     bundle = load_bundle("fixtures/ci_replay.json")
     store = EvidenceStore()
     try:
         report = SignalSteward(store).analyze(bundle)
-        assert {item.job_key for item in report.review_queue} == {"CI / integration", "CI / unit"}
+        assert {item.job_key for item in report.review_queue} == {
+            "CI / ambiguous",
+            "CI / integration",
+            "CI / unit",
+        }
         assert all(item.human_required for item in report.review_queue)
+        ambiguous = next(item for item in report.review_queue if item.job_key == "CI / ambiguous")
+        assert ambiguous.action.value == "insufficient_evidence"
+        assert not any(line.startswith("top hypothesis") for line in ambiguous.evidence)
         assert store.audit_events() == []
     finally:
         store.close()
@@ -41,4 +48,3 @@ def test_strands_boundary_exposes_read_only_tools() -> None:
         assert not {"rerun_ci", "create_issue", "quarantine_test", "merge_pr"}.intersection(names)
     finally:
         store.close()
-
