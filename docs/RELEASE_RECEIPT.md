@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `fe3e29334cfa66ed4d1cf0c8bbf77210a5dbac2e`
+**Validated release-content tree:** `c937557cfa740272cbbd8dbf8e465c125fdd3a2b`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-28 (Europe/Paris)
 
@@ -32,6 +32,10 @@ published.
   judge-upload architecture map explicit about the local CLI/browser interface
   and the absence of AWS/provider calls in the credential-free local slice;
   provider-backed invocation remains optional and unverified.
+- Release-content commit `c937557cfa740272cbbd8dbf8e465c125fdd3a2b` refreshes
+  the official Devpost rules/FAQ timestamp and labels the diagram output as a
+  human audit event, while preserving the required human-only eligibility,
+  Builder ID, video, and final-submission gates.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
