@@ -118,7 +118,7 @@ published.
   status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
   Python 3.11, dependency installation, the test suite, and CLI replay.
 - Fresh public-clone gate: public receipt-refresh commit
-  `04f1eb4feeefa7991ee62b606a84a2ae42b8748c` matched remote `main`; a new
+  `505944ec7445fe7c4fb4ea4dd622b838c018d374` matched remote `main`; a new
   Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
   returned `36 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
