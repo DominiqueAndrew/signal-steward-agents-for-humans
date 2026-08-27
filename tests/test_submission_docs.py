@@ -57,3 +57,13 @@ def test_release_receipt_preserves_a_recheckable_two_sha_boundary() -> None:
     assert "git ls-remote origin refs/heads/main" in receipt
     assert "public receipt-refresh commit" in receipt
     assert "not the release-content SHA recorded above" in receipt
+
+
+def test_human_packet_limits_project_age_evidence_to_its_provenance_scope() -> None:
+    packet = (REPO_ROOT / "docs" / "HUMAN_GATE_PACKET.md").read_text()
+
+    assert "Observed repository evidence (not a substitute for that confirmation)" in packet
+    assert "e354df4c5120d56bc14b1c375feed3f35c0e971e" in packet
+    assert "2026-08-27T18:27:04+02:00" in packet
+    assert "Git metadata alone" in packet
+    assert "cannot prove when underlying work was created" in packet

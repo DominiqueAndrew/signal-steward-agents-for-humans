@@ -111,6 +111,12 @@ confirm:
 
 1. Signal Steward was newly created during the submission period, and any
    incorporated pre-existing non-standard code or work is disclosed.
+   Observed repository evidence (not a substitute for that confirmation): the
+   current public history begins at commit
+   `e354df4c5120d56bc14b1c375feed3f35c0e971e`, authored
+   `2026-08-27T18:27:04+02:00`, inside the submission period. Git metadata alone
+   cannot prove when underlying work was created or whether pre-existing
+   non-standard work was incorporated.
 2. The submission is the participant’s original work, is solely owned by the
    participant (or the represented team/organization), and does not violate
    another person’s intellectual-property, privacy, contract, or publicity
