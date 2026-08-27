@@ -160,6 +160,12 @@ published.
   from an isolated target outside the checkout, then `./scripts/verify-release.sh`
   returned `36 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
+- Current fresh public-clone gate: public HEAD
+  `79c93231eda46cdbe253386748a1a9d3897eb57a` was cloned into a new Python 3.11
+  environment, installed with `.[dev]`, passed `pip check`, and its executable
+  `scripts/verify-release.sh` returned `36 passed`, `No broken requirements
+  found`, all benchmark modes, clean diff, clean secret scan, and `release
+  verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
   `c6ffe4f5c85e3562e41f043ececa5b550dbe2196` at the time of the
   post-publication verification for the release-content tree. Repeat it after
