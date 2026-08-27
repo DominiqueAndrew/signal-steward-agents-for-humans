@@ -27,6 +27,7 @@ Requires Python 3.11+.
 python3 -m venv .venv
 .venv/bin/python -m pip install -e '.[dev]'
 .venv/bin/python -m pytest
+./scripts/verify-release.sh
 .venv/bin/python -m signal_steward
 .venv/bin/python -m signal_steward.server --port 8810
 # Open http://127.0.0.1:8810 in a browser

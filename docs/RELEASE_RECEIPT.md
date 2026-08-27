@@ -67,6 +67,9 @@
   PNG response was `image/png`, 337,684 bytes; the SVG response was
   `image/svg+xml`, 6,325 bytes. This was a read-only HTTPS check; no login or
   Devpost action was performed.
+- The canonical local gate `./scripts/verify-release.sh` passed from the
+  repository root: 19 tests, clean dependencies, all three benchmark modes,
+  `git diff --check`, and the secret-pattern scan.
 
 ## Human-gated / not claimed
 
@@ -83,6 +86,16 @@
   was deployed or that a model was invoked.
 
 ## Reproduce
+
+The single local release gate is:
+
+```sh
+./scripts/verify-release.sh
+```
+
+It runs the complete suite, dependency check, main/negative-control/threshold
+sensitivity benchmarks, whitespace check, and secret-pattern scan. The
+component commands below remain available for diagnosis:
 
 ```sh
 .venv/bin/python -m pytest -q

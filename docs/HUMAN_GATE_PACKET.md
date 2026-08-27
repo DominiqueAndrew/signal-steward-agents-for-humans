@@ -120,13 +120,14 @@ Use these prepared values:
 | AWS Builder ID | The participant’s own Builder ID, entered privately in Devpost |
 | Demo video | The public/unlisted YouTube or Vimeo URL from Gate 2 |
 | Live demo | Optional: leave blank if no public deployment exists |
-| Testing instructions | `python3 -m venv .venv && .venv/bin/python -m pip install -e '.[dev]' && .venv/bin/python -m pytest -q`; then run the local server command above |
+| Testing instructions | `python3 -m venv .venv && .venv/bin/python -m pip install -e '.[dev]' && ./scripts/verify-release.sh`; then run the local server command above |
 | Bonus blog | Optional; if used, the current form says it must be on `builder.aws` and use `#AgentsofFootball`; leave blank unless a truthful public post exists |
 
 Before the final click, verify:
 
 ```sh
 git status --short --branch
+./scripts/verify-release.sh
 .venv/bin/python -m pytest -q
 .venv/bin/python -m pip check
 git grep -nE 'AKIA[0-9A-Z]{16}|AWS_SECRET_ACCESS_KEY|aws_secret_access_key' -- ':!docs/HUMAN_GATE_PACKET.md' || true
