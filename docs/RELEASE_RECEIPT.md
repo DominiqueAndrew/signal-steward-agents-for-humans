@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `c937557cfa740272cbbd8dbf8e465c125fdd3a2b`
+**Validated release-content tree:** `141aa4fa6325ec0b7c481ae6e62cfa6a7f383eb0`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-28 (Europe/Paris)
 
@@ -36,6 +36,10 @@ published.
   the official Devpost rules/FAQ timestamp and labels the diagram output as a
   human audit event, while preserving the required human-only eligibility,
   Builder ID, video, and final-submission gates.
+- Release-content commit `141aa4fa6325ec0b7c481ae6e62cfa6a7f383eb0` adds
+  regression assertions that retain the descriptive Wilson interval, the
+  false-escalation upper-bound limitation, and the explicit non-production
+  accuracy caveat in `RESULTS.md`.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
