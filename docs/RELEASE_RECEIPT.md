@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `cffd9222b169d1d3204f68b5c2c8f57df212f20b`
+**Validated release-content tree:** `fe3e29334cfa66ed4d1cf0c8bbf77210a5dbac2e`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-28 (Europe/Paris)
 
@@ -28,6 +28,10 @@ published.
   architecture source, upload PNG, Devpost rubric mapping, and demo runbook on
   the optional provider-configured Strands loop (model → tools → reasoning →
   response). The local replay still does not invoke a model or provider.
+- Release-content commit `fe3e29334cfa66ed4d1cf0c8bbf77210a5dbac2e` makes the
+  judge-upload architecture map explicit about the local CLI/browser interface
+  and the absence of AWS/provider calls in the credential-free local slice;
+  provider-backed invocation remains optional and unverified.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
