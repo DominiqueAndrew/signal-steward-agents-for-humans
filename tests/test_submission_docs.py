@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 
@@ -44,3 +45,15 @@ def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
     assert "A maintainer still has to decide" in draft
     assert "reduction in review items" in draft
     assert "architecture-diagram.png" in readme
+
+
+def test_release_receipt_preserves_a_recheckable_two_sha_boundary() -> None:
+    receipt = (REPO_ROOT / "docs" / "RELEASE_RECEIPT.md").read_text()
+
+    assert re.search(
+        r"\*\*Validated release-content tree:\*\* `[0-9a-f]{40}`", receipt
+    )
+    assert "commit cannot contain its own hash" in receipt
+    assert "git ls-remote origin refs/heads/main" in receipt
+    assert "public receipt-refresh commit" in receipt
+    assert "not the release-content SHA recorded above" in receipt
