@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
   <title id="title">Signal Steward read-only evidence architecture</title>
-  <desc id="desc">A GitHub Actions export or local replay flows through a read-only collector, immutable evidence store, deterministic classifier and hypothesis ranker, human review policy gate, review queue, and append-only human decision audit. A Strands agent can inspect only read-only tools.</desc>
+  <desc id="desc">A GitHub Actions export or local replay flows through a read-only collector, immutable evidence store, deterministic classifier and hypothesis ranker, human review policy gate, review queue, and append-only human decision audit. An optional provider-configured Strands adapter can inspect only read-only tools.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#286342"/>
@@ -71,7 +71,7 @@
   <line x1="1305" y1="640" x2="1305" y2="714" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
 
   <rect x="618" y="550" width="400" height="154" rx="3" fill="#ffffff" stroke="#9aa9a0" stroke-width="2"/>
-  <text x="645" y="588" class="ink" font-size="19" font-weight="700">Strands agent adapter</text>
+  <text x="645" y="588" class="ink" font-size="19" font-weight="700">Optional Strands adapter</text>
   <text x="645" y="619" class="muted" font-size="16">inspect_window · explain_signal</text>
   <text x="645" y="645" class="muted" font-size="16">prepare_review_packet</text>
   <text x="645" y="680" class="ink" font-size="15" font-weight="700">READ-ONLY TOOLS ONLY</text>
