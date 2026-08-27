@@ -33,6 +33,12 @@ python3 -m venv .venv
 # Open http://127.0.0.1:8810 in a browser
 ```
 
+The credential-free public-artifact gate is separate from the local release
+gate. From any checkout with network access, run
+`./scripts/verify-public-release.sh`; it checks the public branch SHA, the
+receipt’s release-content boundary, all judge-facing artifacts, diagram MIME
+types, and public repository metadata without logging in or mutating anything.
+
 The replay uses only [`fixtures/ci_replay.json`](fixtures/ci_replay.json) and an ephemeral SQLite database. It produces a deterministic classification for `CI / integration` (flaky), `CI / unit` (consistently broken), `CI / lint` (clean), `CI / e2e` (no signal because the only run was cancelled), and `CI / ambiguous` (insufficient evidence). It surfaces three review packets and creates no audit event until a human explicitly records one. The browser run of show is [`docs/demo-script.md`](docs/demo-script.md).
 
 ## What is genuinely agentic

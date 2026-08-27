@@ -79,3 +79,16 @@ def test_human_packet_bounds_third_party_review_without_claiming_clearance() -> 
     assert "does not settle third-party permissions" in packet
     assert "submission adds original functionality" in packet
     assert "must still review" in packet
+
+
+def test_public_release_verifier_is_read_only_and_covers_judge_artifacts() -> None:
+    verifier = (REPO_ROOT / "scripts" / "verify-public-release.sh").read_text()
+
+    assert "git ls-remote" in verifier
+    assert "docs/RELEASE_RECEIPT.md" in verifier
+    assert "scripts/verify-public-release.sh" in verifier
+    assert "image/png" in verifier
+    assert "image/svg+xml" in verifier
+    assert "visibility" in verifier
+    assert "git push" not in verifier
+    assert "aws " not in verifier
