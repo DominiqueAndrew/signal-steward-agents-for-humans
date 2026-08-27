@@ -4,6 +4,7 @@
 Prepared against the live Agents for Humans form refreshed 2026-08-27 at 18:01
 UTC. The
 participant must personally confirm eligibility, replace the bracketed fields,
+confirm provenance, ownership, permissions, and any team/language requirements,
 and click the final Devpost action.
 
 ## Project fields
@@ -97,6 +98,10 @@ track, public repository URL, architecture upload, AWS Builder ID, and a video.
 Website and zip are currently optional; the live demo URL is optional. Confirm
 the form again before saving or submitting because its fields are organizer
 controlled. The exact human steps are in [`HUMAN_GATE_PACKET.md`](HUMAN_GATE_PACKET.md).
+Before submitting, the participant must also personally confirm the project’s
+original ownership, third-party permissions and licenses, authorized team
+representation where applicable, English/translation requirements, and free
+public judging access under the official rules.
 
 ## Source-backed claims
 

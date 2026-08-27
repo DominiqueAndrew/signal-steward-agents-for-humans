@@ -14,6 +14,9 @@ Fetched through the Devpost Hackathons capability on 2026-08-27 at
   target September 14 before 5:00 pm PT).
 - Prize pool: **$40,000** across the Grand Prize and three tracks.
 - Required technology: Strands Agents SDK.
+- Entry step: the official rules direct entrants to sign up for an AWS Account
+  and install the Strands Agents SDK; this packet does not claim AWS account
+  access or a live deployment.
 - Current rules payload: legal age of majority in the country of residence;
   specific countries/territories are excluded; team is not required; all
   occupations; no company required. The participant must confirm their own
@@ -100,6 +103,31 @@ claim, and it does not replace the participant’s Builder ID field.
 Human-only gate: the participant decides whether the personal eligibility
 statements are true and whether to use an AWS account. The agent must not make
 that decision.
+
+## Gate 1b — provenance, ownership, and access (human-only)
+
+Before saving or submitting the Devpost form, the participant must personally
+confirm:
+
+1. Signal Steward was newly created during the submission period, and any
+   incorporated pre-existing non-standard code or work is disclosed.
+2. The submission is the participant’s original work, is solely owned by the
+   participant (or the represented team/organization), and does not violate
+   another person’s intellectual-property, privacy, contract, or publicity
+   rights.
+3. Every third-party SDK, library, template, API, dataset, or public incident
+   fixture is authorized for this use and its applicable license/terms are
+   satisfied. The participant confirms any required attribution or disclosure.
+4. If entering for a team or organization, the submitter is the authorized
+   representative. The project has not received prohibited financial or
+   preferential support from the sponsor or administrator.
+5. The text, testing instructions, diagram, and video are in English or have
+   the required English translation, and the public project will remain free
+   and accessible for judging and testing through the judging period.
+
+Expected evidence: the participant’s own confirmation and any required
+disclosures or permissions. The agent must not infer ownership, consent,
+eligibility, representation, or license compliance from the repository.
 
 Optional AWS credit action (separate from the identity check):
 
@@ -194,5 +222,9 @@ annex as the fallback. Do not bypass the form or its agreements.
 - [ ] Participant confirms personal eligibility and Builder ID.
 - [ ] Participant confirms the new-project rule and discloses any incorporated
   pre-existing non-standard code or work.
+- [ ] Participant confirms original ownership, third-party permissions and
+  licenses, and absence of prohibited sponsor support.
+- [ ] If applicable, the authorized team representative confirms authority;
+  participant confirms English/translation and free public judging access.
 - [ ] Human records a public/unlisted video URL.
 - [ ] Human reviews and submits the Devpost form.
