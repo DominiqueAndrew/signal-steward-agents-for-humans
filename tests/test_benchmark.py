@@ -1,5 +1,5 @@
 from benchmarks.generate import fixture_hash, generate_holdout
-from benchmarks.run import run
+from benchmarks.run import run, run_negative_control
 
 
 def test_holdout_is_versioned_and_has_five_families() -> None:
@@ -24,3 +24,11 @@ def test_holdout_replay_hits_pre_registered_targets() -> None:
     assert result["false_escalation_rate"] <= 0.10
     assert result["review_item_reduction"] >= 0.50
 
+
+def test_negative_control_does_not_surface_weak_culprit() -> None:
+    result = run_negative_control()
+    assert result["classification"] == "CONSISTENTLY_BROKEN"
+    assert result["top_hypothesis_score"] < 0.70
+    assert result["review_action"] == "insufficient_evidence"
+    assert result["surfaced_hypothesis"] is False
+    assert result["passes_safety_gate"] is True

@@ -159,7 +159,7 @@ The raw scores are close among several professional workflows. The decisive tie-
 2. A normalizer stores immutable runs, jobs, attempts, SHAs, log excerpts, and evidence hashes in SQLite.
 3. A deterministic signal layer groups by `(workflow, job, head_sha)`, computes failure rate and same-SHA recovery, and labels `FLAKY`, `CONSISTENTLY_BROKEN`, or `CLEAN`.
 4. A causal ranker uses commit proximity, changed-file/test overlap, and prior failure history to produce a ranked hypothesis with explicit supporting and contradicting evidence. It must say “hypothesis,” not “root cause,” unless the evidence is independently confirmed.
-5. A real Strands agent orchestrates read-only tools such as `list_runs`, `compare_attempts`, `inspect_commit_window`, and `build_evidence_packet`. The tools, not free-form model text, define the side-effect boundary.
+5. A real Strands agent orchestrates the read-only tools `inspect_window`, `explain_signal`, and `prepare_review_packet`. The tools, not free-form model text, define the side-effect boundary.
 6. A small review surface shows only the few packets that cross a policy threshold, plus the evidence needed to choose a next action. Approve/hold decisions append an audit event; no CI mutation occurs in the demo.
 
 **Explicit model.** For job `j` over the observation window, let `f_j` be failed attempts and `s_j` successful attempts, excluding cancelled/skipped jobs. `r_j = f_j / (f_j + s_j)`. Let `q_j` be the fraction of same-SHA groups where an initial failure is followed by a success on a later attempt. The conservative baseline policy is:
@@ -170,18 +170,21 @@ The raw scores are close among several professional workflows. The decisive tie-
 
 The thresholds are starting policy parameters, not scientific constants; they are aligned with the Apache Magpie triage pattern and must be sensitivity-tested. For a candidate commit `c`, the agent reports `P(c | e) ∝ P(e | c)P(c)`, where `e` includes temporal proximity, changed-file overlap, test history, and retry evidence. This is a ranked hypothesis, not a causal proof.
 
+**Error-cost assumption.** Let `H` be false holds (an extra review or run), `E` be false escalations (an unsupported quarantine or regression recommendation), `C_H` be the cost of one false hold, and `C_E` the cost of one false escalation. The safety objective is directional rather than monetized: `L = C_H H + C_E E`, with the explicit assumption `C_E > C_H`. The negative control tests the important boundary case `E = 0` for a plausible but weak match; it does not estimate either cost or prove that the current `0.70` hypothesis threshold is optimal.
+
 **Evaluation design.** Build a labelled synthetic replay with at least 60 histories: deterministic regression, same-SHA flake, infrastructure interruption, cancellation, and mixed multi-job runs. Hold out scenarios by incident seed so the agent cannot memorize fixtures. Compare against the baseline policy above plus blind two-rerun triage. Report:
 
 - macro-F1 for `FLAKY` vs `CONSISTENTLY_BROKEN` vs `CLEAN`;
 - same-SHA recovery precision and recall;
 - top-1 culprit-hypothesis hit rate on seeded regressions;
 - false-escalation rate (surfacing a decision where evidence is insufficient);
+- a negative control in which a plausible vocabulary match lacks head-SHA and retry support, proving the policy holds rather than escalates;
 - human decisions required per 10 incidents and median evidence-packet size;
 - exact replay command, fixture hash, model/provider configuration, and failure cases.
 
 The thesis is supported only if the holdout classification clears a pre-registered target of macro-F1 ≥ 0.85, top-1 culprit hit rate is ≥ 0.70, and false-escalation rate is ≤ 0.10 while requiring fewer than half as many human review items as the blind-rerun baseline. These are engineering acceptance targets, not results; the implementation must publish actual results and limitations.
 
-**Safety and ethical boundary.** Synthetic or public non-sensitive data only. Read-only GitHub scope in the first integration. No secrets in fixtures or logs. No automatic rerun, quarantine, issue creation, merge, or workflow edit. An ambiguous or missing evidence packet is surfaced as `INSUFFICIENT_EVIDENCE`; it is never silently discarded.
+**Safety and ethical boundary.** Synthetic or public non-sensitive data only. Read-only GitHub scope in the first integration. No secrets in fixtures or logs. No automatic rerun, quarantine, issue creation, merge, or workflow edit. An ambiguous or missing evidence packet is surfaced as `INSUFFICIENT_EVIDENCE`; it is never silently discarded. The negative-control case makes the asymmetric error cost executable: prefer one extra human review over an unsupported escalation.
 
 **Why this is defensible.** The wedge is not generic “AI explains a failed build.” Its durable unit is a versioned evidence packet joining same-SHA retry behavior, job-level classification, commit/test topology, and a human decision record. Over time, repository-specific flake fingerprints and reviewed outcomes can improve priors and expose threshold drift, while the read-only boundary keeps trust recoverable. The moat is calibrated provenance, not a hidden prompt.
 

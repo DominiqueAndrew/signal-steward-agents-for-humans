@@ -144,6 +144,47 @@ def _mixed_history(index: int) -> BenchmarkHistory:
     )
 
 
+def negative_control_history() -> BenchmarkHistory:
+    """A plausible vocabulary match without head-SHA or recovery evidence."""
+    workflow = "CONTROL/weak-evidence"
+    job_key = f"{workflow} / job"
+    attempts = (
+        _attempt(
+            900000,
+            workflow,
+            "job",
+            "control-head",
+            1,
+            Conclusion.FAILURE,
+            1200,
+            "cache eviction timeout was not captured",
+            ("tests/test_cache.py",),
+        ),
+    )
+    commits = (
+        CommitRecord(
+            sha="control-distractor",
+            committed_at="2026-08-01T21:00:00Z",
+            message="improve cache eviction timeout guidance",
+            changed_files=("tests/test_cache.py",),
+        ),
+        CommitRecord(
+            sha="control-old",
+            committed_at="2026-08-01T20:00:00Z",
+            message="update unrelated documentation",
+            changed_files=("docs/operations.md",),
+        ),
+    )
+    return BenchmarkHistory(
+        history_id="negative-control-weak-evidence",
+        category="negative_control",
+        attempts=attempts,
+        commits=commits,
+        expected={job_key: Classification.CONSISTENTLY_BROKEN},
+        culprit={job_key: None},
+    )
+
+
 def generate_holdout() -> tuple[BenchmarkHistory, ...]:
     histories: list[BenchmarkHistory] = []
     for category in ("deterministic", "flaky", "infrastructure", "cancelled"):

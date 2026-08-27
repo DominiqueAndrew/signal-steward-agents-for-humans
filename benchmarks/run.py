@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import json
+import argparse
 from collections import Counter
 
-from benchmarks.generate import fixture_hash, generate_holdout
+from benchmarks.generate import fixture_hash, generate_holdout, negative_control_history
 from signal_steward.classifier import classify_jobs
 from signal_steward.hypotheses import rank_culprits
 from signal_steward.models import Classification, Conclusion
@@ -108,5 +109,32 @@ def run() -> dict[str, object]:
     }
 
 
+def run_negative_control() -> dict[str, object]:
+    """Evaluate the safety gate on a weak-but-plausible culprit match."""
+    history = negative_control_history()
+    signal = classify_jobs(history.attempts)[0]
+    hypotheses = rank_culprits(
+        [item for item in history.attempts if item.conclusion == Conclusion.FAILURE],
+        history.commits,
+    )
+    queue = build_review_queue((signal,), {signal.job_key: hypotheses})
+    item = queue[0]
+    surfaced_hypothesis = any(line.startswith("top hypothesis") for line in item.evidence)
+    return {
+        "spec_version": "negative-control-2026-08-27.v1",
+        "fixture_sha256": fixture_hash((history,)),
+        "job_key": signal.job_key,
+        "classification": signal.classification.value,
+        "top_hypothesis_score": round(hypotheses[0].score, 4) if hypotheses else None,
+        "review_action": item.action.value,
+        "surfaced_hypothesis": surfaced_hypothesis,
+        "passes_safety_gate": item.action.value == "insufficient_evidence" and not surfaced_hypothesis,
+    }
+
+
 if __name__ == "__main__":
-    print(json.dumps(run(), indent=2, sort_keys=True))
+    parser = argparse.ArgumentParser(description="Run the Signal Steward benchmark.")
+    parser.add_argument("--negative-control", action="store_true", help="run the weak-evidence safety case")
+    args = parser.parse_args()
+    result = run_negative_control() if args.negative_control else run()
+    print(json.dumps(result, indent=2, sort_keys=True))
