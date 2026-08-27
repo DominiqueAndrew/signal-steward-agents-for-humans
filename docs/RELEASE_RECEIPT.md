@@ -1,14 +1,15 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `2ed600cccb5287948bf9e30763664557e070ea33`
+**Validated tree:** `9932a8922d1646e261ebe8582f86bcf7f230fd58`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
 ## Verified
 
-- `15 passed` from `.venv/bin/python -m pytest -q`, including the loopback
-  binding, oversized-fixture, Wilson-interval, and provenance-boundary tests.
+- `16 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+  binding, oversized-fixture, Wilson-interval, provenance-boundary, and offline
+  Strands-construction tests.
 - `.venv/bin/python -m pip check` reports `No broken requirements found.`
 - Main holdout: `holdout-2026-08-27.v1`, fixture SHA
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`, 60
@@ -21,6 +22,9 @@
 - CLI and browser expose Strands Agents SDK `1.53.0` with exactly three
   read-only tools: `inspect_window`, `explain_signal`, and
   `prepare_review_packet`; no side effects are registered.
+- Offline construction of a real Strands `Agent` succeeds without provider
+  invocation and exposes exactly those three tool names; no audit event is
+  created by construction.
 - Browser checks show the real local service, three review items, the
   insufficient-evidence case, human hold → append-only audit event, zero
   console errors, and no horizontal overflow at 390, 768, 1366, 1440, 1920,
