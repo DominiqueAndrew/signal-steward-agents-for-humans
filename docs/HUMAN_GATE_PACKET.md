@@ -7,7 +7,7 @@ submit a project, or claim a live AWS deployment.
 ## Live official facts (refreshed 2026-08-27)
 
 Fetched through the Devpost Hackathons capability on 2026-08-27 at
-17:07:19–17:07:24 UTC; the event page remains in `submissions_open`.
+17:19:09–17:19:16 UTC; the event page remains in `submissions_open`.
 
 - Event: [Agents for Humans Hackathon](https://agentsforhumans.devpost.com/)
 - Deadline: **2026-09-15 00:00:00 UTC** (the event is displayed in Pacific Time;
@@ -24,6 +24,10 @@ Fetched through the Devpost Hackathons capability on 2026-08-27 at
   public code-repository URL, architecture diagram upload, and AWS Builder ID.
 - Judging criteria: Technological Implementation, Design, Potential Impact,
   Creativity & Originality, and Presentation.
+- Optional build-cost support: registered participants can request **$50 in AWS
+  Promotional Credits**, while supplies last, through the Resources form by
+  **2026-09-11 at 12:00 PT**; AWS Promotional Credits terms apply. This is not
+  evidence of an AWS deployment or a grant of credits.
 
 The authoritative pages are [rules](https://agentsforhumans.devpost.com/rules),
 [resources](https://agentsforhumans.devpost.com/resources), and the
@@ -59,6 +63,18 @@ claim, and it does not replace the participant’s Builder ID field.
 Human-only gate: the participant decides whether the personal eligibility
 statements are true and whether to use an AWS account. The agent must not make
 that decision.
+
+Optional AWS credit action (separate from the identity check):
+
+- Required input: the participant must be registered for the hackathon and must
+  personally authorize any AWS credit request.
+- Click path: [Agents for Humans Resources](https://agentsforhumans.devpost.com/resources)
+  → **Request your AWS Credits** → complete the linked request form before
+  2026-09-11 at 12:00 PT.
+- Expected evidence: the participant’s own confirmation that the request was
+  submitted. Do not claim credits were granted without the provider’s result.
+- Fallback: use the credential-free local demo; no AWS credit request is needed
+  to run the repository.
 
 ## Gate 2 — public demo video
 
@@ -105,7 +121,7 @@ Use these prepared values:
 | Demo video | The public/unlisted YouTube or Vimeo URL from Gate 2 |
 | Live demo | Optional: leave blank if no public deployment exists |
 | Testing instructions | `python3 -m venv .venv && .venv/bin/python -m pip install -e '.[dev]' && .venv/bin/python -m pytest -q`; then run the local server command above |
-| Bonus blog | Optional; leave blank unless a truthful public AWS Builder post exists |
+| Bonus blog | Optional; if used, the current form says it must be on `builder.aws` and use `#AgentsofFootball`; leave blank unless a truthful public post exists |
 
 Before the final click, verify:
 
