@@ -81,6 +81,7 @@ def test_human_packet_bounds_third_party_review_without_claiming_clearance() -> 
     assert "does not settle third-party permissions" in packet
     assert "submission adds original functionality" in packet
     assert "must still review" in packet
+    assert "no full transitive lockfile" in packet
 
 
 def test_public_release_verifier_is_read_only_and_covers_judge_artifacts() -> None:

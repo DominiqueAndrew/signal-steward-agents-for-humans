@@ -147,6 +147,9 @@ Observed inventory to make this review bounded (not legal clearance):
 - Test-only dependency: `pytest>=8.3,<9`; this release environment resolved
   `pytest==8.4.2`, whose installed metadata reports MIT. It is not shipped as
   an application runtime dependency.
+- Reproducibility limitation: the runtime Strands pin and test-runner range
+  are committed, but there is no full transitive lockfile; compatible
+  dependency versions remain resolver-managed for each Python 3.11 install.
 - Public data inputs: the two small, manually normalized JSON fixtures named in
   [`PUBLIC_CASES.md`](PUBLIC_CASES.md), each linked to its primary public issue
   source. Raw logs and unneeded source content are not bundled.
