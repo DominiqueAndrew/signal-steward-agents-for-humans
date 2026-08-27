@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `15ccb5067b59461cfb1277a98a7a02b62ff8fe0b`
+**Validated release-content tree:** `c6ffe4f5c85e3562e41f043ececa5b550dbe2196`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -114,20 +114,20 @@ published.
 - The same release gate was invoked by absolute path from `/tmp`; it entered
   its repository root before running tests and passed 36 tests, dependencies,
   all benchmark modes, the whitespace check, and the secret-pattern scan.
-- Public [GitHub Actions run #96](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33119491993)
-  for commit `15ccb5067b59461cfb1277a98a7a02b62ff8fe0b` completed with
+- Public [GitHub Actions run #98](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33120030078)
+  for commit `c6ffe4f5c85e3562e41f043ececa5b550dbe2196` completed with
   status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
   Python 3.11, dependency installation, the canonical release gate, and CLI
   replay. The release gate covered 36 tests, `pip check`, all benchmark modes,
   `git diff --check`, and the secret-pattern scan.
 - Fresh public-clone gate: public release-content commit
-  `15ccb5067b59461cfb1277a98a7a02b62ff8fe0b` matched remote `main`; a new
+  `c6ffe4f5c85e3562e41f043ececa5b550dbe2196` matched remote `main`; a new
   Python 3.11.5 venv installed `.[dev]`, built a wheel, imported that wheel
   from an isolated target outside the checkout, then `./scripts/verify-release.sh`
   returned `36 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `15ccb5067b59461cfb1277a98a7a02b62ff8fe0b` at the time of the
+  `c6ffe4f5c85e3562e41f043ececa5b550dbe2196` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
