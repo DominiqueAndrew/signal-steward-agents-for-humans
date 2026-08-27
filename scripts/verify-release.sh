@@ -4,6 +4,8 @@ set -euo pipefail
 repo_root="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 python_bin="$repo_root/.venv/bin/python"
 
+cd "$repo_root"
+
 if [[ ! -x "$python_bin" ]]; then
   printf 'missing %s; create the environment with: python3 -m venv .venv && .venv/bin/python -m pip install -e '\''.[dev]'\''\n' "$python_bin" >&2
   exit 2
