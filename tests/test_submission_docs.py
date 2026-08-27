@@ -69,6 +69,9 @@ def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
     assert "the evaluated Signal Steward ranker" in results
     assert "production classifier" not in results
     assert "production ranker" not in results
+    assert "The 24/24 culprit hit rate has a 95% Wilson interval" in results
+    assert "The latter upper bound exceeds the 0.10 target" in results
+    assert "The benchmark does **not** show that Signal Steward classifies real repositories accurately" in results
     assert "model → tools → reasoning → response" in architecture
     assert "model → tools → reasoning → response" in architecture_diagram
     assert "model → tools → reasoning → response" in draft
