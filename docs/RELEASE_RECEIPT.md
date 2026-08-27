@@ -1,13 +1,14 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `435e8c0dfc0be45a7404cd5664bc46f183a9cccb`  
+**Validated tree:** `8840910845897900357626122e1fffdee1bb53e5`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
 ## Verified
 
-- `11 passed` from `.venv/bin/python -m pytest -q`.
+- `13 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+  binding and oversized-fixture regression tests.
 - `.venv/bin/python -m pip check` reports `No broken requirements found.`
 - Main holdout: `holdout-2026-08-27.v1`, fixture SHA
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`, 60
@@ -28,6 +29,12 @@
   2400×1350; source is `docs/architecture-diagram.svg`.
 - `git diff --check` passes and the tracked tree contains no AWS access-key or
   private-key pattern.
+- The local server rejects non-loopback binding, fixture ingest rejects inputs
+  over 2 MiB, and the bounded threat model is recorded in
+  [`signal-steward-threat-model.md`](../signal-steward-threat-model.md).
+- Fresh HTTP smoke on the validated tree returned `/health` 200, `/api/report`
+  200 with 9 runs, 9 jobs, 3 review items, 0 audit events, the three read-only
+  Strands tools, and 404 for an unknown route.
 - The authorized local environment passed the bounded read-only AWS STS identity
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
@@ -55,6 +62,8 @@
 .venv/bin/python -m benchmarks.run --negative-control
 .venv/bin/python -m signal_steward
 .venv/bin/python -m signal_steward.server --port 8810
+git diff --check
+git grep -nE 'AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-[A-Za-z0-9]{20,}' -- ':!docs/HUMAN_GATE_PACKET.md'
 ```
 
 The exact human handoff is [`HUMAN_GATE_PACKET.md`](HUMAN_GATE_PACKET.md).
