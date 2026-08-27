@@ -7,8 +7,8 @@
 
 ## Verified
 
-- `13 passed` from `.venv/bin/python -m pytest -q`, including the loopback
-  binding and oversized-fixture regression tests.
+- `14 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+  binding, oversized-fixture, and Wilson-interval regression tests.
 - `.venv/bin/python -m pip check` reports `No broken requirements found.`
 - Main holdout: `holdout-2026-08-27.v1`, fixture SHA
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`, 60

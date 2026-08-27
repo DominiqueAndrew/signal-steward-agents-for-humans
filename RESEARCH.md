@@ -170,6 +170,18 @@ The raw scores are close among several professional workflows. The decisive tie-
 
 The thresholds are starting policy parameters, not scientific constants; they are aligned with the Apache Magpie triage pattern and must be sensitivity-tested. For a candidate commit `c`, the agent reports `P(c | e) ∝ P(e | c)P(c)`, where `e` includes temporal proximity, changed-file overlap, test history, and retry evidence. This is a ranked hypothesis, not a causal proof.
 
+**Uncertainty reporting.** For a binary holdout metric with `x` successes in
+`n` trials, let `p̂ = x/n`, `z = 1.96`, `d = 1 + z²/n`,
+`center = (p̂ + z²/(2n))/d`, and `half =
+z√(p̂(1−p̂)/n + z²/(4n²))/d`. The reported 95% Wilson score interval is
+`[center − half, center + half]`, clipped to `[0, 1]` and rounded to four
+decimals. This follows Brown, Cai, and DasGupta’s primary
+comparison of binomial intervals, which recommends Wilson intervals for small
+samples and extreme proportions ([Statistical Science, 2001](https://projecteuclid.org/journals/statistical-science/volume-16/issue-2/Interval-Estimation-for-a-Binomial-Proportion/10.1214/ss/1009213286.pdf)).
+Here the interval is descriptive under an iid Bernoulli approximation; the
+synthetic histories are not a random sample of production incidents, so it is
+not a production confidence claim.
+
 **Error-cost assumption.** Let `H` be false holds (an extra review or run), `E` be false escalations (an unsupported quarantine or regression recommendation), `C_H` be the cost of one false hold, and `C_E` the cost of one false escalation. The safety objective is directional rather than monetized: `L = C_H H + C_E E`, with the explicit assumption `C_E > C_H`. The negative control tests the important boundary case `E = 0` for a plausible but weak match; it does not estimate either cost or prove that the current `0.70` hypothesis threshold is optimal.
 
 **Evaluation design.** Build a labelled synthetic replay with at least 60 histories: deterministic regression, same-SHA flake, infrastructure interruption, cancellation, and mixed multi-job runs. Hold out scenarios by incident seed so the agent cannot memorize fixtures. Compare against the baseline policy above plus blind two-rerun triage. Report:
@@ -181,6 +193,8 @@ The thresholds are starting policy parameters, not scientific constants; they ar
 - a negative control in which a plausible vocabulary match lacks head-SHA and retry support, proving the policy holds rather than escalates;
 - human decisions required per 10 incidents and median evidence-packet size;
 - exact replay command, fixture hash, model/provider configuration, and failure cases.
+- point estimates with denominators and Wilson intervals for binary hit/safety
+  rates; interpret intervals separately from the pre-registered point gates.
 
 The thesis is supported only if the holdout classification clears a pre-registered target of macro-F1 ≥ 0.85, top-1 culprit hit rate is ≥ 0.70, and false-escalation rate is ≤ 0.10 while requiring fewer than half as many human review items as the blind-rerun baseline. These are engineering acceptance targets, not results; the implementation must publish actual results and limitations.
 
