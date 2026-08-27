@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3`
+**Validated release-content tree:** `7d111422ef9ceedd8af323a9cdc2a49f33e204e7`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -17,7 +17,8 @@ published.
   Strands-construction, HTTP-contract, public-incident sanity, and submission
   documentation regression tests for the public video, judge artifacts,
   under-five-minute demo budget, receipt SHA boundary, project-age provenance
-  boundary, and bounded third-party inventory review.
+  boundary, bounded third-party inventory review, and open-source submission
+  enhancement gate.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
@@ -90,7 +91,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3`: all 14 release artifacts
+  `7d111422ef9ceedd8af323a9cdc2a49f33e204e7`: all 14 release artifacts
   returned HTTP 200. The architecture responses were `image/png` and
   `image/svg+xml`; the compliance packet and Devpost draft contained the
   ownership, permissions, language, public-access gates, and the receipt-only
@@ -109,17 +110,17 @@ published.
 - The same release gate was invoked by absolute path from `/tmp`; it entered
   its repository root before running tests and passed 35 tests, dependencies,
   all benchmark modes, the whitespace check, and the secret-pattern scan.
-- Public [GitHub Actions run #67](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33112578251)
-  for commit `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3` completed with
+- Public [GitHub Actions run #69](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33113134780)
+  for commit `7d111422ef9ceedd8af323a9cdc2a49f33e204e7` completed with
   status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
   Python 3.11, dependency installation, the test suite, and CLI replay.
 - Fresh public-clone gate: commit
-  `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3` matched remote `main`; a new
+  `7d111422ef9ceedd8af323a9cdc2a49f33e204e7` matched remote `main`; a new
   Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
   returned `35 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `1e42aa4dfd503f81f592f270c8366a3f6f75c2a3` at the time of the
+  `7d111422ef9ceedd8af323a9cdc2a49f33e204e7` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
