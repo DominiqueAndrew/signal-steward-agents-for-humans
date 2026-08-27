@@ -6,6 +6,10 @@ public_branch="${SIGNAL_STEWARD_PUBLIC_BRANCH:-main}"
 github_repo="https://github.com/${public_repo}.git"
 api_base="https://api.github.com/repos/${public_repo}"
 curl_args=(--fail --silent --show-error --location --max-time 20)
+github_token="${SIGNAL_STEWARD_GITHUB_TOKEN:-${GITHUB_TOKEN:-}}"
+if [[ -n "$github_token" ]]; then
+  curl_args+=( -H "Authorization: Bearer $github_token" )
+fi
 
 printf '%s\n' '== Signal Steward public release verification =='
 printf 'repository: %s\n' "$public_repo"
