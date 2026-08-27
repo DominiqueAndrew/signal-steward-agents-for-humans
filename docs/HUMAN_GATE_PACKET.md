@@ -124,6 +124,9 @@ confirm:
 3. Every third-party SDK, library, template, API, dataset, or public incident
    fixture is authorized for this use and its applicable license/terms are
    satisfied. The participant confirms any required attribution or disclosure.
+   If open-source software or hardware is included, the participant also
+   confirms that the submission adds original functionality to it and complies
+   with the applicable open-source license.
 4. If entering for a team or organization, the submitter is the authorized
    representative. The project has not received prohibited financial or
    preferential support from the sponsor or administrator.

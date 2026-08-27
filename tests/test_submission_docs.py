@@ -77,4 +77,5 @@ def test_human_packet_bounds_third_party_review_without_claiming_clearance() -> 
     assert "pytest>=8.3,<9" in packet
     assert "two small, manually normalized JSON fixtures" in packet
     assert "does not settle third-party permissions" in packet
+    assert "submission adds original functionality" in packet
     assert "must still review" in packet
