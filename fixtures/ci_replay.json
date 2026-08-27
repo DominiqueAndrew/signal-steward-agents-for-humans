@@ -1,0 +1,148 @@
+{
+  "runs": [
+    {
+      "run_id": 1001,
+      "workflow": "CI",
+      "head_sha": "sha-flake-1",
+      "attempt": 1,
+      "started_at": "2026-08-25T09:00:00Z",
+      "jobs": [
+        {
+          "name": "integration",
+          "conclusion": "failure",
+          "log_excerpt": "cache warmup timeout while waiting for redis",
+          "touched_files": ["tests/test_cache.py"]
+        }
+      ]
+    },
+    {
+      "run_id": 1002,
+      "workflow": "CI",
+      "head_sha": "sha-flake-1",
+      "attempt": 2,
+      "started_at": "2026-08-25T09:08:00Z",
+      "jobs": [
+        {
+          "name": "integration",
+          "conclusion": "success",
+          "log_excerpt": "cache warmup completed",
+          "touched_files": ["tests/test_cache.py"]
+        }
+      ]
+    },
+    {
+      "run_id": 1003,
+      "workflow": "CI",
+      "head_sha": "sha-flake-2",
+      "attempt": 1,
+      "started_at": "2026-08-26T09:00:00Z",
+      "jobs": [
+        {
+          "name": "integration",
+          "conclusion": "success",
+          "log_excerpt": "integration checks passed"
+        }
+      ]
+    },
+    {
+      "run_id": 1010,
+      "workflow": "CI",
+      "head_sha": "sha-broken-1",
+      "attempt": 1,
+      "started_at": "2026-08-25T10:00:00Z",
+      "jobs": [
+        {
+          "name": "unit",
+          "conclusion": "failure",
+          "log_excerpt": "AssertionError cache eviction expected 2 got 3",
+          "touched_files": ["src/cache.py"]
+        }
+      ]
+    },
+    {
+      "run_id": 1011,
+      "workflow": "CI",
+      "head_sha": "sha-broken-2",
+      "attempt": 1,
+      "started_at": "2026-08-26T10:00:00Z",
+      "jobs": [
+        {
+          "name": "unit",
+          "conclusion": "failure",
+          "log_excerpt": "AssertionError cache eviction expected 2 got 3",
+          "touched_files": ["src/cache.py"]
+        }
+      ]
+    },
+    {
+      "run_id": 1012,
+      "workflow": "CI",
+      "head_sha": "sha-broken-3",
+      "attempt": 1,
+      "started_at": "2026-08-27T10:00:00Z",
+      "jobs": [
+        {
+          "name": "unit",
+          "conclusion": "failure",
+          "log_excerpt": "AssertionError cache eviction expected 2 got 3",
+          "touched_files": ["src/cache.py"]
+        }
+      ]
+    },
+    {
+      "run_id": 1020,
+      "workflow": "CI",
+      "head_sha": "sha-clean-1",
+      "attempt": 1,
+      "started_at": "2026-08-27T11:00:00Z",
+      "jobs": [
+        {
+          "name": "lint",
+          "conclusion": "success",
+          "log_excerpt": "lint passed"
+        }
+      ]
+    },
+    {
+      "run_id": 1030,
+      "workflow": "CI",
+      "head_sha": "sha-cancelled-1",
+      "attempt": 1,
+      "started_at": "2026-08-27T11:10:00Z",
+      "jobs": [
+        {
+          "name": "e2e",
+          "conclusion": "cancelled",
+          "log_excerpt": "superseded by a newer commit"
+        }
+      ]
+    }
+  ],
+  "commits": [
+    {
+      "sha": "sha-broken-1",
+      "committed_at": "2026-08-25T08:30:00Z",
+      "message": "refactor cache eviction policy",
+      "changed_files": ["src/cache.py"]
+    },
+    {
+      "sha": "sha-flake-1",
+      "committed_at": "2026-08-25T08:45:00Z",
+      "message": "parallelize cache integration setup",
+      "changed_files": ["tests/test_cache.py"]
+    },
+    {
+      "sha": "sha-broken-2",
+      "committed_at": "2026-08-26T08:30:00Z",
+      "message": "rename cache counters",
+      "changed_files": ["src/metrics.py"]
+    },
+    {
+      "sha": "sha-broken-3",
+      "committed_at": "2026-08-27T08:30:00Z",
+      "message": "update documentation",
+      "changed_files": ["docs/cache.md"]
+    }
+  ]
+}
+

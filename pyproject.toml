@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signal-steward"
+version = "0.1.0"
+description = "Evidence-first, read-only CI failure triage with a human decision boundary."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Dominique Andrew" }]
+dependencies = [
+  "strands-agents==1.53.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+]
+
+[project.scripts]
+signal-steward = "signal_steward.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["signal_steward*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
