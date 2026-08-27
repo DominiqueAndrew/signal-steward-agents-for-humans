@@ -135,6 +135,23 @@ Expected evidence: the participant’s own confirmation and any required
 disclosures or permissions. The agent must not infer ownership, consent,
 eligibility, representation, or license compliance from the repository.
 
+Observed inventory to make this review bounded (not legal clearance):
+
+- Runtime dependency: `strands-agents==1.53.0`, whose installed local package
+  metadata reports Apache-2.0 and links to the [Strands source repository](https://github.com/strands-agents/harness-sdk).
+- Test-only dependency: `pytest>=8.3,<9`; this release environment resolved
+  `pytest==8.4.2`, whose installed metadata reports MIT. It is not shipped as
+  an application runtime dependency.
+- Public data inputs: the two small, manually normalized JSON fixtures named in
+  [`PUBLIC_CASES.md`](PUBLIC_CASES.md), each linked to its primary public issue
+  source. Raw logs and unneeded source content are not bundled.
+- The repository’s [`LICENSE`](../LICENSE) is Apache-2.0 for project-authored
+  material; it does not settle third-party permissions, attribution, or terms.
+
+The participant must still review the current package metadata, source terms,
+fixture provenance, and any attribution obligations personally before claiming
+that the submission is authorized.
+
 Optional AWS credit action (separate from the identity check):
 
 - Required input: the participant must be registered for the hackathon and must

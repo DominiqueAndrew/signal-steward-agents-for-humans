@@ -67,3 +67,14 @@ def test_human_packet_limits_project_age_evidence_to_its_provenance_scope() -> N
     assert "2026-08-27T18:27:04+02:00" in packet
     assert "Git metadata alone" in packet
     assert "cannot prove when underlying work was created" in packet
+
+
+def test_human_packet_bounds_third_party_review_without_claiming_clearance() -> None:
+    packet = (REPO_ROOT / "docs" / "HUMAN_GATE_PACKET.md").read_text()
+
+    assert "Observed inventory to make this review bounded (not legal clearance)" in packet
+    assert "strands-agents==1.53.0" in packet
+    assert "pytest>=8.3,<9" in packet
+    assert "two small, manually normalized JSON fixtures" in packet
+    assert "does not settle third-party permissions" in packet
+    assert "must still review" in packet
