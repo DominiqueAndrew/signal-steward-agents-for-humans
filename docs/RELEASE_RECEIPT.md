@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `2cfe8c0315a2295f7b01f7a7512c31b7994d82a7`
+**Validated release-content tree:** `36093c56ceded8ed18d69a4d51d9981a9700790b`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -81,7 +81,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `2cfe8c0315a2295f7b01f7a7512c31b7994d82a7`: all 11
+  `36093c56ceded8ed18d69a4d51d9981a9700790b`: all 11
   GitHub document URLs and both architecture raw URLs returned HTTP 200. The
   PNG response was `image/png`, 337,684 bytes; the SVG response was
   `image/svg+xml`, 6,325 bytes. This was a certificate-verified, read-only
@@ -89,13 +89,17 @@ published.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
   repository root: 30 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
+- Public [GitHub Actions run #48](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33106610276)
+  for commit `36093c56ceded8ed18d69a4d51d9981a9700790b` completed with
+  status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
+  Python 3.11, dependency installation, the test suite, and CLI replay.
 - Fresh public-clone gate: commit
-  `2cfe8c0315a2295f7b01f7a7512c31b7994d82a7` matched remote `main`; a new
+  `36093c56ceded8ed18d69a4d51d9981a9700790b` matched remote `main`; a new
   Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
   returned `30 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `2cfe8c0315a2295f7b01f7a7512c31b7994d82a7` at the time of the
+  `36093c56ceded8ed18d69a4d51d9981a9700790b` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
