@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `141aa4fa6325ec0b7c481ae6e62cfa6a7f383eb0`
+**Validated release-content tree:** `a7dbe7aaceed64ed7f9953ebf3fe789004e73692`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-28 (Europe/Paris)
 
@@ -40,6 +40,10 @@ published.
   regression assertions that retain the descriptive Wilson interval, the
   false-escalation upper-bound limitation, and the explicit non-production
   accuracy caveat in `RESULTS.md`.
+- Release-content commit `a7dbe7aaceed64ed7f9953ebf3fe789004e73692` binds
+  `RESULTS.md` to the latest benchmark implementation commit
+  `69ab4f096a84b640fb133d9217ac83d1106891f4` and regression-checks that its
+  embedded JSON exactly matches a current `benchmarks.run()` result.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
