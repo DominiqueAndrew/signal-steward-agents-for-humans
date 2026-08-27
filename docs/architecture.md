@@ -16,6 +16,8 @@ flowchart LR
   I -. evidence packet only .-> F
 ```
 
+For a Devpost-compatible upload, use the rendered [`architecture-diagram.png`](architecture-diagram.png); this Mermaid source remains the reviewable text version.
+
 ## Boundaries
 
 | Component | Responsibility | Side effects |
@@ -29,4 +31,3 @@ flowchart LR
 | Audit | Record approve/hold choice and rationale | Append-only local event |
 
 The production integration should use a least-privilege GitHub App or token that can read workflow runs and repository metadata. The local default has no network path and uses `:memory:` storage. CI mutation, issue creation, test quarantine, PR creation, merge, and secret access are intentionally absent from the tool surface.
-

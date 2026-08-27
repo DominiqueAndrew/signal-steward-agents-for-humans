@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Signal Steward read-only evidence architecture</title>
+  <desc id="desc">A GitHub Actions export or local replay flows through a read-only collector, immutable evidence store, deterministic classifier and hypothesis ranker, human review policy gate, review queue, and append-only human decision audit. A Strands agent can inspect only read-only tools.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#286342"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#75827b"/>
+    </marker>
+    <style>
+      .ink { fill: #17221f; font-family: Arial, Helvetica, sans-serif; }
+      .muted { fill: #66716c; font-family: Arial, Helvetica, sans-serif; }
+      .node { fill: #ffffff; stroke: #cbd7ce; stroke-width: 2; }
+      .node-strong { fill: #e4f2e9; stroke: #286342; stroke-width: 2; }
+      .node-soft { fill: #f1f4f1; stroke: #cbd7ce; stroke-width: 2; }
+      .edge { fill: none; stroke: #286342; stroke-width: 3; marker-end: url(#arrow); }
+      .edge-muted { fill: none; stroke: #75827b; stroke-width: 2; stroke-dasharray: 9 8; marker-end: url(#arrow-muted); }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fbfcfa"/>
+  <text x="90" y="92" class="muted" font-size="19" font-weight="700" letter-spacing="4">SIGNAL STEWARD / READ-ONLY EVIDENCE LOOP</text>
+  <text x="90" y="146" class="ink" font-size="42" font-weight="700">Background analysis. Human-owned action.</text>
+  <text x="90" y="184" class="muted" font-size="21">Every boundary below is explicit: evidence in, review packet out, no repository mutation.</text>
+
+  <rect x="90" y="300" width="190" height="108" rx="3" class="node"/>
+  <text x="112" y="338" class="ink" font-size="19" font-weight="700">Actions export</text>
+  <text x="112" y="369" class="muted" font-size="16">or local fixture</text>
+  <text x="112" y="392" class="muted" font-size="14">runs · jobs · commits</text>
+
+  <rect x="350" y="300" width="190" height="108" rx="3" class="node-strong"/>
+  <text x="372" y="338" class="ink" font-size="19" font-weight="700">Read-only</text>
+  <text x="372" y="364" class="ink" font-size="19" font-weight="700">collector</text>
+  <text x="372" y="392" class="muted" font-size="14">validate + hash</text>
+
+  <rect x="610" y="300" width="220" height="108" rx="3" class="node-soft"/>
+  <text x="632" y="338" class="ink" font-size="19" font-weight="700">Immutable evidence</text>
+  <text x="632" y="364" class="ink" font-size="19" font-weight="700">store</text>
+  <text x="632" y="392" class="muted" font-size="14">SQLite · conflict fails closed</text>
+
+  <rect x="900" y="232" width="230" height="108" rx="3" class="node"/>
+  <text x="922" y="270" class="ink" font-size="19" font-weight="700">Signal classifier</text>
+  <text x="922" y="298" class="muted" font-size="16">failure rate + retry</text>
+  <text x="922" y="322" class="muted" font-size="14">flaky / broken / clean</text>
+
+  <rect x="900" y="388" width="230" height="108" rx="3" class="node"/>
+  <text x="922" y="426" class="ink" font-size="19" font-weight="700">Hypothesis ranker</text>
+  <text x="922" y="454" class="muted" font-size="16">SHA + vocabulary</text>
+  <text x="922" y="478" class="muted" font-size="14">hypothesis, never proof</text>
+
+  <rect x="1200" y="300" width="210" height="108" rx="3" class="node-strong"/>
+  <text x="1222" y="338" class="ink" font-size="19" font-weight="700">Policy gate</text>
+  <text x="1222" y="366" class="muted" font-size="16">surface only genuine</text>
+  <text x="1222" y="390" class="muted" font-size="16">human decisions</text>
+
+  <rect x="1200" y="532" width="210" height="108" rx="3" class="node"/>
+  <text x="1222" y="570" class="ink" font-size="19" font-weight="700">Review queue</text>
+  <text x="1222" y="598" class="muted" font-size="16">investigate · quarantine</text>
+  <text x="1222" y="622" class="muted" font-size="16">or insufficient evidence</text>
+
+  <rect x="1200" y="714" width="210" height="74" rx="3" class="node-soft"/>
+  <text x="1222" y="758" class="ink" font-size="18" font-weight="700">Human audit event</text>
+
+  <line x1="280" y1="354" x2="350" y2="354" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="540" y1="354" x2="610" y2="354" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="830" y1="338" x2="900" y2="338" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
+  <polyline points="830,370 850,370 860,442 900,442" fill="none" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
+  <polyline points="1130,286 1160,286 1165,338 1200,338" fill="none" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
+  <polyline points="1130,442 1160,442 1165,370 1200,370" fill="none" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1305" y1="408" x2="1305" y2="532" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1305" y1="640" x2="1305" y2="714" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="618" y="550" width="400" height="154" rx="3" fill="#ffffff" stroke="#9aa9a0" stroke-width="2"/>
+  <text x="645" y="588" class="ink" font-size="19" font-weight="700">Strands agent adapter</text>
+  <text x="645" y="619" class="muted" font-size="16">inspect_window · explain_signal</text>
+  <text x="645" y="645" class="muted" font-size="16">prepare_review_packet</text>
+  <text x="645" y="680" class="ink" font-size="15" font-weight="700">READ-ONLY TOOLS ONLY</text>
+  <polyline points="720,408 720,500 760,530 790,550" fill="none" stroke="#75827b" stroke-width="2" stroke-dasharray="9 8" marker-end="url(#arrow-muted)"/>
+  <polyline points="1018,627 1085,627 1130,480 1200,390" fill="none" stroke="#75827b" stroke-width="2" stroke-dasharray="9 8" marker-end="url(#arrow-muted)"/>
+
+  <line x1="90" y1="842" x2="1510" y2="842" stroke="#dfe5e1" stroke-width="2"/>
+  <text x="90" y="875" class="muted" font-size="15">Side effects intentionally absent: no CI rerun, issue, quarantine, merge, or secret access.</text>
+</svg>
