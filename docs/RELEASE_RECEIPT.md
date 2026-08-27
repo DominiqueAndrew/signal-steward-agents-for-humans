@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `db6e0dd185f478a4da37651a40cd93e4db56290c`
+**Validated release-content tree:** `2c745e0217f6201edcaa3a2f59c708db8f559e70`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -94,7 +94,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `db6e0dd185f478a4da37651a40cd93e4db56290c`: all 15 release artifacts
+  `2c745e0217f6201edcaa3a2f59c708db8f559e70`: all 15 release artifacts
   returned HTTP 200. The architecture responses were `image/png` and
   `image/svg+xml`; the compliance packet and Devpost draft contained the
   ownership, permissions, language, public-access gates, and the receipt-only
@@ -103,38 +103,39 @@ published.
   certificate-verified, read-only HTTPS check; no login or Devpost action was
   performed.
 - Public GitHub repository metadata at the receipt-refresh verification was
-  `public`, default branch `main`, Apache-2.0 licensed, not archived, and not
-  disabled. This directly covers the public repository and detectable
-  open-source-license requirement; recheck the repository metadata before any
-  final Devpost action.
+  checked through the authenticated, read-only `gh api` command: `public`,
+  default branch `main`, Apache-2.0 licensed, not archived, and not disabled.
+  This directly covers the public repository and detectable open-source-license
+  requirement; recheck the repository metadata before any final Devpost action.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
   repository root: 36 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
 - The same release gate was invoked by absolute path from `/tmp`; it entered
   its repository root before running tests and passed 36 tests, dependencies,
   all benchmark modes, the whitespace check, and the secret-pattern scan.
-- Public [GitHub Actions run #88](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33117858051)
-  for commit `db6e0dd185f478a4da37651a40cd93e4db56290c` completed with
+- Public [GitHub Actions run #90](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33118171611)
+  for commit `2c745e0217f6201edcaa3a2f59c708db8f559e70` completed with
   status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
   Python 3.11, dependency installation, the canonical release gate, and CLI
   replay. The release gate covered 36 tests, `pip check`, all benchmark modes,
   `git diff --check`, and the secret-pattern scan.
 - Fresh public-clone gate: public release-content commit
-  `db6e0dd185f478a4da37651a40cd93e4db56290c` matched remote `main`; a new
+  `2c745e0217f6201edcaa3a2f59c708db8f559e70` matched remote `main`; a new
   Python 3.11.5 venv installed `.[dev]`, built a wheel, imported that wheel
   from an isolated target outside the checkout, then `./scripts/verify-release.sh`
   returned `36 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `db6e0dd185f478a4da37651a40cd93e4db56290c` at the time of the
+  `2c745e0217f6201edcaa3a2f59c708db8f559e70` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
-- After this receipt refresh, the read-only `./scripts/verify-public-release.sh`
-  gate passed against the current public `main`: the GitHub comparison reported
-  `status=ahead`, `behind_by=0`, and one changed file (`docs/RELEASE_RECEIPT.md`);
-  all 15 public artifacts, both architecture MIME types, and repository
-  metadata checks passed.
+- An anonymous invocation of `./scripts/verify-public-release.sh` correctly
+  failed closed when GitHub returned HTTP 403 with its core API rate limit at
+  zero; no metadata pass was claimed from that partial check. A subsequent
+  invocation using an already-authorized, read-only `GITHUB_TOKEN` passed the
+  same metadata check, while the artifact and receipt-boundary checks remained
+  read-only throughout.
 
 ## Human-gated / not claimed
 
