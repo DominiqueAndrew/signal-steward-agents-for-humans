@@ -15,6 +15,7 @@ from .store import EvidenceStore
 
 DEFAULT_FIXTURE = Path(__file__).resolve().parents[1] / "fixtures" / "ci_replay.json"
 STATIC_INDEX = Path(__file__).resolve().parents[1] / "static" / "index.html"
+LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1"}
 
 
 class AppState:
@@ -126,6 +127,8 @@ class SignalStewardRequestHandler(BaseHTTPRequestHandler):
 
 
 def create_server(host: str = "127.0.0.1", port: int = 8810, fixture: Path = DEFAULT_FIXTURE) -> SignalStewardHTTPServer:
+    if host not in LOOPBACK_HOSTS:
+        raise ValueError("Signal Steward local server must bind to loopback")
     return SignalStewardHTTPServer((host, port), AppState(fixture))
 
 

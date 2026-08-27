@@ -1,6 +1,9 @@
 from pathlib import Path
 
+import pytest
+
 from signal_steward.server import AppState
+from signal_steward.server import create_server
 
 
 FIXTURE = Path(__file__).resolve().parents[1] / "fixtures" / "ci_replay.json"
@@ -29,3 +32,8 @@ def test_local_demo_payload_and_audit_boundary() -> None:
         assert updated["audit_events"][0]["decision"] == "hold"
     finally:
         state.close()
+
+
+def test_server_rejects_non_loopback_binding() -> None:
+    with pytest.raises(ValueError, match="bind to loopback"):
+        create_server("0.0.0.0", 8810, FIXTURE)

@@ -7,6 +7,8 @@ from typing import Any
 
 from .models import CommitRecord, Conclusion, JobAttempt, ReplayBundle
 
+MAX_FIXTURE_BYTES = 2 * 1024 * 1024
+
 
 def _required(value: Any, field: str) -> Any:
     if value is None or value == "":
@@ -18,6 +20,8 @@ def load_bundle(path: str | Path) -> ReplayBundle:
     """Load a small GitHub Actions-shaped replay without contacting GitHub."""
 
     source = Path(path).read_bytes()
+    if len(source) > MAX_FIXTURE_BYTES:
+        raise ValueError(f"fixture exceeds the {MAX_FIXTURE_BYTES}-byte safety limit")
     try:
         payload = json.loads(source)
     except json.JSONDecodeError as exc:
@@ -64,4 +68,3 @@ def load_bundle(path: str | Path) -> ReplayBundle:
         commits=tuple(commits),
         source_hash=hashlib.sha256(source).hexdigest(),
     )
-

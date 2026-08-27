@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from signal_steward.ingest import load_bundle
+from signal_steward.ingest import MAX_FIXTURE_BYTES, load_bundle
 from signal_steward.store import EvidenceStore
 
 
@@ -33,3 +33,10 @@ def test_store_rejects_changed_evidence(tmp_path) -> None:
     finally:
         store.close()
 
+
+def test_ingest_rejects_oversized_fixture(tmp_path) -> None:
+    fixture = tmp_path / "oversized.json"
+    fixture.write_bytes(b"{" + b" " * MAX_FIXTURE_BYTES + b"}")
+
+    with pytest.raises(ValueError, match="safety limit"):
+        load_bundle(fixture)
