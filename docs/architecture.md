@@ -10,7 +10,7 @@ flowchart LR
   C --> E[Culprit hypothesis ranker]
   D --> F[Human-review policy gate]
   E --> F
-  F --> G[Review queue: investigate / quarantine candidate / insufficient evidence]
+  F --> G[Review queue: CLI / browser human review]
   G --> H[Human decision audit event]
   C -. read-only evidence packet .-> I[Optional Strands Agent<br/>model → tools → reasoning → response]
   I -. evidence packet only .-> F
@@ -26,7 +26,9 @@ For a Devpost-compatible upload, use the rendered [`architecture-diagram.png`](a
 | Evidence store | Preserve attempt, SHA, log excerpt, and commit evidence hashes | Local SQLite write only |
 | Classifier | Compute failure rate and same-SHA recovery; exclude cancelled/skipped outcomes | None |
 | Hypothesis ranker | Rank candidate changes with supporting/contradicting evidence | None; never claims root cause |
-| Strands adapter | Expose read-only inspection tools and a concise evidence handoff to a provider-configured agent | No external or mutating tools are registered; invocation is optional |
+| Interface | Surface review packets in the local browser or CLI | No remote UI or account is required |
+| Strands adapter | Expose the optional provider-configured model → tools → reasoning → response loop and a concise evidence handoff | No external or mutating tools are registered; invocation is optional |
+| AWS/provider boundary | None in the credential-free local slice; an operator may configure a provider separately | No AWS service, deployment, or model call is claimed |
 | Policy gate | Decide whether a genuine human review item exists | None |
 | Audit | Record approve/hold choice, rationale, and analyzed evidence hash | Append-only local event bound to the replay source |
 

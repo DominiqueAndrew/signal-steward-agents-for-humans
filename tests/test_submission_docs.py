@@ -59,8 +59,10 @@ def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
     assert "asks a Strands agent" not in architecture
     assert "optional provider-configured Strands adapter" in architecture_diagram
     assert "Optional Strands adapter" in architecture_diagram
-    assert "model → tools → reasoning → response" in architecture
-    assert "model → tools → reasoning → response" in architecture_diagram
+    assert "Review queue: CLI / browser human review" in architecture
+    assert "No AWS service, deployment, or model call is claimed" in architecture
+    assert "CLI / browser review" in architecture_diagram
+    assert "no AWS / provider call" in architecture_diagram
     assert "The evaluated Signal Steward classifier" in results
     assert "the evaluated Signal Steward ranker" in results
     assert "production classifier" not in results
