@@ -35,6 +35,7 @@ See [`RESEARCH.md`](RESEARCH.md) for the evidence-backed opportunity sprint, sou
 The first reproducible synthetic holdout and its honest interpretation are in [`RESULTS.md`](RESULTS.md).
 The upload-ready architecture diagram is [`docs/architecture-diagram.png`](docs/architecture-diagram.png), and the remaining AWS, video, and Devpost human actions are in [`docs/HUMAN_GATE_PACKET.md`](docs/HUMAN_GATE_PACKET.md).
 The exact credential-free release evidence is in [`docs/RELEASE_RECEIPT.md`](docs/RELEASE_RECEIPT.md).
+The paste-ready, non-submitted Devpost narrative is [`docs/DEVPOST_DRAFT.md`](docs/DEVPOST_DRAFT.md).
 
 ## Agents for Humans fit
 
