@@ -1,13 +1,13 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `ce984432e754d207842be84513fe23be6030fedf`
+**Validated tree:** `40782bbe8fef1013fa2668b191c27197a3d1ea33`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
 ## Verified
 
-- `19 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+- `20 passed` from `.venv/bin/python -m pytest -q`, including the loopback
   binding, oversized-fixture, Wilson-interval, provenance-boundary, offline
   Strands-construction, HTTP-contract, and public-incident sanity tests.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
@@ -24,6 +24,9 @@
   `635d77bdf0f82d8bb904811baaf8629c3236c95eb53c7569a4bdc5b27970b849`,
   classified `FLAKY` from `1/2` failures and `1/1` same-SHA recovery. This
   case is documented separately and is not mixed into headline metrics.
+- Public negative control: Kubernetes issue #131150, fixture SHA
+  `b974705ea60d3ff628c37b037e71d545eb78d2495c6e423ce920c6d074c6a92d`,
+  emitted `INSUFFICIENT_EVIDENCE` with no surfaced hypothesis or audit event.
 - Negative control: fixture SHA
   `8b429bd3e691ba08e14bb9aa58b6c614e639c65d3d260efaf045d4aa57332cd6`, weak
   hypothesis score `0.3375`, action `insufficient_evidence`, surfaced
@@ -68,7 +71,7 @@
   `image/svg+xml`, 6,325 bytes. This was a read-only HTTPS check; no login or
   Devpost action was performed.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
-  repository root: 19 tests, clean dependencies, all three benchmark modes,
+  repository root: 20 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
 - Fresh public-clone gate: commit `00c05f5e16a86df0b988a1d178b5c8fa546cc131`
   matched `origin/main`; a new Python 3.11 venv installed `.[dev]`, then
