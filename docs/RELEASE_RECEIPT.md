@@ -1,15 +1,15 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `daaad5031daf14a7989d82e29848e911d5ee5a9a`
+**Validated tree:** `ce984432e754d207842be84513fe23be6030fedf`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
 ## Verified
 
-- `18 passed` from `PYTHONPATH=. .venv/bin/python -m pytest -q`, including the loopback
+- `19 passed` from `.venv/bin/python -m pytest -q`, including the loopback
   binding, oversized-fixture, Wilson-interval, provenance-boundary, offline
-  Strands-construction, and HTTP-contract tests.
+  Strands-construction, HTTP-contract, and public-incident sanity tests.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
@@ -20,6 +20,10 @@
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`, 60
   histories, macro-F1 `1.0`, culprit top-1 `1.0`, false escalation `0.0`,
   review reduction `0.5455`.
+- Public incident sanity case: Apache Maka issue #2221, fixture SHA
+  `635d77bdf0f82d8bb904811baaf8629c3236c95eb53c7569a4bdc5b27970b849`,
+  classified `FLAKY` from `1/2` failures and `1/1` same-SHA recovery. This
+  case is documented separately and is not mixed into headline metrics.
 - Negative control: fixture SHA
   `8b429bd3e691ba08e14bb9aa58b6c614e639c65d3d260efaf045d4aa57332cd6`, weak
   hypothesis score `0.3375`, action `insufficient_evidence`, surfaced
@@ -80,6 +84,8 @@
 .venv/bin/python -m benchmarks.run
 .venv/bin/python -m benchmarks.run --sensitivity
 .venv/bin/python -m benchmarks.run --negative-control
+.venv/bin/python -m pytest -q tests/test_public_case.py
+shasum -a 256 fixtures/public/maka-issue-2221.json
 .venv/bin/python -m signal_steward
 .venv/bin/python -m signal_steward.server --port 8810
 git diff --check
