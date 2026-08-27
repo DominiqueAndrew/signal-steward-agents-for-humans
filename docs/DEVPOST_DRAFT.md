@@ -85,7 +85,7 @@ deployment is being claimed. The bounded trust and side-effect analysis is in
 | Design | Minimal review queue, three distinct evidence states, responsive browser UI, hold/approve audit event | The interface is a decision desk, not a chat transcript or autonomous mutation console. |
 | Potential Impact | Maintainer workflow, TUM industrial flaky-test evidence, `RESULTS.md` review-load measurement | The likely value is attention recovered in long/noisy CI workflows; production impact remains to be measured. |
 | Creativity & Originality | Provenance packet + same-SHA recovery + hypothesis threshold + negative-control stop condition | The wedge is evidence quality and calibrated human gating, not “AI explains a build.” |
-| Presentation | [`docs/demo-script.md`](demo-script.md), ≤5-minute sequence: noise → flaky → regression → insufficient evidence → human hold | The video should lead with the problem, show the working loop, and name the synthetic-data limitation. |
+| Presentation | [`docs/demo-script.md`](demo-script.md), ≤5-minute sequence: noise → flaky → regression → insufficient evidence → public evidence beat → human hold | The video should lead with the problem, show the working loop, contrast a recovered retry with a fail-closed lone failure, and name the synthetic-data limitation. |
 
 ## Required form checklist
 
