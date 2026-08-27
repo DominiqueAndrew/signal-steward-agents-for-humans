@@ -87,6 +87,11 @@ published.
   ownership, permissions, language, and public-access gates. This was a
   certificate-verified, read-only HTTPS check; no login or Devpost action was
   performed.
+- Public GitHub repository metadata at the receipt-refresh verification was
+  `public`, default branch `main`, Apache-2.0 licensed, not archived, and not
+  disabled. This directly covers the public repository and detectable
+  open-source-license requirement; recheck the repository metadata before any
+  final Devpost action.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
   repository root: 30 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
