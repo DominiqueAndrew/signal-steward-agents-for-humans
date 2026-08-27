@@ -1,6 +1,6 @@
 import pytest
 
-from signal_steward.agent import make_read_only_tools, read_only_tool_names
+from signal_steward.agent import build_strands_agent, make_read_only_tools, read_only_tool_names
 from signal_steward.ingest import load_bundle
 from signal_steward.service import SignalSteward
 from signal_steward.store import EvidenceStore
@@ -53,5 +53,19 @@ def test_strands_boundary_exposes_read_only_tools() -> None:
         names = tuple(getattr(tool, "tool_name", getattr(tool, "__name__", "")) for tool in tools)
         assert names == read_only_tool_names()
         assert not {"rerun_ci", "create_issue", "quarantine_test", "merge_pr"}.intersection(names)
+    finally:
+        store.close()
+
+
+def test_real_strands_agent_constructs_without_provider_invocation() -> None:
+    bundle = load_bundle("fixtures/ci_replay.json")
+    store = EvidenceStore()
+    try:
+        service = SignalSteward(store)
+        service.analyze(bundle)
+        agent = build_strands_agent(service)
+
+        assert agent.tool_names == list(read_only_tool_names())
+        assert store.audit_events() == []
     finally:
         store.close()
