@@ -1,14 +1,14 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `8840910845897900357626122e1fffdee1bb53e5`
+**Validated tree:** `2ed600cccb5287948bf9e30763664557e070ea33`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
 ## Verified
 
-- `14 passed` from `.venv/bin/python -m pytest -q`, including the loopback
-  binding, oversized-fixture, and Wilson-interval regression tests.
+- `15 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+  binding, oversized-fixture, Wilson-interval, and provenance-boundary tests.
 - `.venv/bin/python -m pip check` reports `No broken requirements found.`
 - Main holdout: `holdout-2026-08-27.v1`, fixture SHA
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`, 60
@@ -35,6 +35,11 @@
 - Fresh HTTP smoke on the validated tree returned `/health` 200, `/api/report`
   200 with 9 runs, 9 jobs, 3 review items, 0 audit events, the three read-only
   Strands tools, and 404 for an unknown route.
+- Human decisions are append-only local events bound to the analyzed replay
+  source hash; the browser ledger shows the abbreviated evidence source.
+- Fresh browser smoke at the validated tree recorded a human hold, showed
+  `evidence source · 911795bffb45` in the ledger, reported zero console errors,
+  and had `scrollWidth == innerWidth` at 390×844, 1440×900, and 2560×1440.
 - The authorized local environment passed the bounded read-only AWS STS identity
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
