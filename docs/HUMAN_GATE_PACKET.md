@@ -34,6 +34,39 @@ The authoritative pages are [rules](https://agentsforhumans.devpost.com/rules),
 [official event page](https://agentsforhumans.devpost.com/). Recheck them at
 the moment of the human action; Devpost can change the form.
 
+## Gate 0 — registration form (human-only)
+
+A read-only registration-form check through the official Devpost capability at
+`2026-08-27T18:03:56Z` returned `can_register: true` and
+`already_registered: false` for the connected account. No registration or
+agreement was submitted. If the participant still needs to register, they
+must personally:
+
+1. Choose exactly one team preference: `Working solo`, `Looking for
+   teammates`, or `Already have a team`.
+2. Answer every required registration question using the form’s current
+   options:
+   - AWS experience: `New to AWS`; `Some experience (used a few services)`;
+     `Comfortable (build on AWS regularly)`; or `Expert (AWS in production daily)`.
+   - Bedrock AgentCore/Strands experience: `Never use either`; `Used Bedrock
+     AgentCore only`; `Used Strands SDK only`; `Used both`; or `Heard of them
+     but haven't built with either`.
+   - AI-agent experience: `None yet`; `Tinkered with LLM apps / prompt`;
+     `Built a basic agent (tool calling, RAG)`; or `Built production agent systems`.
+   - Participation: `Solo`; `I have a team already`; `Looking to join a team`;
+     or `Not sure yet`.
+   - Event help: `Live mentorship / office hours`; `Starter templates and
+     sample code`; `Workshops and tutorials`; `A sandbox environment to
+     experiment in`; or `Clear dos and reference architectures`.
+3. Read the [official rules](https://agentsforhumans.devpost.com/rules) and
+   [Devpost terms](https://info.devpost.com/terms), then personally agree to
+   both. The eligibility agreement is also required; the participant must
+   confirm the age/geography statements are true for them.
+
+Expected evidence: the participant’s own registration confirmation. Fallback:
+do not register or accept agreements; the repository’s local demo remains
+usable without registration.
+
 ## Gate 1 — identity, eligibility, and optional live AWS proof
 
 Required human inputs: the participant’s eligibility confirmation, AWS Builder
