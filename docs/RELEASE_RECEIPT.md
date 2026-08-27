@@ -75,8 +75,8 @@
 - The authorized local environment passed the bounded read-only AWS STS identity
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
-- Public artifact baseline at remote `main` SHA
-  `636677101307f4748dab648870cd0f272c232b8d`: all 11
+- Public artifact gate at published remote `main` SHA
+  `10e33af82460318f6cd07b9179aa0a63d4e30864`: all 11
   GitHub document URLs and both architecture raw URLs returned HTTP 200. The
   PNG response was `image/png`, 337,684 bytes; the SVG response was
   `image/svg+xml`, 6,325 bytes. This was a certificate-verified, read-only
@@ -84,9 +84,14 @@
 - The canonical local gate `./scripts/verify-release.sh` passed from the
   repository root: 30 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
-- The public-clone and public-artifact checks must be repeated after publishing
-  this receipt; the final `git ls-remote origin refs/heads/main` SHA is part of
-  the release handoff below.
+- Fresh public-clone gate: commit
+  `10e33af82460318f6cd07b9179aa0a63d4e30864` matched remote `main`; a new
+  Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
+  returned `30 passed`, `No broken requirements found`, all benchmark modes,
+  clean diff, clean secret scan, and `release verification passed`.
+- Public release SHA check: `git ls-remote origin refs/heads/main` returned
+  `10e33af82460318f6cd07b9179aa0a63d4e30864` at the time of this
+  post-publication verification; repeat it after any subsequent push.
 
 ## Human-gated / not claimed
 
