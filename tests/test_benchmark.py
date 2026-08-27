@@ -1,5 +1,7 @@
+import pytest
+
 from benchmarks.generate import fixture_hash, generate_holdout
-from benchmarks.run import run, run_negative_control
+from benchmarks.run import run, run_negative_control, wilson_interval
 
 
 def test_holdout_is_versioned_and_has_five_families() -> None:
@@ -32,3 +34,11 @@ def test_negative_control_does_not_surface_weak_culprit() -> None:
     assert result["review_action"] == "insufficient_evidence"
     assert result["surfaced_hypothesis"] is False
     assert result["passes_safety_gate"] is True
+
+
+def test_wilson_interval_is_stable_at_extremes_and_rejects_invalid_counts() -> None:
+    assert wilson_interval(24, 24) == (0.862, 1.0)
+    assert wilson_interval(0, 24) == (0.0, 0.138)
+
+    with pytest.raises(ValueError):
+        wilson_interval(25, 24)

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import argparse
 from collections import Counter
+from math import sqrt
 
 from benchmarks.generate import fixture_hash, generate_holdout, negative_control_history
 from signal_steward.classifier import classify_jobs
@@ -32,6 +33,19 @@ def _f1(y_true: list[str], y_pred: list[str], label: str) -> float:
 
 def _macro_f1(y_true: list[str], y_pred: list[str]) -> float:
     return sum(_f1(y_true, y_pred, label) for label in Classification) / len(Classification)
+
+
+def wilson_interval(successes: int, trials: int, *, z: float = 1.96) -> tuple[float, float]:
+    """Return a rounded Wilson score interval for a binomial proportion."""
+
+    if trials <= 0 or successes < 0 or successes > trials or z <= 0:
+        raise ValueError("successes/trials/z must define a positive binomial interval")
+    proportion = successes / trials
+    scale = z * z / trials
+    denominator = 1 + scale
+    center = (proportion + scale / 2) / denominator
+    half_width = z * sqrt(proportion * (1 - proportion) / trials + scale / (4 * trials)) / denominator
+    return round(max(0.0, center - half_width), 4), round(min(1.0, center + half_width), 4)
 
 
 def _baseline(attempts):
@@ -96,9 +110,14 @@ def run() -> dict[str, object]:
         "macro_f1": round(_macro_f1(y_true, y_pred), 4),
         "baseline_macro_f1": round(_macro_f1(baseline_true, baseline_values), 4),
         "culprit_eligible": len(culprit_eligible),
+        "culprit_hits": culprit_hits,
         "culprit_top1": round(culprit_hits / len(culprit_eligible), 4),
+        "culprit_top1_wilson_95_ci": list(wilson_interval(culprit_hits, len(culprit_eligible))),
         "baseline_culprit_top1": baseline_top1,
+        "false_escalation_count": false_escalations,
+        "false_escalation_trials": len(clean_keys),
         "false_escalation_rate": round(false_escalations / len(clean_keys), 4),
+        "false_escalation_rate_wilson_95_ci": list(wilson_interval(false_escalations, len(clean_keys))),
         "baseline_false_escalation_rate": round(len([item for item in attempts if item.conclusion == Conclusion.CANCELLED]) / len(clean_keys), 4),
         "raw_failure_events": failure_events,
         "baseline_non_success_events": non_success_events,
