@@ -28,6 +28,9 @@
   2400×1350; source is `docs/architecture-diagram.svg`.
 - `git diff --check` passes and the tracked tree contains no AWS access-key or
   private-key pattern.
+- The authorized local environment passed the bounded read-only AWS STS identity
+  check (`aws sts get-caller-identity`); account and ARN output were deliberately
+  not recorded.
 
 ## Human-gated / not claimed
 
@@ -39,7 +42,9 @@
 - Participant reviews the form, uploads the diagram, enters the private
   Builder ID, and clicks the final Devpost **Submit** action.
 - No live GitHub integration, AWS deployment, AgentCore deployment, model
-  invocation, production accuracy, or Devpost submission status is claimed.
+  invocation, production accuracy, or Devpost submission status is claimed. The
+  STS identity result proves credentials were available, not that the product
+  was deployed or that a model was invoked.
 
 ## Reproduce
 

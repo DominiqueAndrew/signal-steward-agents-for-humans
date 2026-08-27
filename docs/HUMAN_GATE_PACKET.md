@@ -51,6 +51,11 @@ repository.
 3. If the command cannot run, stop at the local demo. The project’s default
    replay and tests remain credential-free; no AWS deployment claim is made.
 
+On 2026-08-27 the authorized local environment passed this STS identity check;
+the account and ARN were intentionally not recorded. This is only a credential
+availability proof. It is not a deployment, AgentCore, or model-invocation
+claim, and it does not replace the participant’s Builder ID field.
+
 Human-only gate: the participant decides whether the personal eligibility
 statements are true and whether to use an AWS account. The agent must not make
 that decision.
