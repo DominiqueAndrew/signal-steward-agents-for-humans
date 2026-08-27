@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `a7dbe7aaceed64ed7f9953ebf3fe789004e73692`
+**Validated release-content tree:** `554603d9f10c2dcf81da2fe83b1ba249131babae`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-28 (Europe/Paris)
 
@@ -158,23 +158,29 @@ published.
   Python 3.11, dependency installation, the canonical release gate, and CLI
   replay. The release gate covered 36 tests, `pip check`, all benchmark modes,
   `git diff --check`, and the secret-pattern scan.
+- Latest public [GitHub Actions run #110](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33125354663)
+  for release-content commit `554603d9f10c2dcf81da2fe83b1ba249131babae`
+  completed with status `success`. It used full checkout history so the
+  benchmark-source provenance regression can recheck the historical commit;
+  the release gate covered 36 tests, `pip check`, all benchmark modes,
+  `git diff --check`, the secret-pattern scan, and the offline CLI replay.
 - Fresh public-clone gate: public release-content commit
   `c6ffe4f5c85e3562e41f043ececa5b550dbe2196` matched remote `main`; a new
   Python 3.11.5 venv installed `.[dev]`, built a wheel, imported that wheel
   from an isolated target outside the checkout, then `./scripts/verify-release.sh`
   returned `36 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
-- Current fresh public-clone gate: public HEAD
-  `79c93231eda46cdbe253386748a1a9d3897eb57a` was cloned into a new Python 3.11
-  environment, installed with `.[dev]`, passed `pip check`, and its executable
-  `scripts/verify-release.sh` returned `36 passed`, `No broken requirements
-  found`, all benchmark modes, clean diff, clean secret scan, and `release
-  verification passed`.
+- Current fresh public-clone gate: public release-content SHA
+  `554603d9f10c2dcf81da2fe83b1ba249131babae` was cloned into a new Python 3.11
+  environment, installed with `.[dev]`, passed `pip check`, built a wheel,
+  imported that wheel from an isolated target outside the checkout, and its
+  executable `scripts/verify-release.sh` returned `36 passed`, `No broken
+  requirements found`, all benchmark modes, clean diff, clean secret scan,
+  and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `c6ffe4f5c85e3562e41f043ececa5b550dbe2196` at the time of the
-  post-publication verification for the release-content tree. Repeat it after
-  this receipt refresh and after any subsequent push; the resulting SHA is the
-  public receipt-refresh commit, not the release-content SHA recorded above.
+  `554603d9f10c2dcf81da2fe83b1ba249131babae` immediately before this receipt
+  refresh. Repeat it after this receipt refresh and after any subsequent push;
+  the resulting SHA is the public receipt-refresh commit, not the release-content SHA recorded above.
 - An anonymous invocation of `./scripts/verify-public-release.sh` correctly
   failed closed when GitHub returned HTTP 403 with its core API rate limit at
   zero; no metadata pass was claimed from that partial check. A subsequent
