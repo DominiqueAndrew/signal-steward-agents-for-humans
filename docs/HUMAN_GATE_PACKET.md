@@ -7,7 +7,7 @@ submit a project, or claim a live AWS deployment.
 ## Live official facts (refreshed 2026-08-27)
 
 Fetched through the Devpost Hackathons capability on 2026-08-27 at
-17:19:09–17:19:16 UTC; the event page remains in `submissions_open`.
+18:01:03–18:01:32 UTC; the event page remains in `submissions_open`.
 
 - Event: [Agents for Humans Hackathon](https://agentsforhumans.devpost.com/)
 - Deadline: **2026-09-15 00:00:00 UTC** (the event is displayed in Pacific Time;

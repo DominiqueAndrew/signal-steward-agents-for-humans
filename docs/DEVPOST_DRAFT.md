@@ -1,7 +1,8 @@
 # Signal Steward — Devpost draft
 
 **STATUS: DRAFT ONLY — NOT SUBMITTED**  
-Prepared against the live Agents for Humans form refreshed 2026-08-27. The
+Prepared against the live Agents for Humans form refreshed 2026-08-27 at 18:01
+UTC. The
 participant must personally confirm eligibility, replace the bracketed fields,
 and click the final Devpost action.
 
