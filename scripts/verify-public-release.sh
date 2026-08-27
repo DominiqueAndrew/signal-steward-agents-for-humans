@@ -42,6 +42,8 @@ files = [item.get("filename") for item in comparison.get("files", [])]
 unexpected = sorted({name for name in files if name != "docs/RELEASE_RECEIPT.md"})
 if comparison_status not in {"identical", "ahead"} or behind_by != 0:
     raise SystemExit("release boundary is not ancestor-safe: status={!r} behind_by={!r}".format(comparison_status, behind_by))
+if len(files) >= 300:
+    raise SystemExit("GitHub compare file list may be truncated at the 300-file API cap")
 if unexpected:
     raise SystemExit("public main contains changes outside the receipt-only boundary: {}".format(unexpected))
 print("status={} behind_by={} changed_files={}".format(comparison_status, behind_by, len(files)))

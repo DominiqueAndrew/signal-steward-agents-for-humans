@@ -88,6 +88,8 @@ def test_public_release_verifier_is_read_only_and_covers_judge_artifacts() -> No
 
     assert "git ls-remote" in verifier
     assert "raw_base=\"https://raw.githubusercontent.com/${public_repo}/${public_sha}\"" in verifier
+    assert "len(files) >= 300" in verifier
+    assert "file list may be truncated" in verifier
     assert "docs/RELEASE_RECEIPT.md" in verifier
     assert "scripts/verify-public-release.sh" in verifier
     assert "image/png" in verifier
