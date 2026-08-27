@@ -1,6 +1,6 @@
 # Signal Steward architecture
 
-Signal Steward is a read-only CI evidence steward. A scheduled collector or local replay supplies GitHub Actions-shaped events. The application normalizes them into immutable evidence, applies a deterministic signal policy, asks a Strands agent to inspect only those read-only tools, and presents a small human review queue.
+Signal Steward is a read-only CI evidence steward. A scheduled collector or local replay supplies GitHub Actions-shaped events. The application normalizes them into immutable evidence, applies a deterministic signal policy, and presents a small human review queue. It also exposes an optional Strands agent adapter that can inspect only those read-only tools when the operator supplies a model provider; the credential-free local replay does not invoke a model.
 
 ```mermaid
 flowchart LR
@@ -12,7 +12,7 @@ flowchart LR
   E --> F
   F --> G[Review queue: investigate / quarantine candidate / insufficient evidence]
   G --> H[Human decision audit event]
-  C -. read-only tools .-> I[Strands Agent]
+  C -. read-only tools .-> I[Optional Strands Agent]
   I -. evidence packet only .-> F
 ```
 
@@ -26,7 +26,7 @@ For a Devpost-compatible upload, use the rendered [`architecture-diagram.png`](a
 | Evidence store | Preserve attempt, SHA, log excerpt, and commit evidence hashes | Local SQLite write only |
 | Classifier | Compute failure rate and same-SHA recovery; exclude cancelled/skipped outcomes | None |
 | Hypothesis ranker | Rank candidate changes with supporting/contradicting evidence | None; never claims root cause |
-| Strands agent | Orchestrate read-only inspection tools and concise evidence handoff | No external tools are registered |
+| Strands adapter | Expose read-only inspection tools and a concise evidence handoff to a provider-configured agent | No external or mutating tools are registered; invocation is optional |
 | Policy gate | Decide whether a genuine human review item exists | None |
 | Audit | Record approve/hold choice, rationale, and analyzed evidence hash | Append-only local event bound to the replay source |
 

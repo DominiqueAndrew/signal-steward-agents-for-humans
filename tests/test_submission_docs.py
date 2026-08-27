@@ -31,6 +31,7 @@ def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
     readme = (REPO_ROOT / "README.md").read_text()
     draft = (REPO_ROOT / "docs" / "DEVPOST_DRAFT.md").read_text()
     demo = (REPO_ROOT / "docs" / "demo-script.md").read_text()
+    architecture = (REPO_ROOT / "docs" / "architecture.md").read_text()
 
     referenced_artifacts = (
         "docs/architecture-diagram.png",
@@ -51,6 +52,9 @@ def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
     assert "A maintainer still has to decide" in draft
     assert "reduction in review items" in draft
     assert "architecture-diagram.png" in readme
+    assert "optional Strands agent adapter" in architecture
+    assert "Optional Strands Agent" in architecture
+    assert "asks a Strands agent" not in architecture
 
 
 def test_release_receipt_preserves_a_recheckable_two_sha_boundary() -> None:
