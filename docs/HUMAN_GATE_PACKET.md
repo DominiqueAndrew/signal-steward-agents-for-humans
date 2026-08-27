@@ -18,6 +18,10 @@ Fetched through the Devpost Hackathons capability on 2026-08-27 at
   specific countries/territories are excluded; team is not required; all
   occupations; no company required. The participant must confirm their own
   eligibility.
+- New-project rule: the project must be newly created during the submission
+  period; any incorporated pre-existing non-standard code or work must be
+  disclosed. Standard tools, libraries, SDKs, templates, and AI coding
+  assistants are allowed under the current rules.
 - Submission deliverables: **video required**; website and zip are not
   required. The live demo URL is optional.
 - Required submission fields: submitter type, country of residence, track,
@@ -154,7 +158,7 @@ Use these prepared values:
 | Demo video | The public/unlisted YouTube or Vimeo URL from Gate 2 |
 | Live demo | Optional: leave blank if no public deployment exists |
 | Testing instructions | `python3 -m venv .venv && .venv/bin/python -m pip install -e '.[dev]' && ./scripts/verify-release.sh`; then run the local server command above |
-| Bonus blog | Optional; if used, the current form says it must be on `builder.aws` and use `#AgentsofFootball`; leave blank unless a truthful public post exists |
+| Bonus blog | Optional; if used, publish on `builder.aws.com` before the deadline and put `Agents for Humans` in the title; leave blank unless a truthful public post exists |
 
 Before the final click, verify:
 
@@ -188,5 +192,7 @@ annex as the fallback. Do not bypass the form or its agreements.
 - [x] Architecture source and upload-ready diagram.
 - [x] Credential-free local browser demo and under-five-minute runbook.
 - [ ] Participant confirms personal eligibility and Builder ID.
+- [ ] Participant confirms the new-project rule and discloses any incorporated
+  pre-existing non-standard code or work.
 - [ ] Human records a public/unlisted video URL.
 - [ ] Human reviews and submits the Devpost form.
