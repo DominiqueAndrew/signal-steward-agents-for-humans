@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `7608ea79015c1a75f70e223395dcf7ac1f8857f4`
+**Validated release-content tree:** `2cfe8c0315a2295f7b01f7a7512c31b7994d82a7`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -81,7 +81,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `7608ea79015c1a75f70e223395dcf7ac1f8857f4`: all 11
+  `2cfe8c0315a2295f7b01f7a7512c31b7994d82a7`: all 11
   GitHub document URLs and both architecture raw URLs returned HTTP 200. The
   PNG response was `image/png`, 337,684 bytes; the SVG response was
   `image/svg+xml`, 6,325 bytes. This was a certificate-verified, read-only
@@ -90,12 +90,12 @@ published.
   repository root: 30 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
 - Fresh public-clone gate: commit
-  `7608ea79015c1a75f70e223395dcf7ac1f8857f4` matched remote `main`; a new
+  `2cfe8c0315a2295f7b01f7a7512c31b7994d82a7` matched remote `main`; a new
   Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
   returned `30 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `7608ea79015c1a75f70e223395dcf7ac1f8857f4` at the time of the
+  `2cfe8c0315a2295f7b01f7a7512c31b7994d82a7` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
