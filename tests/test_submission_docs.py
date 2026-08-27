@@ -18,3 +18,29 @@ def test_submission_materials_require_a_public_demo_video() -> None:
     assert "public/unlisted" not in packet
     assert "public or unlisted" not in draft
     assert "public/unlisted" not in draft
+
+
+def test_judge_materials_keep_referenced_artifacts_and_demo_budget() -> None:
+    readme = (REPO_ROOT / "README.md").read_text()
+    draft = (REPO_ROOT / "docs" / "DEVPOST_DRAFT.md").read_text()
+    demo = (REPO_ROOT / "docs" / "demo-script.md").read_text()
+
+    referenced_artifacts = (
+        "docs/architecture-diagram.png",
+        "docs/architecture.md",
+        "docs/demo-script.md",
+        "docs/PUBLIC_CASES.md",
+        "docs/RELEASE_RECEIPT.md",
+        "RESEARCH.md",
+        "RESULTS.md",
+        "signal-steward-threat-model.md",
+    )
+    for relative_path in referenced_artifacts:
+        assert (REPO_ROOT / relative_path).is_file(), relative_path
+
+    assert "Run of show (under five minutes)" in demo
+    assert "4:20–4:50" in demo
+    assert "CI failures are not decisions." in draft
+    assert "A maintainer still has to decide" in draft
+    assert "reduction in review items" in draft
+    assert "architecture-diagram.png" in readme
