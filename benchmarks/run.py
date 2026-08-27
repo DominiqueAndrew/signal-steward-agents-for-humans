@@ -3,7 +3,8 @@ from __future__ import annotations
 import json
 import argparse
 from collections import Counter
-from math import sqrt
+from math import isfinite, sqrt
+from numbers import Integral, Real
 
 from benchmarks.generate import fixture_hash, generate_holdout, negative_control_history
 from signal_steward.classifier import classify_jobs
@@ -38,15 +39,33 @@ def _macro_f1(y_true: list[str], y_pred: list[str]) -> float:
 
 
 def wilson_interval(successes: int, trials: int, *, z: float = 1.96) -> tuple[float, float]:
-    """Return a rounded Wilson score interval for a binomial proportion."""
+    """Return a rounded Wilson score interval for a binomial proportion.
 
-    if trials <= 0 or successes < 0 or successes > trials or z <= 0:
-        raise ValueError("successes/trials/z must define a positive binomial interval")
-    proportion = successes / trials
-    scale = z * z / trials
-    denominator = 1 + scale
-    center = (proportion + scale / 2) / denominator
-    half_width = z * sqrt(proportion * (1 - proportion) / trials + scale / (4 * trials)) / denominator
+    The interval is the score-test inversion described by Wilson (1927):
+    ``[p_hat + z²/(2n) +/- z * sqrt(p_hat(1-p_hat)/n + z²/(4n²))]
+    / (1 + z²/n)``. Counts are validated here so a malformed benchmark
+    cannot silently turn into a non-binomial proportion or non-finite result.
+    """
+
+    if (
+        isinstance(successes, bool)
+        or not isinstance(successes, Integral)
+        or isinstance(trials, bool)
+        or not isinstance(trials, Integral)
+        or trials <= 0
+        or successes < 0
+        or successes > trials
+    ):
+        raise ValueError("successes and trials must be integer counts with 0 <= successes <= trials")
+    if isinstance(z, bool) or not isinstance(z, Real) or not isfinite(z) or z <= 0:
+        raise ValueError("z must be a finite positive number")
+
+    n = float(trials)
+    proportion = successes / n
+    z_squared = z * z
+    denominator = 1 + z_squared / n
+    center = (proportion + z_squared / (2 * n)) / denominator
+    half_width = z * sqrt(proportion * (1 - proportion) / n + z_squared / (4 * n * n)) / denominator
     return round(max(0.0, center - half_width), 4), round(min(1.0, center + half_width), 4)
 
 
@@ -145,6 +164,12 @@ def run_sensitivity() -> dict[str, object]:
                 "broken_threshold": broken_threshold,
                 "macro_f1": result["macro_f1"],
                 "false_escalation_rate": result["false_escalation_rate"],
+                "false_escalation_count": result["false_escalation_count"],
+                "false_escalation_trials": result["false_escalation_trials"],
+                "false_escalation_rate_wilson_95_ci": result["false_escalation_rate_wilson_95_ci"],
+                "culprit_hits": result["culprit_hits"],
+                "culprit_eligible": result["culprit_eligible"],
+                "culprit_top1_wilson_95_ci": result["culprit_top1_wilson_95_ci"],
                 "review_item_reduction": result["review_item_reduction"],
                 "review_items": result["review_items"],
                 "passes_point_gates": (

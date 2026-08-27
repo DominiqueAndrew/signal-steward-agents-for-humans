@@ -1,3 +1,5 @@
+from math import inf, nan
+
 import pytest
 
 from benchmarks.generate import fixture_hash, generate_holdout
@@ -25,6 +27,11 @@ def test_holdout_replay_hits_pre_registered_targets() -> None:
     assert result["culprit_top1"] >= 0.70
     assert result["false_escalation_rate"] <= 0.10
     assert result["review_item_reduction"] >= 0.50
+    assert result["culprit_hits"] == result["culprit_eligible"] == 24
+    assert result["culprit_top1_wilson_95_ci"] == [0.862, 1.0]
+    assert result["false_escalation_count"] == 0
+    assert result["false_escalation_trials"] == 24
+    assert result["false_escalation_rate_wilson_95_ci"] == [0.0, 0.138]
 
 
 def test_negative_control_does_not_surface_weak_culprit() -> None:
@@ -36,12 +43,26 @@ def test_negative_control_does_not_surface_weak_culprit() -> None:
     assert result["passes_safety_gate"] is True
 
 
-def test_wilson_interval_is_stable_at_extremes_and_rejects_invalid_counts() -> None:
+def test_wilson_interval_matches_the_score_formula_for_interior_counts() -> None:
+    assert wilson_interval(12, 24) == (0.3143, 0.6857)
+    assert wilson_interval(12, 24, z=1.0) == (0.4, 0.6)
+
+
+@pytest.mark.parametrize("successes,trials", [(25, 24), (1.5, 2), (True, 2), (1, True)])
+def test_wilson_interval_rejects_non_binomial_counts(successes: object, trials: object) -> None:
+    with pytest.raises(ValueError):
+        wilson_interval(successes, trials)  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize("z", [0, -1, inf, nan, True])
+def test_wilson_interval_rejects_non_positive_or_non_finite_z(z: object) -> None:
+    with pytest.raises(ValueError):
+        wilson_interval(1, 2, z=z)  # type: ignore[arg-type]
+
+
+def test_wilson_interval_is_stable_at_extremes() -> None:
     assert wilson_interval(24, 24) == (0.862, 1.0)
     assert wilson_interval(0, 24) == (0.0, 0.138)
-
-    with pytest.raises(ValueError):
-        wilson_interval(25, 24)
 
 
 def test_threshold_sensitivity_uses_the_predeclared_grid() -> None:
@@ -51,3 +72,8 @@ def test_threshold_sensitivity_uses_the_predeclared_grid() -> None:
     assert len(result["grid"]) == len(SENSITIVITY_GRID) == 9
     assert {(cell["flaky_threshold"], cell["broken_threshold"]) for cell in result["grid"]} == set(SENSITIVITY_GRID)
     assert all("macro_f1" in cell and "false_escalation_rate" in cell for cell in result["grid"])
+    assert all(cell["culprit_hits"] == cell["culprit_eligible"] == 24 for cell in result["grid"])
+    assert all(cell["culprit_top1_wilson_95_ci"] == [0.862, 1.0] for cell in result["grid"])
+    assert all(cell["false_escalation_count"] == 0 for cell in result["grid"])
+    assert all(cell["false_escalation_trials"] == 24 for cell in result["grid"])
+    assert all(cell["false_escalation_rate_wilson_95_ci"] == [0.0, 0.138] for cell in result["grid"])
