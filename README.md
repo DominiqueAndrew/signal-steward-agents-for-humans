@@ -8,6 +8,17 @@ Signal Steward is a quiet, read-only CI failure desk for maintainers. It watches
 
 It never reruns CI, edits workflows, opens issues, quarantines tests, merges code, or claims causal certainty. If the evidence is weak, it says `insufficient_evidence`.
 
+## Judge entrypoint
+
+Start with the [public repository](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans)
+and the [four-minute demo runbook](docs/demo-script.md). The [release receipt](docs/RELEASE_RECEIPT.md)
+binds the reproducible checks to a public implementation tree; the
+[architecture diagram](docs/architecture-diagram.png), [research and science annex](RESEARCH.md),
+[measured results](RESULTS.md), and [bounded threat model](signal-steward-threat-model.md)
+provide the evidence behind the claims. The [Devpost draft](docs/DEVPOST_DRAFT.md) is
+explicitly **DRAFT ONLY — NOT SUBMITTED**; remaining AWS, video, and submission actions
+are human-owned in the [human-gate packet](docs/HUMAN_GATE_PACKET.md).
+
 ## Run the credential-free demo
 
 Requires Python 3.11+.
