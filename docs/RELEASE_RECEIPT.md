@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `c109cd5acd8e200c79b5bc92102f3d9706372658`
+**Validated tree:** `61cc021585589c2b1c08acf661a72b488ee1782a`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -65,11 +65,11 @@
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at remote `main` SHA
-  `470899d83562c72a67263829c4866583dee487dd` (2026-08-27T17:53:20Z): all 11
+  `61cc021585589c2b1c08acf661a72b488ee1782a` (2026-08-27T18:13:31Z): all 11
   GitHub document URLs and both architecture raw URLs returned HTTP 200. The
   PNG response was `image/png`, 337,684 bytes; the SVG response was
-  `image/svg+xml`, 6,325 bytes. This was a read-only HTTPS check; no login or
-  Devpost action was performed.
+  `image/svg+xml`, 6,325 bytes. This was a certificate-verified, read-only
+  HTTPS check; no login or Devpost action was performed.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
   repository root: 20 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
@@ -79,7 +79,7 @@
   requirements found`, all benchmark modes, clean diff, clean secret scan, and
   `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `c109cd5acd8e200c79b5bc92102f3d9706372658` at the time of this receipt;
+  `61cc021585589c2b1c08acf661a72b488ee1782a` at the time of this receipt;
   repeat it after any subsequent push before submitting.
 
 ## Human-gated / not claimed
