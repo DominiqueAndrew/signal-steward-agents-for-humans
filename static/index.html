@@ -216,6 +216,7 @@
           const entry = node("div", undefined, "audit-event");
           entry.append(node("strong", `${event.decision.toUpperCase()} · ${event.action.replaceAll("_", " ")}`));
           entry.append(node("span", `${event.subject_id} · ${event.rationale || "no rationale"}`));
+          entry.append(node("span", `evidence source · ${(event.source_hash || "unknown").slice(0, 12)}`));
           list.append(entry);
         });
       }

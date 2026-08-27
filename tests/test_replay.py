@@ -1,3 +1,5 @@
+import pytest
+
 from signal_steward.agent import make_read_only_tools, read_only_tool_names
 from signal_steward.ingest import load_bundle
 from signal_steward.service import SignalSteward
@@ -29,9 +31,14 @@ def test_human_decision_is_an_audit_event_only() -> None:
     try:
         service = SignalSteward(store)
         report = service.analyze(bundle)
-        event_id = service.record_human_decision(report.review_queue[0], "hold", "owner wants one more run")
+        event_id = service.record_human_decision(report.review_queue[0], "hold", "owner wants one more run", report.source_hash)
         assert store.audit_events()[0]["event_id"] == event_id
         assert store.audit_events()[0]["decision"] == "hold"
+        assert store.audit_events()[0]["source_hash"] == report.source_hash
+
+        with pytest.raises(ValueError, match="source_hash is required"):
+            service.record_human_decision(report.review_queue[1], "hold", "missing provenance", "")
+        assert len(store.audit_events()) == 1
     finally:
         store.close()
 

@@ -44,7 +44,7 @@ class AppState:
         item = next((candidate for candidate in self.report.review_queue if candidate.item_id == item_id), None)
         if item is None:
             raise LookupError("review item not found")
-        self.service.record_human_decision(item, decision, rationale)
+        self.service.record_human_decision(item, decision, rationale, self.report.source_hash)
         return self.payload()
 
     def close(self) -> None:
@@ -57,7 +57,9 @@ class SignalStewardHTTPServer(HTTPServer):
         self.state = state
 
     def server_close(self) -> None:
-        self.state.close()
+        state = getattr(self, "state", None)
+        if state is not None:
+            state.close()
         super().server_close()
 
 

@@ -51,12 +51,13 @@ class SignalSteward:
             review_queue=build_review_queue(signals, hypotheses),
         )
 
-    def record_human_decision(self, item: ReviewItem, decision: str, rationale: str) -> str:
+    def record_human_decision(self, item: ReviewItem, decision: str, rationale: str, source_hash: str) -> str:
         """Persist the decision only; this method has no external side effects."""
 
         if decision not in {"approve", "hold"}:
             raise ValueError("decision must be 'approve' or 'hold'")
+        if not source_hash:
+            raise ValueError("source_hash is required to record a decision")
         event_id = str(uuid.uuid4())
-        self.store.append_decision(event_id, item.item_id, item.action.value, decision, rationale)
+        self.store.append_decision(event_id, item.item_id, item.action.value, decision, rationale, source_hash)
         return event_id
-

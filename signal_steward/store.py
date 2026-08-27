@@ -45,7 +45,8 @@ class EvidenceStore:
                 action TEXT NOT NULL,
                 decision TEXT NOT NULL,
                 created_at TEXT NOT NULL,
-                rationale TEXT NOT NULL
+                rationale TEXT NOT NULL,
+                source_hash TEXT NOT NULL
             );
             """
         )
@@ -125,11 +126,13 @@ class EvidenceStore:
             self._write_commit(commit)
         self.connection.commit()
 
-    def append_decision(self, event_id: str, subject_id: str, action: str, decision: str, rationale: str) -> None:
+    def append_decision(
+        self, event_id: str, subject_id: str, action: str, decision: str, rationale: str, source_hash: str
+    ) -> None:
         created_at = datetime.now(timezone.utc).isoformat()
         self.connection.execute(
-            "INSERT INTO audit_events (event_id, subject_id, action, decision, created_at, rationale) VALUES (?, ?, ?, ?, ?, ?)",
-            (event_id, subject_id, action, decision, created_at, rationale),
+            "INSERT INTO audit_events (event_id, subject_id, action, decision, created_at, rationale, source_hash) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (event_id, subject_id, action, decision, created_at, rationale, source_hash),
         )
         self.connection.commit()
 
@@ -139,4 +142,3 @@ class EvidenceStore:
 
     def close(self) -> None:
         self.connection.close()
-
