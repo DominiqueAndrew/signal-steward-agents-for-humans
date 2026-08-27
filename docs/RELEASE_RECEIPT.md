@@ -1,9 +1,9 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `c6ffe4f5c85e3562e41f043ececa5b550dbe2196`
+**Validated release-content tree:** `b93d01d1c19b2248b646a0620adf09f61c100d7f`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
-**Validated:** 2026-08-27 (Europe/Paris)
+**Validated:** 2026-08-28 (Europe/Paris)
 
 This receipt refresh records the exact public release-content SHA above. A
 commit cannot contain its own hash, so the receipt-refresh commit must be
@@ -19,6 +19,11 @@ published.
   under-five-minute demo budget, receipt SHA boundary, project-age provenance
   boundary, bounded third-party inventory review, and open-source submission
   enhancement gate.
+- Release-content commit `b93d01d1c19b2248b646a0620adf09f61c100d7f` changes the
+  synthetic-results terminology from “production classifier/ranker” to
+  “evaluated Signal Steward classifier/ranker” and adds a regression guard. This
+  keeps the benchmark language from implying deployment or real-world
+  validation; the synthetic-data and uncertainty limitations below still apply.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
