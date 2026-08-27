@@ -65,6 +65,9 @@ python3 -m venv .venv
 Then open http://127.0.0.1:8810 and follow [`docs/demo-script.md`](demo-script.md).
 The research, assumptions, sources, benchmark design, and limitations are in
 [`RESEARCH.md`](../RESEARCH.md) and [`RESULTS.md`](../RESULTS.md).
+The separate [`PUBLIC_CASES.md`](PUBLIC_CASES.md) annex shows one manually
+normalized Apache Maka incident with same-SHA recovery; it is a sanity case,
+not part of the synthetic headline metrics or a production-accuracy claim.
 
 The current release evidence is collected in [`RELEASE_RECEIPT.md`](RELEASE_RECEIPT.md):
 it records the reproducible checks, the local HTTP smoke, the loopback-only
