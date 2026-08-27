@@ -26,7 +26,7 @@ three read-only tools; the local walkthrough does not require AWS credentials.
 | 2:10–2:50 | The stop condition | Open `CI / ambiguous`. There is a failure, but no captured test output or matching commit, so the system refuses to invent a culprit and surfaces `INSUFFICIENT EVIDENCE`. |
 | 2:50–3:35 | Human boundary | On `CI / integration`, choose `Hold for more evidence`, add a rationale, and record it. The card changes state and the ledger shows the decision. |
 | 3:35–4:20 | Evidence, not theatre | Show `RESULTS.md`: holdout macro-F1 1.00, culprit top-1 1.00, false escalation 0.00, and 54.55% review reduction on the synthetic labelled fixture. Name the synthetic-data limitation. |
-| 4:20–4:50 | Architecture and limits | Show `docs/architecture.md` and `RESEARCH.md`. Close with: “It prepares a review packet; a person still owns the consequential action.” |
+| 4:20–4:50 | Architecture and limits | Point to the visible Strands contract (version + three read-only tools), then show `docs/architecture.md` and `RESEARCH.md`. Close with: “It prepares a review packet; a person still owns the consequential action.” |
 
 ## Reset between takes
 

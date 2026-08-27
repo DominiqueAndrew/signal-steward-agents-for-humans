@@ -25,7 +25,7 @@ The replay uses only [`fixtures/ci_replay.json`](fixtures/ci_replay.json) and an
 
 ## What is genuinely agentic
 
-The core safety-critical classifications are deterministic and inspectable. The project also includes a real adapter built with the pinned [Strands Agents SDK](https://strandsagents.com/docs/user-guide/quickstart/overview/). `signal_steward.agent.build_strands_agent()` registers three custom `@tool` functions documented by the [Strands custom-tools guide](https://strandsagents.com/docs/user-guide/concepts/tools/custom-tools/): `inspect_window`, `explain_signal`, and `prepare_review_packet`. Every registered tool is read-only. Calling the Strands agent is optional and requires the model provider configured by the operator; the local replay does not call AWS or require credentials.
+The core safety-critical classifications are deterministic and inspectable. The project also includes a real adapter built with the pinned [Strands Agents SDK](https://strandsagents.com/docs/user-guide/quickstart/overview/) 1.53.0. `signal_steward.agent.build_strands_agent()` registers three custom `@tool` functions documented by the [Strands custom-tools guide](https://strandsagents.com/docs/user-guide/concepts/tools/custom-tools/): `inspect_window`, `explain_signal`, and `prepare_review_packet`. Every registered tool is read-only; the browser and CLI expose this contract without invoking a model. Calling the Strands agent is optional and requires the model provider configured by the operator; the local replay does not call AWS or require credentials.
 
 ## Evidence model
 

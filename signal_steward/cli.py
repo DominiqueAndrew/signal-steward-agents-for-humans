@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .agent import read_only_contract
 from .ingest import load_bundle
 from .service import SignalSteward
 from .store import EvidenceStore
@@ -22,8 +23,9 @@ def main(argv: list[str] | None = None) -> int:
     store = EvidenceStore(args.db)
     try:
         report = SignalSteward(store).analyze(bundle)
-        print(json.dumps(report.to_dict(), indent=2, sort_keys=True))
+        payload = report.to_dict()
+        payload["agent_contract"] = read_only_contract()
+        print(json.dumps(payload, indent=2, sort_keys=True))
     finally:
         store.close()
     return 0
-

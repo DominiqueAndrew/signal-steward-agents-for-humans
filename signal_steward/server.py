@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
 
+from .agent import read_only_contract
 from .ingest import load_bundle
 from .service import AnalysisReport, SignalSteward
 from .store import EvidenceStore
@@ -33,6 +34,7 @@ class AppState:
                 "observed_jobs": len(self.bundle.attempts),
                 "audit_events": self.store.audit_events(),
                 "mode": "local replay / read-only analysis",
+                "agent_contract": read_only_contract(),
             }
         )
         return payload

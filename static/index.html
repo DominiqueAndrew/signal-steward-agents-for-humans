@@ -89,6 +89,10 @@
       .aside-panel { border-top: 1px solid var(--ink); padding-top: 14px; }
       .aside-panel h2 { font-size: 15px; }
       .aside-panel p { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+      .agent-panel { border-top-color: var(--green); }
+      .tool-list { display: grid; gap: 6px; margin-top: 13px; }
+      .tool { display: inline-flex; width: fit-content; padding: 5px 7px; background: var(--soft); color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+      .contract-note { margin-top: 12px !important; }
       .formula { margin: 13px 0 0; padding: 14px; background: var(--soft); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
       .guardrail { display: grid; gap: 10px; margin-top: 14px; }
       .guardrail div { display: flex; gap: 10px; align-items: baseline; font-size: 13px; }
@@ -164,6 +168,13 @@
               <div><b>BROKEN</b><span>r ≥ 70% + no same-SHA recovery</span></div>
               <div><b>HOLD</b><span>failure exists, evidence cannot support a safe recommendation</span></div>
             </div>
+          </section>
+
+          <section class="aside-panel agent-panel">
+            <h2>Strands agent contract</h2>
+            <p><strong id="sdk-version">Strands Agents SDK</strong> · provider invocation is optional.</p>
+            <div class="tool-list" id="tool-list"></div>
+            <p class="contract-note">Three read-only custom tools. No external side effects are registered.</p>
           </section>
 
           <section class="audit" aria-labelledby="audit-title">
@@ -289,6 +300,10 @@
         document.getElementById("runs").textContent = report.observed_runs;
         document.getElementById("decisions").textContent = report.review_queue.length;
         document.getElementById("source-hash").textContent = report.source_hash.slice(0, 12);
+        document.getElementById("sdk-version").textContent = `${report.agent_contract.sdk} ${report.agent_contract.sdk_version}`;
+        const toolList = document.getElementById("tool-list");
+        toolList.replaceChildren();
+        report.agent_contract.tools.forEach((toolName) => toolList.append(node("span", toolName, "tool")));
         const queue = document.getElementById("queue");
         queue.replaceChildren();
         const order = { quarantine_candidate: 0, investigate_regression: 1, insufficient_evidence: 2 };

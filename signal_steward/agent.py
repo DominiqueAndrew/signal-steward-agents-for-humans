@@ -11,6 +11,17 @@ def read_only_tool_names() -> tuple[str, ...]:
     return ("inspect_window", "explain_signal", "prepare_review_packet")
 
 
+def read_only_contract() -> dict[str, object]:
+    """Describe the registered agent boundary without invoking a provider."""
+    return {
+        "sdk": "Strands Agents SDK",
+        "sdk_version": STRANDS_SDK_VERSION,
+        "tools": list(read_only_tool_names()),
+        "side_effects": [],
+        "invocation": "optional; provider-configured",
+    }
+
+
 def make_read_only_tools(service: SignalSteward) -> tuple[Callable[..., Any], ...]:
     """Create the Strands tool boundary; every tool reads the local evidence store."""
 
@@ -79,4 +90,3 @@ def build_strands_agent(service: SignalSteward, *, model: Any | None = None) -> 
     if model is not None:
         kwargs["model"] = model
     return Agent(**kwargs)
-

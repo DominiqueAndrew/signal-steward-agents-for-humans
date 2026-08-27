@@ -14,6 +14,13 @@ def test_local_demo_payload_and_audit_boundary() -> None:
         assert payload["observed_runs"] == 9
         assert len(payload["review_queue"]) == 3
         assert payload["audit_events"] == []
+        assert payload["agent_contract"]["sdk_version"] == "1.53.0"
+        assert payload["agent_contract"]["tools"] == [
+            "inspect_window",
+            "explain_signal",
+            "prepare_review_packet",
+        ]
+        assert payload["agent_contract"]["side_effects"] == []
 
         item_id = payload["review_queue"][0]["item_id"]
         updated = state.record_decision(item_id, "hold", "need one more same-SHA run")
