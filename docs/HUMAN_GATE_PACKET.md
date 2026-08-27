@@ -221,6 +221,7 @@ Before the final click, verify:
 git status --short --branch
 git ls-remote origin refs/heads/main
 ./scripts/verify-release.sh
+./scripts/verify-public-release.sh
 .venv/bin/python -m pytest -q
 .venv/bin/python -m pip check
 git grep -nE 'AKIA[0-9A-Z]{16}|AWS_SECRET_ACCESS_KEY|aws_secret_access_key' -- ':!docs/HUMAN_GATE_PACKET.md' || true
@@ -231,8 +232,10 @@ the current public `main` commit being submitted. Compare it with the receipt’
 validated release-content SHA: a later receipt-only documentation commit may
 legitimately make public `main` newer. If `main` differs because of code,
 fixtures, workflow, assets, or submission-material changes, rerun the release
-gate and refresh the receipt before submitting. Always use the exact current
-SHA; do not rely on a copied stale SHA.
+gate and refresh the receipt before submitting. The public verifier also checks
+that any difference from the receipt SHA is receipt-only and that every
+judge-facing artifact is reachable. Always use the exact current SHA; do not
+rely on a copied stale SHA.
 
 Expected evidence after the human action: the Devpost project page shows the
 video, repo, architecture attachment, Builder ID, and **Submitted** status. A
