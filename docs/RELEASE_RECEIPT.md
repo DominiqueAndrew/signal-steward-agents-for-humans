@@ -94,14 +94,15 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `2c745e0217f6201edcaa3a2f59c708db8f559e70`: all 15 release artifacts
+  `9e61c058b8b814eff5bca358ccfc07dc13509407`: all 15 release artifacts
   returned HTTP 200. The architecture responses were `image/png` and
   `image/svg+xml`; the compliance packet and Devpost draft contained the
   ownership, permissions, language, public-access gates, and the receipt-only
   versus release-content SHA distinction. They also require a public
   YouTube/Vimeo video, consistent with the current rules. This was a
-  certificate-verified, read-only HTTPS check; no login or Devpost action was
-  performed.
+  certificate-verified, read-only HTTPS check; the repository metadata request
+  used an already-authorized read-only GitHub CLI token after the anonymous API
+  limit was exhausted. No browser login or Devpost action was performed.
 - Public GitHub repository metadata at the receipt-refresh verification was
   checked through the authenticated, read-only `gh api` command: `public`,
   default branch `main`, Apache-2.0 licensed, not archived, and not disabled.
@@ -134,7 +135,10 @@ published.
   failed closed when GitHub returned HTTP 403 with its core API rate limit at
   zero; no metadata pass was claimed from that partial check. A subsequent
   invocation using an already-authorized, read-only `GITHUB_TOKEN` passed the
-  same metadata check, while the artifact and receipt-boundary checks remained
+  same metadata check at public `main` SHA
+  `9e61c058b8b814eff5bca358ccfc07dc13509407`; the receipt boundary reported
+  `status=ahead`, `behind_by=0`, and exactly one changed file
+  (`docs/RELEASE_RECEIPT.md`). All artifact and receipt-boundary checks remained
   read-only throughout.
 
 ## Human-gated / not claimed
