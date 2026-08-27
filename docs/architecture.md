@@ -31,5 +31,6 @@ For a Devpost-compatible upload, use the rendered [`architecture-diagram.png`](a
 | AWS/provider boundary | None in the credential-free local slice; an operator may configure a provider separately | No AWS service, deployment, or model call is claimed |
 | Policy gate | Decide whether a genuine human review item exists | None |
 | Audit | Record approve/hold choice, rationale, and analyzed evidence hash | Append-only local event bound to the replay source |
+| Output | Return a review queue and append-only human audit event | No repository mutation or automated consequential action |
 
 The production integration should use a least-privilege GitHub App or token that can read workflow runs and repository metadata. The local default has no network path and uses `:memory:` storage. CI mutation, issue creation, test quarantine, PR creation, merge, and secret access are intentionally absent from the tool surface.

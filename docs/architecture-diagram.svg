@@ -60,7 +60,8 @@
   <text x="1222" y="646" class="muted" font-size="16">or insufficient evidence</text>
 
   <rect x="1200" y="714" width="210" height="74" rx="3" class="node-soft"/>
-  <text x="1222" y="758" class="ink" font-size="18" font-weight="700">Human audit event</text>
+  <text x="1222" y="751" class="ink" font-size="18" font-weight="700">Output</text>
+  <text x="1222" y="777" class="ink" font-size="16" font-weight="700">human audit event</text>
 
   <line x1="280" y1="354" x2="350" y2="354" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>
   <line x1="540" y1="354" x2="610" y2="354" stroke="#286342" stroke-width="3" marker-end="url(#arrow)"/>

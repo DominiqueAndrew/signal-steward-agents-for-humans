@@ -4,10 +4,10 @@ This packet is the smallest remaining action set for a truthful Agents for
 Humans submission. It intentionally does not ask for secrets, accept rules,
 submit a project, or claim a live AWS deployment.
 
-## Live official facts (refreshed 2026-08-27)
+## Live official facts (refreshed 2026-08-28 Europe/Paris)
 
-Fetched through the Devpost Hackathons capability on 2026-08-27 at
-18:01:03–18:01:32 UTC. The current public event page still displays a
+Fetched through read-only official Devpost pages on 2026-08-27T22:45:43Z
+(2026-08-28 Europe/Paris). The current public event page still displays a
 **Join hackathon** action and the deadline below; no registration or submission
 action was performed.
 
@@ -32,6 +32,11 @@ action was performed.
   public code-repository URL, architecture diagram upload, and AWS Builder ID.
 - Judging criteria: Technical Implementation, Design, Potential Impact,
   Creativity & Originality, and Presentation.
+- The current architecture FAQ asks the diagram to show the user interface,
+  Strands agentic loop, tools/integrations, AWS services used, and output. The
+  upload-ready diagram maps the local CLI/browser review interface, optional
+  provider-configured loop, three read-only tools, no AWS/provider call in the
+  credential-free slice, and the human audit event output.
 - Optional build-cost support: registered participants can request **$50 in AWS
   Promotional Credits**, while supplies last, through the Resources form by
   **2026-09-11 at 12:00 PT**; AWS Promotional Credits terms apply. This is not
