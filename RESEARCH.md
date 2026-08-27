@@ -189,6 +189,8 @@ The thesis is supported only if the holdout classification clears a pre-register
 
 The evidence sprint selects Signal Steward. The next action is to create a new project root and repository containing this annex (before product code), then implement only the smallest vertical slice described above. Clearline remains untouched as a recoverable archive.
 
+The first holdout run is recorded in [`RESULTS.md`](RESULTS.md). It meets the pre-registered engineering targets on synthetic data, but the limitations in that report are part of the result and prevent any production-accuracy claim.
+
 ## Reproducibility checklist
 
 - Record this file’s SHA in the first new-repository commit.

@@ -29,6 +29,7 @@ The core safety-critical classifications are deterministic and inspectable. The 
 For job `j`, `r_j = f_j / (f_j + s_j)` over completed failures and successes; cancelled/skipped outcomes are excluded. A job is a flaky candidate when `r_j >= 0.10` plus an intermittency signal (same-SHA recovery or both success and failure). It is consistently broken when `r_j >= 0.70` and no same-SHA retry succeeds. These are starting policy parameters, not universal constants. A culprit is a ranked hypothesis from current-head match, evidence vocabulary overlap, and recency; it is never presented as proof.
 
 See [`RESEARCH.md`](RESEARCH.md) for the evidence-backed opportunity sprint, sources, assumptions, target metrics, limitations, and the falsifiable thesis. See [`docs/architecture.md`](docs/architecture.md) for the component and side-effect boundaries.
+The first reproducible synthetic holdout and its honest interpretation are in [`RESULTS.md`](RESULTS.md).
 
 ## Agents for Humans fit
 
@@ -41,4 +42,3 @@ This is a Professional Agent: a maintainer’s repetitive, high-cost operational
 - Synthetic fixtures demonstrate the control loop; they are not evidence of production accuracy.
 - The benchmark targets in `RESEARCH.md` are acceptance thresholds, not measured results.
 - No Devpost submission or AWS deployment is claimed by this repository.
-

@@ -1,0 +1,61 @@
+# Signal Steward holdout results
+
+**Run date:** 2026-08-27
+**Fixture spec:** `holdout-2026-08-27.v1`
+**Fixture SHA-256:** `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`
+**Command:** `.venv/bin/python -m benchmarks.run`
+**Source commit:** recorded in the Git history with this report
+
+## Design
+
+The benchmark generator is the versioned fixture and label source in [`benchmarks/generate.py`](benchmarks/generate.py). It produces 60 synthetic histories from five families:
+
+- 12 deterministic regressions;
+- 12 same-SHA intermittent failures;
+- 12 infrastructure interruptions that recover on retry;
+- 12 cancellation-only histories; and
+- 12 mixed histories containing broken, flaky, and clean jobs.
+
+The 60 histories expand to 84 labelled job signals. All fixtures are generated deterministically from the checked-in source. No GitHub, AWS, model provider, or private data is contacted.
+
+The production classifier uses the documented failure-rate/same-SHA policy in [`RESEARCH.md`](RESEARCH.md). The baseline is deliberately simple: for each job, if any later successful attempt exists on the same SHA it says `FLAKY`; otherwise any failure is `CONSISTENTLY_BROKEN`; no failures means `CLEAN`. It also treats every non-success attempt, including cancellation, as a human review event. For culprit ranking, the blind baseline chooses the latest commit in the history; the production ranker uses current-head match, evidence-vocabulary overlap, and recency.
+
+## Observed output
+
+```json
+{
+  "baseline_culprit_top1": 0.0,
+  "baseline_false_escalation_rate": 0.5,
+  "baseline_macro_f1": 1.0,
+  "baseline_non_success_events": 132,
+  "class_counts": {"CLEAN": 24, "CONSISTENTLY_BROKEN": 24, "FLAKY": 36},
+  "culprit_eligible": 24,
+  "culprit_top1": 1.0,
+  "failure_cases": [],
+  "false_escalation_rate": 0.0,
+  "fixture_sha256": "641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2",
+  "histories": 60,
+  "job_labels": 84,
+  "macro_f1": 1.0,
+  "raw_failure_events": 120,
+  "review_actions": {"insufficient_evidence": 18, "investigate_regression": 6, "quarantine_candidate": 36},
+  "review_item_reduction": 0.5455,
+  "review_items": 60,
+  "spec_version": "holdout-2026-08-27.v1"
+}
+```
+
+## Interpretation
+
+The synthetic classifier meets the pre-registered engineering gates in `RESEARCH.md`: macro-F1 ≥ 0.85, culprit top-1 ≥ 0.70, false-escalation rate ≤ 0.10, and at least half as many review items as the blind non-success baseline. The benchmark does **not** show that Signal Steward classifies real repositories accurately. The baseline’s perfect macro-F1 is expected because the fixture categories expose the exact outcome patterns it uses; this is a test of control-loop behavior, not a claim of model superiority.
+
+The useful result is narrower: the evidence store and policy collapse 132 raw non-success events into 60 review packets, a 54.55% reduction, while excluding cancellation-only histories from the queue. The ranker correctly selects the seeded culprit in all 24 eligible cases, while the latest-commit baseline selects a deliberate distractor every time. Eighteen jobs remain `insufficient_evidence`; that is a safety outcome, not a failure to hide.
+
+## Limitations and next experiment
+
+- Histories are synthetic and deliberately small; timing, log vocabulary, and commit topology are not representative of any production repository.
+- The current slice is job-level and does not parse JUnit/test artifacts.
+- The baseline is a transparent engineering comparator, not a literature benchmark.
+- The culprit score is a ranked hypothesis, not causal attribution.
+- The next evaluation should use a public, license-compatible exported run history or a larger independently generated fixture, split by incident seed, and measure calibration plus human time-to-decision.
+
