@@ -1,25 +1,33 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `61cc021585589c2b1c08acf661a72b488ee1782a`
+**Validated tree:** `69ab4f096a84b640fb133d9217ac83d1106891f4`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
 ## Verified
 
-- `20 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+- `30 passed` from `.venv/bin/python -m pytest -q`, including the loopback
   binding, oversized-fixture, Wilson-interval, provenance-boundary, offline
   Strands-construction, HTTP-contract, and public-incident sanity tests.
 - Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
   benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
   `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
-  on fixture SHA-256
+  with `24/24` culprit hits and `0/24` false escalations, carrying Wilson
+  95% intervals `[0.862, 1.000]` and `[0.000, 0.138]`, respectively, on
+  fixture SHA-256
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`.
 - `.venv/bin/python -m pip check` reports `No broken requirements found.`
 - Main holdout: `holdout-2026-08-27.v1`, fixture SHA
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`, 60
-  histories, macro-F1 `1.0`, culprit top-1 `1.0`, false escalation `0.0`,
-  review reduction `0.5455`.
+  histories, macro-F1 `1.0`, culprit top-1 `1.0` (`24/24`, Wilson 95% CI
+  `[0.862, 1.000]`), false escalation `0.0` (`0/24`, Wilson 95% CI
+  `[0.000, 0.138]`), review reduction `0.5455`.
+- Wilson uncertainty is computed from validated integer binomial counts using
+  the score-test formula and propagated through every sensitivity cell. These
+  intervals are descriptive under an iid Bernoulli approximation; the fixed,
+  synthetic histories are not a random production sample and do not establish
+  production accuracy or safety.
 - Public incident sanity case: Apache Maka issue #2221, fixture SHA
   `635d77bdf0f82d8bb904811baaf8629c3236c95eb53c7569a4bdc5b27970b849`,
   classified `FLAKY` from `1/2` failures and `1/1` same-SHA recovery. This
@@ -47,6 +55,8 @@
   2400×1350; source is `docs/architecture-diagram.svg`.
 - `git diff --check` passes and the tracked tree contains no AWS access-key or
   private-key pattern.
+- A wheel built with `python -m pip wheel --no-deps .` installed into an
+  isolated target and imported successfully outside the checkout.
 - The local server rejects non-loopback binding, fixture ingest rejects inputs
   over 2 MiB, and the bounded threat model is recorded in
   [`signal-steward-threat-model.md`](../signal-steward-threat-model.md).
@@ -60,27 +70,23 @@
   source hash; the browser ledger shows the abbreviated evidence source.
 - Fresh browser smoke at the validated tree recorded a human hold, showed
   `evidence source · 911795bffb45` in the ledger, reported zero console errors,
-  and had `scrollWidth == innerWidth` at 390×844, 1440×900, and 2560×1440.
+  and had `scrollWidth == innerWidth` at 390×844, 768×900, 1366×900,
+  1440×900, 1920×1080, and 2560×1440.
 - The authorized local environment passed the bounded read-only AWS STS identity
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
-- Public artifact gate at remote `main` SHA
-  `61cc021585589c2b1c08acf661a72b488ee1782a` (2026-08-27T18:13:31Z): all 11
+- Public artifact baseline at remote `main` SHA
+  `636677101307f4748dab648870cd0f272c232b8d`: all 11
   GitHub document URLs and both architecture raw URLs returned HTTP 200. The
   PNG response was `image/png`, 337,684 bytes; the SVG response was
   `image/svg+xml`, 6,325 bytes. This was a certificate-verified, read-only
   HTTPS check; no login or Devpost action was performed.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
-  repository root: 20 tests, clean dependencies, all three benchmark modes,
+  repository root: 30 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
-- Fresh public-clone gate: commit `00c05f5e16a86df0b988a1d178b5c8fa546cc131`
-  matched `origin/main`; a new Python 3.11 venv installed `.[dev]`, then
-  `./scripts/verify-release.sh` returned `19 passed in 1.98s`, `No broken
-  requirements found`, all benchmark modes, clean diff, clean secret scan, and
-  `release verification passed`.
-- Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `61cc021585589c2b1c08acf661a72b488ee1782a` at the time of this receipt;
-  repeat it after any subsequent push before submitting.
+- The public-clone and public-artifact checks must be repeated after publishing
+  this receipt; the final `git ls-remote origin refs/heads/main` SHA is part of
+  the release handoff below.
 
 ## Human-gated / not claimed
 
