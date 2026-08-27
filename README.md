@@ -34,6 +34,7 @@ For job `j`, `r_j = f_j / (f_j + s_j)` over completed failures and successes; ca
 See [`RESEARCH.md`](RESEARCH.md) for the evidence-backed opportunity sprint, sources, assumptions, target metrics, limitations, and the falsifiable thesis. See [`docs/architecture.md`](docs/architecture.md) for the component and side-effect boundaries.
 The first reproducible synthetic holdout and its honest interpretation are in [`RESULTS.md`](RESULTS.md).
 The upload-ready architecture diagram is [`docs/architecture-diagram.png`](docs/architecture-diagram.png), and the remaining AWS, video, and Devpost human actions are in [`docs/HUMAN_GATE_PACKET.md`](docs/HUMAN_GATE_PACKET.md).
+The exact credential-free release evidence is in [`docs/RELEASE_RECEIPT.md`](docs/RELEASE_RECEIPT.md).
 
 ## Agents for Humans fit
 
