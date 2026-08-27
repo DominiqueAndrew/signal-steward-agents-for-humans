@@ -61,6 +61,12 @@
 - The authorized local environment passed the bounded read-only AWS STS identity
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
+- Public artifact gate at remote `main` SHA
+  `470899d83562c72a67263829c4866583dee487dd` (2026-08-27T17:53:20Z): all 11
+  GitHub document URLs and both architecture raw URLs returned HTTP 200. The
+  PNG response was `image/png`, 337,684 bytes; the SVG response was
+  `image/svg+xml`, 6,325 bytes. This was a read-only HTTPS check; no login or
+  Devpost action was performed.
 
 ## Human-gated / not claimed
 
