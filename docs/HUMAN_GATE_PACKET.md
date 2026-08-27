@@ -231,6 +231,12 @@ git ls-remote origin refs/heads/main
 git grep -nE 'AKIA[0-9A-Z]{16}|AWS_SECRET_ACCESS_KEY|aws_secret_access_key' -- ':!docs/HUMAN_GATE_PACKET.md' || true
 ```
 
+If the public verifier reports GitHub API HTTP 403 because the anonymous rate
+limit is exhausted, do not treat that as a pass: retry after the reset or, if
+the participant already has an authorized GitHub CLI session, run
+`GITHUB_TOKEN="$(gh auth token)" ./scripts/verify-public-release.sh`. Never paste
+the token into chat or the repository.
+
 Expected evidence before the final Devpost click: the `git ls-remote` SHA is
 the current public `main` commit being submitted. Compare it with the receipt’s
 validated release-content SHA: a later receipt-only documentation commit may

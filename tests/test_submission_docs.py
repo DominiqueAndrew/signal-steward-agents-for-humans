@@ -93,6 +93,11 @@ def test_human_packet_bounds_third_party_review_without_claiming_clearance() -> 
     assert "submission adds original functionality" in packet
     assert "must still review" in packet
     assert "no full transitive lockfile" in packet
+    assert "GitHub API HTTP 403" in packet
+    assert "anonymous rate" in packet
+    assert "limit is exhausted" in packet
+    assert 'GITHUB_TOKEN="$(gh auth token)" ./scripts/verify-public-release.sh' in packet
+    assert "Never paste" in packet
 
 
 def test_public_release_verifier_is_read_only_and_covers_judge_artifacts() -> None:
