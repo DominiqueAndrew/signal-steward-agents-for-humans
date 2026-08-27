@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `b946432cabbd8ec06e8008392e9a643aeda6555e`
+**Validated release-content tree:** `d043a960427ccfccb8002c72549a48882ea4565a`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -94,7 +94,7 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `b946432cabbd8ec06e8008392e9a643aeda6555e`: all 15 release artifacts
+  `d043a960427ccfccb8002c72549a48882ea4565a`: all 15 release artifacts
   returned HTTP 200. The architecture responses were `image/png` and
   `image/svg+xml`; the compliance packet and Devpost draft contained the
   ownership, permissions, language, public-access gates, and the receipt-only
@@ -113,17 +113,17 @@ published.
 - The same release gate was invoked by absolute path from `/tmp`; it entered
   its repository root before running tests and passed 36 tests, dependencies,
   all benchmark modes, the whitespace check, and the secret-pattern scan.
-- Public [GitHub Actions run #80](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33115478925)
-  for commit `b946432cabbd8ec06e8008392e9a643aeda6555e` completed with
+- Public [GitHub Actions run #82](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33116136718)
+  for commit `d043a960427ccfccb8002c72549a48882ea4565a` completed with
   status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
   Python 3.11, dependency installation, the test suite, and CLI replay.
 - Fresh public-clone gate: commit
-  `b946432cabbd8ec06e8008392e9a643aeda6555e` matched remote `main`; a new
+  `d043a960427ccfccb8002c72549a48882ea4565a` matched remote `main`; a new
   Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
   returned `36 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `b946432cabbd8ec06e8008392e9a643aeda6555e` at the time of the
+  `d043a960427ccfccb8002c72549a48882ea4565a` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
