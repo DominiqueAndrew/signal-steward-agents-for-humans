@@ -48,11 +48,14 @@ or a model provider.
 
 On a labelled synthetic holdout of 60 histories, the implementation recorded
 macro-F1 1.00, seeded-culprit top-1 1.00, false escalation 0.00, and a 54.55%
-reduction in review items versus the blind non-success baseline. A separate
-negative control deliberately supplies a plausible vocabulary match without
-head-SHA or retry support; the ranker keeps it internal at score 0.3375 and
-the policy emits `insufficient_evidence`. These are reproducibility results on
-synthetic data, not production-accuracy claims.
+reduction in review items versus the blind non-success baseline. The 24/24
+culprit-hit rate has a descriptive Wilson 95% interval of `[0.862, 1.000]`,
+and the 0/24 false-escalation rate has `[0.000, 0.138]`; the small denominator
+does not establish the 0.10 safety target with statistical precision. A
+separate negative control deliberately supplies a plausible vocabulary match
+without head-SHA or retry support; the ranker keeps it internal at score 0.3375
+and the policy emits `insufficient_evidence`. These are reproducibility results
+on fixed synthetic data, not production-accuracy or safety claims.
 
 Run it locally:
 
