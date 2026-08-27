@@ -4,7 +4,6 @@ set -euo pipefail
 public_repo="${SIGNAL_STEWARD_PUBLIC_REPO:-DominiqueAndrew/signal-steward-agents-for-humans}"
 public_branch="${SIGNAL_STEWARD_PUBLIC_BRANCH:-main}"
 github_repo="https://github.com/${public_repo}.git"
-raw_base="https://raw.githubusercontent.com/${public_repo}/${public_branch}"
 api_base="https://api.github.com/repos/${public_repo}"
 curl_args=(--fail --silent --show-error --location --max-time 20)
 
@@ -18,6 +17,7 @@ if [[ ! "$public_sha" =~ ^[0-9a-f]{40}$ ]]; then
   exit 1
 fi
 
+raw_base="https://raw.githubusercontent.com/${public_repo}/${public_sha}"
 receipt="$(curl "${curl_args[@]}" "${raw_base}/docs/RELEASE_RECEIPT.md")"
 release_sha="$(printf '%s\n' "$receipt" | awk '/^\*\*Validated release-content tree:\*\*/ { match($0, /`[0-9a-f]{40}`/); if (RSTART) { print substr($0, RSTART + 1, RLENGTH - 2); exit } }')"
 if [[ ! "$release_sha" =~ ^[0-9a-f]{40}$ ]]; then
@@ -27,6 +27,7 @@ fi
 
 printf 'public_main: %s\n' "$public_sha"
 printf 'receipt_release_content: %s\n' "$release_sha"
+printf 'artifact_ref: %s\n' "$public_sha"
 
 printf '%s\n' '-- receipt boundary --'
 compare_json="$(curl "${curl_args[@]}" -H 'Accept: application/vnd.github+json' "${api_base}/compare/${release_sha}...${public_sha}")"

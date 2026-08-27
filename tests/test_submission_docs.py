@@ -87,6 +87,7 @@ def test_public_release_verifier_is_read_only_and_covers_judge_artifacts() -> No
     verifier = (REPO_ROOT / "scripts" / "verify-public-release.sh").read_text()
 
     assert "git ls-remote" in verifier
+    assert "raw_base=\"https://raw.githubusercontent.com/${public_repo}/${public_sha}\"" in verifier
     assert "docs/RELEASE_RECEIPT.md" in verifier
     assert "scripts/verify-public-release.sh" in verifier
     assert "image/png" in verifier
