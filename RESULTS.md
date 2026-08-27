@@ -4,7 +4,7 @@
 **Fixture spec:** `holdout-2026-08-27.v1`
 **Fixture SHA-256:** `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`
 **Command:** `.venv/bin/python -m benchmarks.run`
-**Source commit:** recorded in the Git history with this report
+**Source commit:** `15bcda498d1de5f122a53612eff170dd5950b81b`
 
 ## Design
 
@@ -69,6 +69,8 @@ costs one more review/run, while a false regression escalation can trigger an
 unjustified repository change. The test does not prove the threshold is
 optimal; it proves the weak-evidence rejection rule is executable and
 regression-tested.
+
+**Negative-control fixture SHA-256:** `8b429bd3e691ba08e14bb9aa58b6c614e639c65d3d260efaf045d4aa57332cd6`
 
 ## Limitations and next experiment
 

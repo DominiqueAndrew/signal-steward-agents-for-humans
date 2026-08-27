@@ -15,7 +15,7 @@ Firsthand posts are treated as qualitative pain signals, not population estimate
 
 ## Official event constraints (verified 2026-08-27)
 
-The Devpost Hackathons plugin returned the live `agentsforhumans` record as `submissions_open`, fetched at `2026-08-27T16:21:23Z`.
+The Devpost Hackathons plugin returned the live `agentsforhumans` record as `submissions_open`, fetched at `2026-08-27T16:52:13Z`; the dates, prizes, judging criteria, announcements, and submission fields were refreshed at 16:52–16:52:36 UTC.
 
 - Official page: <https://agentsforhumans.devpost.com>
 - Brief: build an AI agent with the Strands Agents SDK that handles repetitive tasks in the background and surfaces only genuine human decisions.
@@ -190,7 +190,7 @@ The thesis is supported only if the holdout classification clears a pre-register
 
 ## Decision and next gate
 
-The evidence sprint selects Signal Steward. The next action is to create a new project root and repository containing this annex (before product code), then implement only the smallest vertical slice described above. Clearline remains untouched as a recoverable archive.
+The evidence sprint selected Signal Steward. The fresh repository, credential-free vertical slice, holdout benchmark, browser demo, upload-ready architecture diagram, and human-gate packet are now shipped. Clearline remains untouched as a recoverable archive; the remaining work is participant-owned AWS/recording/Devpost action.
 
 The first holdout run is recorded in [`RESULTS.md`](RESULTS.md). It meets the pre-registered engineering targets on synthetic data, but the limitations in that report are part of the result and prevent any production-accuracy claim.
 

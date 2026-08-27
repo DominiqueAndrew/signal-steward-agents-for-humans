@@ -156,7 +156,7 @@ def negative_control_history() -> BenchmarkHistory:
             "control-head",
             1,
             Conclusion.FAILURE,
-            1200,
+            1380,
             "cache eviction timeout was not captured",
             ("tests/test_cache.py",),
         ),
