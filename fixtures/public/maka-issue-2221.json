@@ -1,0 +1,48 @@
+{
+  "_case_metadata": {
+    "case_id": "SS-PUB-001",
+    "source_url": "https://github.com/apache/maka/issues/2221",
+    "source_date": "2026-08-05",
+    "normalization": "The public issue reports one failed run and a same-commit rerun that passed. The head SHA is pseudonymized because the issue page does not expose it in the evidence used here; the run ID is retained."
+  },
+  "runs": [
+    {
+      "run_id": 30986889078,
+      "workflow": "test_workspaces",
+      "head_sha": "public-case-2221-same-sha",
+      "attempt": 1,
+      "started_at": "2026-08-05",
+      "jobs": [
+        {
+          "name": "[cli]",
+          "conclusion": "failure",
+          "log_excerpt": "TUI wait predicate exceeded a fixed wall-clock budget under runner load.",
+          "touched_files": ["docs/eval/"]
+        }
+      ]
+    },
+    {
+      "run_id": 30986889078,
+      "workflow": "test_workspaces",
+      "head_sha": "public-case-2221-same-sha",
+      "attempt": 2,
+      "started_at": "2026-08-05",
+      "jobs": [
+        {
+          "name": "[cli]",
+          "conclusion": "success",
+          "log_excerpt": "The same job passed when rerun on the same commit.",
+          "touched_files": ["docs/eval/"]
+        }
+      ]
+    }
+  ],
+  "commits": [
+    {
+      "sha": "public-case-2221-same-sha",
+      "committed_at": "2026-08-05",
+      "message": "documentation-only change (normalized from public issue)",
+      "changed_files": ["docs/eval/"]
+    }
+  ]
+}

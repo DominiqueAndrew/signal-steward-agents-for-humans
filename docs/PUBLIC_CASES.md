@@ -1,0 +1,43 @@
+# Public incident evidence cases
+
+This annex contains one small, manually normalized case from a public primary
+issue tracker. It is a sanity check for the same-SHA recovery rule, not a
+representative evaluation set and not a claim about Apache Maka’s overall CI
+health.
+
+## SS-PUB-001 — Apache Maka CI timeout report
+
+- **Primary source:** [Apache Maka issue #2221](https://github.com/apache/maka/issues/2221)
+- **Source date:** 2026-08-05; accessed 2026-08-27
+- **Affected user:** a project maintainer diagnosing a red CI job on a
+  documentation-only pull request.
+- **Observed pain (paraphrase):** `test_workspaces` failed in the CLI workspace
+  on a documentation-only change; the same job on the same commit passed when
+  rerun. The report says the failure appeared at the edge of a fixed 250 ms
+  wait budget under runner load and could look like a real regression.
+- **Recurring/severity signal:** the issue reports 373 call sites of the shared
+  helper, so the described failure mode can affect many tests. This is a
+  directional signal from one maintainer report, not a population estimate.
+- **Current workaround and cost:** inspect the job log and rerun the same job.
+  The immediate cost is a red, ambiguous pull request and another CI cycle;
+  the source provides no dollar estimate, so none is invented here.
+- **Normalized replay:** `fixtures/public/maka-issue-2221.json` records the
+  reported run ID `30986889078`, two attempts, a pseudonymized same-commit SHA,
+  and date-only timestamps. The first attempt is `failure`; the second is
+  `success`. Identifiers not exposed in the evidence used here are not guessed.
+- **Fixture SHA-256:** `635d77bdf0f82d8bb904811baaf8629c3236c95eb53c7569a4bdc5b27970b849`
+- **Observed classifier output:** failure rate `1/2 = 0.5`, same-SHA recovery
+  `1/1`, classification `FLAKY`. The label confidence is **medium**: the
+  same-SHA retry fact is explicit in the source, but no raw job artifact is
+  bundled. The classifier does not encode the issue author’s root-cause
+  hypothesis as a causal conclusion.
+- **Uncertainty:** one incident, no raw workflow artifact, no independent
+  replication, and a pseudonymized SHA. This case must not be merged into the
+  60-history synthetic headline metrics or used to claim real-world accuracy.
+
+Reproduce the normalization check with:
+
+```sh
+.venv/bin/python -m pytest -q tests/test_public_case.py
+shasum -a 256 fixtures/public/maka-issue-2221.json
+```
