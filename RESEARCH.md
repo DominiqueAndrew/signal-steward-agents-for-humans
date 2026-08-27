@@ -168,7 +168,7 @@ The raw scores are close among several professional workflows. The decisive tie-
 - `CONSISTENTLY_BROKEN` if `r_j >= 0.70` and no same-SHA rerun succeeds;
 - `CLEAN` if `r_j < 0.10`.
 
-The thresholds are starting policy parameters, not scientific constants; they are aligned with the Apache Magpie triage pattern and must be sensitivity-tested. For a candidate commit `c`, the agent reports `P(c | e) ∝ P(e | c)P(c)`, where `e` includes temporal proximity, changed-file overlap, test history, and retry evidence. This is a ranked hypothesis, not a causal proof.
+The thresholds are starting policy parameters, not scientific constants; they are aligned with the Apache Magpie triage pattern and must be sensitivity-tested. The first bounded check predeclares a 3×3 grid: flaky threshold `{0.05, 0.10, 0.15}` crossed with consistently-broken threshold `{0.60, 0.70, 0.80}`. It varies classifier thresholds only; the hypothesis-surface threshold stays fixed at `0.70`. For a candidate commit `c`, the agent reports `P(c | e) ∝ P(e | c)P(c)`, where `e` includes temporal proximity, changed-file overlap, test history, and retry evidence. This is a ranked hypothesis, not a causal proof.
 
 **Uncertainty reporting.** For a binary holdout metric with `x` successes in
 `n` trials, let `p̂ = x/n`, `z = 1.96`, `d = 1 + z²/n`,
@@ -197,6 +197,8 @@ not a production confidence claim.
   rates; interpret intervals separately from the pre-registered point gates.
 
 The thesis is supported only if the holdout classification clears a pre-registered target of macro-F1 ≥ 0.85, top-1 culprit hit rate is ≥ 0.70, and false-escalation rate is ≤ 0.10 while requiring fewer than half as many human review items as the blind-rerun baseline. These are engineering acceptance targets, not results; the implementation must publish actual results and limitations.
+
+**Sensitivity result and limitation.** On the 60-history fixture (SHA-256 `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`), all nine predeclared cells returned macro-F1 `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`. This is a reproducible stability observation, not threshold validation: the fixture’s failure rates are distant from the tested boundaries, and the result does not estimate performance on real or near-boundary histories. A follow-up should add independently labelled, repository-derived or public incident histories before tuning or widening the policy.
 
 **Safety and ethical boundary.** Synthetic or public non-sensitive data only. Read-only GitHub scope in the first integration. No secrets in fixtures or logs. No automatic rerun, quarantine, issue creation, merge, or workflow edit. An ambiguous or missing evidence packet is surfaced as `INSUFFICIENT_EVIDENCE`; it is never silently discarded. The negative-control case makes the asymmetric error cost executable: prefer one extra human review over an unsupported escalation.
 

@@ -1,15 +1,20 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `4331b026ccdbda63d16e9d12b523b74180fb6469`
+**Validated tree:** `daaad5031daf14a7989d82e29848e911d5ee5a9a`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
 ## Verified
 
-- `17 passed` from `.venv/bin/python -m pytest -q`, including the loopback
+- `18 passed` from `PYTHONPATH=. .venv/bin/python -m pytest -q`, including the loopback
   binding, oversized-fixture, Wilson-interval, provenance-boundary, offline
   Strands-construction, and HTTP-contract tests.
+- Threshold sensitivity benchmark: `PYTHONPATH=. .venv/bin/python -m
+  benchmarks.run --sensitivity`; all 9 predeclared cells returned macro-F1
+  `1.000`, false-escalation rate `0.000`, and review-item reduction `0.5455`
+  on fixture SHA-256
+  `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`.
 - `.venv/bin/python -m pip check` reports `No broken requirements found.`
 - Main holdout: `holdout-2026-08-27.v1`, fixture SHA
   `641f380ecab3b6d40b2fffd5460a636186fb314ba9c7eef8df36e339241a3df2`, 60
@@ -73,6 +78,7 @@
 .venv/bin/python -m pytest -q
 .venv/bin/python -m pip check
 .venv/bin/python -m benchmarks.run
+.venv/bin/python -m benchmarks.run --sensitivity
 .venv/bin/python -m benchmarks.run --negative-control
 .venv/bin/python -m signal_steward
 .venv/bin/python -m signal_steward.server --port 8810
