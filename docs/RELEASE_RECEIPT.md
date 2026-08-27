@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated tree:** `9932a8922d1646e261ebe8582f86bcf7f230fd58`
+**Validated tree:** `b3347e67cb0711693658fb8e718155a80ae09c54`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -25,6 +25,8 @@
 - Offline construction of a real Strands `Agent` succeeds without provider
   invocation and exposes exactly those three tool names; no audit event is
   created by construction.
+- Fixture-only invocation of all three decorated tools returned read-only
+  window/evidence/packet data and left the audit ledger empty.
 - Browser checks show the real local service, three review items, the
   insufficient-evidence case, human hold → append-only audit event, zero
   console errors, and no horizontal overflow at 390, 768, 1366, 1440, 1920,
