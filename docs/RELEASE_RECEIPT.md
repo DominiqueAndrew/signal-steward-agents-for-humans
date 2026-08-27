@@ -1,7 +1,7 @@
 # Signal Steward release receipt
 
 **Scope:** credential-free local slice and submission materials  
-**Validated release-content tree:** `eb67ca002e7ec72ec2f9c2ba0a1eeeb38b73408a`
+**Validated release-content tree:** `d89277cd3692833fb990ddeea84cabd7862a31bf`
 **Public repository:** https://github.com/DominiqueAndrew/signal-steward-agents-for-humans  
 **Validated:** 2026-08-27 (Europe/Paris)
 
@@ -81,28 +81,29 @@ published.
   check (`aws sts get-caller-identity`); account and ARN output were deliberately
   not recorded.
 - Public artifact gate at published remote `main` SHA
-  `eb67ca002e7ec72ec2f9c2ba0a1eeeb38b73408a`: all 11
-  GitHub document URLs and both architecture raw URLs returned HTTP 200. The
-  PNG response was `image/png`, 337,684 bytes; the SVG response was
-  `image/svg+xml`, 6,325 bytes. This was a certificate-verified, read-only
-  HTTPS check; no login or Devpost action was performed.
+  `d89277cd3692833fb990ddeea84cabd7862a31bf`: all 14 release artifacts
+  returned HTTP 200. The architecture responses were `image/png` and
+  `image/svg+xml`; the compliance packet and Devpost draft contained the
+  ownership, permissions, language, and public-access gates. This was a
+  certificate-verified, read-only HTTPS check; no login or Devpost action was
+  performed.
 - The canonical local gate `./scripts/verify-release.sh` passed from the
   repository root: 30 tests, clean dependencies, all three benchmark modes,
   `git diff --check`, and the secret-pattern scan.
 - The same release gate was invoked by absolute path from `/tmp`; it entered
   its repository root before running tests and passed 30 tests, dependencies,
   all benchmark modes, the whitespace check, and the secret-pattern scan.
-- Public [GitHub Actions run #50](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33107233048)
-  for commit `eb67ca002e7ec72ec2f9c2ba0a1eeeb38b73408a` completed with
+- Public [GitHub Actions run #52](https://github.com/DominiqueAndrew/signal-steward-agents-for-humans/actions/runs/33108025430)
+  for commit `d89277cd3692833fb990ddeea84cabd7862a31bf` completed with
   status `success` using `actions/checkout@v7`, `actions/setup-python@v7`,
   Python 3.11, dependency installation, the test suite, and CLI replay.
 - Fresh public-clone gate: commit
-  `eb67ca002e7ec72ec2f9c2ba0a1eeeb38b73408a` matched remote `main`; a new
+  `d89277cd3692833fb990ddeea84cabd7862a31bf` matched remote `main`; a new
   Python 3.11 venv installed `.[dev]`, then `./scripts/verify-release.sh`
   returned `30 passed`, `No broken requirements found`, all benchmark modes,
   clean diff, clean secret scan, and `release verification passed`.
 - Public release SHA check: `git ls-remote origin refs/heads/main` returned
-  `eb67ca002e7ec72ec2f9c2ba0a1eeeb38b73408a` at the time of the
+  `d89277cd3692833fb990ddeea84cabd7862a31bf` at the time of the
   post-publication verification for the release-content tree. Repeat it after
   this receipt refresh and after any subsequent push; the resulting SHA is the
   public receipt-refresh commit, not the release-content SHA recorded above.
@@ -111,6 +112,10 @@ published.
 
 - Participant confirms legal eligibility, country, submitter type, and any
   Devpost agreements.
+- Participant confirms original ownership, third-party permissions and
+  licenses, authorized team representation where applicable, no prohibited
+  sponsor support, English/translation requirements, and free public judging
+  access.
 - Participant creates or supplies their AWS Builder ID and decides whether an
   authorized AWS profile is available for optional live evidence.
 - Participant records and publishes the ≤5-minute demo video URL.
